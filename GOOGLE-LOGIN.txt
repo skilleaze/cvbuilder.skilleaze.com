@@ -1,0 +1,22 @@
+Google sign-in for cvbuilder.skilleaze.com
+
+1. Google Cloud (console.cloud.google.com)
+   - Create a project (or use an existing one) → APIs & Services → OAuth consent screen:
+     User type External · App name Skilleaze CV Builder · support email · logo · publish the app.
+   - Credentials → Create credentials → OAuth client ID → Web application.
+     Authorised JavaScript origins:  https://cvbuilder.skilleaze.com
+     Authorised redirect URIs:       https://ojshkwpvkzrkiwannqkk.supabase.co/auth/v1/callback
+   - Copy the Client ID and Client secret.
+
+2. Supabase (same project as the portal)
+   - Authentication → Providers → Google → Enable → paste Client ID + Client secret → Save.
+   - Authentication → URL Configuration:
+       Site URL:      https://cvbuilder.skilleaze.com
+       Redirect URLs: https://cvbuilder.skilleaze.com/**   (and https://cvbuilder.skilleaze.com/europass-cv-builder)
+   - SQL Editor → paste cvbuilder-upgrade-google.sql → Run.
+
+3. Push the project with GitHub Desktop (Commit to main → Push origin).
+
+Test: open the site → Sign in → Continue with Google. You come back signed in, and the
+account appears in Table Editor → cvb_accounts with your Gmail address.
+Google accounts and email accounts with the same address are the same account.

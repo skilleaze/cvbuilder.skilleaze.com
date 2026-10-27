@@ -18,8 +18,5 @@ Payments (later)
   When the gateway is ready, set enabled:true and point window.SKC_PAY at your checkout.
 
 Unlimited JD CVs (Tailor to a job)
-  Customers paste a job link or description and get a new CV tailored to that job.
-  Job links are read by the ai-public function, so redeploy it after this update:
-      supabase functions deploy ai-public --no-verify-jwt
-  Some sites (LinkedIn, Indeed) block automatic reading; the page then asks for the description instead.
+  Customers paste the job description and get a new CV tailored to that job.
   Subscription: cv-builder/client-config.js → SKC_SUB. enabled:false = free during launch.

@@ -64,6 +64,7 @@ textarea{resize:vertical}
 <button onClick="{{ goJd }}" style="{{ navJd }}">Tailor to a job</button>
 <button onClick="{{ goEditCur }}" style="{{ navEdit }}">Editor</button>
 <button onClick="{{ goAts }}" style="{{ navAts }}">ATS check</button>
+<button onClick="{{ goChecker }}" style="{{ navChecker }}">Free ATS checker</button>
 <button onClick="{{ goCover }}" style="{{ navCover }}">Cover letter</button>
 <sc-if value="{{ acctIn }}"><button onClick="{{ openAcct }}" style="{{ navAcct }}">{{ acctShort }}</button></sc-if><sc-if value="{{ acctOut }}"><button onClick="{{ openSignIn }}" style="{{ navAcct }}">Sign in</button></sc-if>
 </nav>
@@ -97,6 +98,7 @@ textarea{resize:vertical}
 </div>
 </div>
 <div style="display:flex;flex-wrap:wrap;gap:8px 10px"><div style="display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:999px;padding:9px 14px;font-size:13px;font-weight:700;color:#2C3E50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#053BA0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 6 9 17l-5-5"></path></svg>No sign-up to start</div><div style="display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:999px;padding:9px 14px;font-size:13px;font-weight:700;color:#2C3E50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#053BA0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 6 9 17l-5-5"></path></svg>Pay only when you download</div><div style="display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:999px;padding:9px 14px;font-size:13px;font-weight:700;color:#2C3E50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#053BA0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 6 9 17l-5-5"></path></svg>Real PDF + Word files</div><div style="display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:999px;padding:9px 14px;font-size:13px;font-weight:700;color:#2C3E50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#053BA0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 6 9 17l-5-5"></path></svg>Works on phone and laptop</div></div>
+<button onClick="{{ goChecker }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:16px 20px" style-hover="border-color:#042D7C;background:#F7F9FC"><span style="display:flex;align-items:center;gap:14px;min-width:0"><span style="width:44px;height:44px;border-radius:50%;background:#EEF2FA;color:#042D7C;display:flex;align-items:center;justify-content:center;flex:none;font-weight:900;font-size:13px">ATS</span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-weight:900;font-size:16px;color:#042D7C">Free ATS checker</span><span style="font-size:13px;color:#5B6470">Upload your current CV and see its score in seconds</span></span></span><span style="font-weight:900;font-size:14px;color:#042D7C;display:inline-flex;align-items:center;gap:6px">Check my CV<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></span></button>
 <div style="display:flex;flex-direction:column;gap:12px"><div data-skb="hero" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start"></div><div style="font-size:13px;color:#5B6470;text-align:center">A few of our 99 templates · any colour · with or without photo</div></div>
 </section>
 <section style="display:flex;flex-direction:column;gap:clamp(20px,3vw,28px)">
@@ -425,6 +427,110 @@ textarea{resize:vertical}
 </div>
 </sc-if>
 
+<sc-if value="{{ isAccount }}">
+<main style="max-width:1100px;width:100%;margin:0 auto;padding:clamp(24px,4vw,48px) 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px;animation:skb-in .4s ease">
+<sc-if value="{{ acGuest }}"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:14px;align-items:flex-start"><div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0">YOUR ACCOUNT</div><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(30px,4vw,42px);color:#042D7C">Sign in to see your account</h1><div style="font-size:15px;color:#5B6470;line-height:1.5">Your saved CVs, plan and invoices appear here.</div><button onClick="{{ acSignIn }}" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:999px;padding:12px 20px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="background:#053BA0">Sign in</button></div></sc-if>
+<sc-if value="{{ acLive }}">
+<section style="background:#042D7C;color:#FFFFFF;border-radius:28px;padding:clamp(22px,3.4vw,36px);display:flex;gap:clamp(16px,3vw,28px);align-items:center;flex-wrap:wrap;position:relative;overflow:hidden">
+<div style="position:absolute;right:-80px;top:-80px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+<div style="width:clamp(72px,10vw,96px);height:clamp(72px,10vw,96px);border-radius:50%;flex:none;overflow:hidden;background:#FFFFFF;color:#042D7C;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:clamp(26px,3.4vw,34px);box-shadow:0 0 0 4px rgba(255,255,255,.25);position:relative">
+<sc-if value="{{ acPic }}"><div role="img" aria-label="Profile photo" style="width:100%;height:100%;background-image:{{ acPicCss }};background-size:cover;background-position:center"></div></sc-if><sc-if value="{{ acNoPic }}"><span>{{ acIni }}</span></sc-if></div>
+<div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:6px;position:relative">
+<div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#C9D3E8">YOUR ACCOUNT</div>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05;overflow-wrap:anywhere">{{ acName }}</h1>
+<div style="font-size:14px;color:#D6DEEE;overflow-wrap:anywhere">{{ acEmail }} · {{ acVia }}</div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;position:relative"><button onClick="{{ pfOpen }}" style="background:#FFFFFF;color:#042D7C;border:none;border-radius:999px;padding:12px 20px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="background:#EEF2FA">Edit profile</button><button onClick="{{ acOut }}" style="background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:11px 18px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">Sign out</button></div>
+</section>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc((100% - 32px) / 3),calc((560px - 100%) * 999))),1fr));gap:16px">
+<sc-for list="{{ acStats }}" as="t" hint-placeholder-count="3"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:4px"><div style="font-weight:900;font-size:clamp(30px,3.4vw,40px);color:#042D7C;letter-spacing:-.01em">{{ t.n }}</div><div style="font-size:14px;color:#5B6470">{{ t.l }}</div></div></sc-for>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc((100% - 20px) / 2),calc((760px - 100%) * 999))),1fr));gap:20px;align-items:start">
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0">PROFILE</div>
+<sc-if value="{{ pfView }}"><div style="display:flex;flex-direction:column">
+<div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #EEF0F3;font-size:14px"><span style="color:#5B6470">Name</span><strong style="color:#2C3E50;text-align:right;overflow-wrap:anywhere">{{ acName }}</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #EEF0F3;font-size:14px"><span style="color:#5B6470">Email</span><strong style="color:#2C3E50;text-align:right;overflow-wrap:anywhere">{{ acEmail }}</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;font-size:14px"><span style="color:#5B6470">Phone</span><sc-if value="{{ acHasPhone }}"><strong style="color:#2C3E50;text-align:right">{{ acPhone }}</strong></sc-if><sc-if value="{{ pfAddPhone }}"><button onClick="{{ pfOpen }}" style="all:unset;cursor:pointer;color:#042D7C;font-weight:900;text-decoration:underline">Add phone</button></sc-if></div>
+</div></sc-if>
+<sc-if value="{{ pfEdit }}"><div style="display:flex;flex-direction:column;gap:10px">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#5B6470">Full name<input value="{{ pfName }}" onInput="{{ pfSetName }}" autocomplete="name" style="width:100%;box-sizing:border-box;border:1px solid #D9DCE3;border-radius:12px;padding:12px 14px;font:inherit;font-size:16px;color:#2C3E50;background:#FFFFFF;outline:none" style-focus="border-color:#042D7C"></input></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#5B6470">Phone<input value="{{ pfPhone }}" onInput="{{ pfSetPhone }}" type="tel" autocomplete="tel" placeholder="+971 …" style="width:100%;box-sizing:border-box;border:1px solid #D9DCE3;border-radius:12px;padding:12px 14px;font:inherit;font-size:16px;color:#2C3E50;background:#FFFFFF;outline:none" style-focus="border-color:#042D7C"></input></label>
+<div style="font-size:12px;color:#8A919C">Your email comes from your sign-in and can't be changed here.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button onClick="{{ pfSave }}" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:999px;padding:12px 20px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="background:#053BA0">{{ pfSaveLbl }}</button><button onClick="{{ pfCancel }}" style="background:#FFFFFF;color:#042D7C;border:1px solid #D9DCE3;border-radius:999px;padding:11px 18px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="border-color:#042D7C">Cancel</button></div>
+</div></sc-if>
+</section>
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0">PLAN</div><sc-if value="{{ acPlanOn }}"><span style="font-size:12px;font-weight:900;color:#1E7A4C;background:#E6F4EC;border-radius:999px;padding:5px 10px">Active</span></sc-if><sc-if value="{{ acPlanOff }}"><span style="font-size:12px;font-weight:900;color:#5B6470;background:#F1F3F6;border-radius:999px;padding:5px 10px">Inactive</span></sc-if></div>
+<div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:28px;line-height:1.1;color:#042D7C">{{ acPlanTitle }}</div>
+<div style="font-size:14px;color:#5B6470;line-height:1.5">{{ acPlanSub }}</div>
+<sc-if value="{{ acHasFor }}"><div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #EEF0F3;font-size:14px"><span style="color:#5B6470">Plan CV</span><strong style="color:#2C3E50;text-align:right">{{ acPlanFor }}</strong></div></sc-if>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button onClick="{{ acPlanGo }}" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:999px;padding:12px 20px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="background:#053BA0">{{ acPlanBtn }}</button><button onClick="{{ acMyCvs }}" style="background:#FFFFFF;color:#042D7C;border:1px solid #D9DCE3;border-radius:999px;padding:11px 18px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="border-color:#042D7C">My CVs</button></div>
+</section>
+</div>
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0">BILLING &amp; INVOICES</div><div style="font-size:12px;color:#8A919C">Tap Invoice to save it as PDF</div></div>
+<sc-if value="{{ acNoPays }}"><div style="font-size:14px;color:#5B6470;padding:8px 0">No purchases yet.</div></sc-if>
+<sc-if value="{{ acHasPays }}"><div style="display:flex;flex-direction:column">
+<sc-for list="{{ acPays }}" as="p" hint-placeholder-count="0"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid #EEF0F3;flex-wrap:wrap">
+<div style="flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:3px"><div style="font-weight:900;font-size:14px;color:#2C3E50;overflow-wrap:anywhere">{{ p.item }}</div><div style="font-size:12px;color:#8A919C">{{ p.date }} · {{ p.id }}</div></div>
+<div style="display:flex;align-items:center;gap:12px"><strong style="color:#042D7C;font-size:15px">{{ p.amount }}</strong><button onClick="{{ p.inv }}" style="background:#FFFFFF;color:#042D7C;border:1px solid #D9DCE3;border-radius:999px;padding:11px 18px;font:inherit;font-weight:900;font-size:14px;cursor:pointer;padding:8px 14px;font-size:13px" style-hover="border-color:#042D7C">Invoice</button></div>
+</div></sc-for>
+</div></sc-if>
+</section>
+</sc-if>
+</main>
+</sc-if>
+<sc-if value="{{ isChecker }}">
+<main style="max-width:1100px;width:100%;margin:0 auto;padding:clamp(24px,4vw,48px) 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px;animation:skb-in .4s ease">
+<div style="display:flex;flex-direction:column;gap:10px;max-width:720px">
+<div style="align-self:flex-start;font-size:12px;font-weight:900;letter-spacing:.14em;color:#042D7C;background:#E8EDF7;border-radius:999px;padding:7px 12px">FREE ATS CHECKER</div>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,56px);line-height:1.02;color:#042D7C">Will your CV pass the ATS?</h1>
+<p style="margin:0;font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:#2C3E50">Upload your CV and get your ATS score in seconds, with exactly what to fix. Free, no sign-up.</p>
+</div>
+<sc-if value="{{ ckIdle }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc((100% - 20px) / 2),calc((760px - 100%) * 999))),1fr));gap:20px;align-items:stretch">
+<label onDrop="{{ ckDrop }}" onDragOver="{{ ckOver }}" style="border:2px dashed #B9C4D9;background:#F7F9FC;border-radius:24px;padding:clamp(28px,5vw,48px) 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;cursor:pointer;min-height:240px;box-sizing:border-box" style-hover="border-color:#042D7C;background:#EEF2FA">
+<div style="width:56px;height:56px;border-radius:50%;background:#042D7C;color:#FFFFFF;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0-5 5m5-5 5 5M5 21h14"></path></svg></div>
+<div style="font-weight:900;font-size:18px;color:#042D7C">Upload your CV</div>
+<div style="font-size:14px;color:#5B6470">PDF or Word (.docx) · drag it here or tap to choose</div>
+<input type="file" accept=".pdf,.docx,.txt" onChange="{{ ckPick }}" style="display:none"></input>
+</label>
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0">OPTIONAL · JOB DESCRIPTION</div>
+<div style="font-size:14px;color:#5B6470;line-height:1.5">Paste a job description to also see your keyword match for that role.</div>
+<textarea value="{{ ckJd }}" onInput="{{ ckSetJd }}" rows="7" placeholder="Paste the job description here" aria-label="Job description" style="width:100%;box-sizing:border-box;border:1px solid #D9DCE3;border-radius:14px;padding:12px 14px;font:inherit;font-size:16px;line-height:1.5;color:#2C3E50;resize:vertical;outline:none;flex:1" style-focus="border-color:#042D7C"></textarea>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ ckBusy }}"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;align-items:center;gap:16px;color:#042D7C;font-weight:900;font-size:16px"><div style="width:30px;height:30px;border-radius:50%;border:3px solid #E3E4E8;border-top-color:#042D7C;animation:skb-spin .8s linear infinite;flex:none"></div>{{ ckBusy }}</div></sc-if>
+<sc-if value="{{ ckHasRes }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(calc((100% - 20px) / 2),calc((760px - 100%) * 999))),1fr));gap:20px;align-items:start">
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:16px">
+<div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0">YOUR ATS SCORE</div>
+<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<div style="width:132px;height:132px;border-radius:50%;background:{{ ckRing }};display:flex;align-items:center;justify-content:center;flex:none"><div style="width:106px;height:106px;border-radius:50%;background:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-weight:900;font-size:38px;line-height:1;color:{{ ckCol }}">{{ ckScore }}</div><div style="font-size:12px;color:#8A919C;font-weight:700">out of 100</div></div></div>
+<div style="display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 180px"><div style="font-weight:900;font-size:18px;color:#2C3E50;line-height:1.3">{{ ckGrade }}</div><div style="font-size:14px;color:#5B6470">{{ ckPassN }} of {{ ckTotal }} checks passed</div><div style="font-size:12px;color:#8A919C;overflow-wrap:anywhere">{{ ckFileName }} · {{ ckMeta }}</div></div>
+</div>
+<sc-if value="{{ ckHasKw }}"><div style="width:100%;border-top:1px solid #EEF0F3;padding-top:14px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:14px"><span style="font-weight:900;color:#042D7C">Keyword match for the job</span><strong style="color:#042D7C">{{ ckPct }}</strong></div>
+<sc-if value="{{ ckHasMissing }}"><div style="font-size:13px;color:#5B6470">Missing from your CV:</div><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ ckMissing }}" as="m" hint-placeholder-count="0"><span style="font-size:12px;font-weight:700;color:#B3261E;background:#FCEDEC;border-radius:999px;padding:5px 10px">{{ m.k }}</span></sc-for></div></sc-if></div></sc-if>
+<div style="width:100%;background:#042D7C;color:#FFFFFF;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box">
+<div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;line-height:1.15">Fix it and raise your score</div>
+<div style="font-size:14px;color:#D6DEEE;line-height:1.5">Load this CV into our builder and fix each item, or let a Skilleaze expert rewrite it for you.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button onClick="{{ ckBuild }}" style="background:#FFFFFF;color:#042D7C;border:none;border-radius:999px;padding:13px 20px;font:inherit;font-weight:900;font-size:14px;cursor:pointer" style-hover="background:#EEF2FA">Fix it myself, free</button><a href="{{ ckExpert }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#FFFFFF;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:12px 18px;font-weight:900;font-size:14px;text-decoration:none" style-hover="background:rgba(255,255,255,.1)">Ask an expert on WhatsApp</a></div>
+</div>
+<button onClick="{{ ckRecheck }}" style="all:unset;cursor:pointer;font-size:14px;font-weight:900;color:#042D7C;text-decoration:underline">Check another CV</button>
+</section>
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:clamp(20px,3vw,28px);box-sizing:border-box;display:flex;flex-direction:column;gap:6px">
+<sc-if value="{{ ckHasFails }}"><div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0;color:#B3261E">TO FIX</div>
+<sc-for list="{{ ckFails }}" as="c" hint-placeholder-count="0"><div style="display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #EEF0F3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B3261E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="M18 6 6 18M6 6l12 12"></path></svg><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-weight:900;font-size:14px;color:#2C3E50">{{ c.label }}</div><div style="font-size:13px;color:#5B6470;line-height:1.45">{{ c.tip }}</div></div></div></sc-for></sc-if>
+<div style="font-size:12px;font-weight:900;letter-spacing:.12em;color:#053BA0;color:#1E7A4C;margin-top:10px">PASSED</div>
+<sc-for list="{{ ckPasses }}" as="c" hint-placeholder-count="0"><div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #EEF0F3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E7A4C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-weight:700;font-size:14px;color:#2C3E50">{{ c.label }}</div><div style="font-size:13px;color:#8A919C;line-height:1.45">{{ c.tip }}</div></div></div></sc-for>
+</section>
+</div>
+</sc-if>
+</main>
+</sc-if>
 <sc-if value="{{ isAts }}">
 <main style="max-width:1200px;width:100%;margin:0 auto;padding:32px 20px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px;animation:skb-in .4s ease">
 <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap">
@@ -890,6 +996,19 @@ class Component extends DCLogic {
     let it='';try{it=sessionStorage.getItem('skc_g_intent')||'';sessionStorage.removeItem('skc_g_intent');}catch(e){}
     const a=this.acct();this.flash('Signed in as '+(a&&a.email||'your Google account')+'.');
     if(it==='sub'&&!this.subActive())this.subscribe();else if(it==='sub'&&(this.state.jdText||'').trim())this.tailorJD();}
+  async payLog(kind,item,amount){const a=this.acct();const rec={id:'INV-'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,7).toUpperCase(),kind,item,amount:String(amount||''),currency:REG,at:new Date().toISOString()};
+    if(a&&a.token){try{const r=await this.rpc('cvb_pay_log',{p_token:a.token,p_kind:kind,p_item:item,p_amount:rec.amount,p_currency:REG,p_ref:rec.id});if(r&&r.id)rec.id=r.id;}catch(e){}}
+    try{const k='skc_pays_'+((a&&a.email)||'guest');const l=JSON.parse(localStorage.getItem(k)||'[]');l.unshift(rec);localStorage.setItem(k,JSON.stringify(l.slice(0,200)));}catch(e){}this.setState({paysV:Date.now()});return rec;}
+  async loadPays(){const a=this.acct();let list=[];try{list=JSON.parse(localStorage.getItem('skc_pays_'+((a&&a.email)||'guest'))||'[]');}catch(e){}
+    if(a&&a.token){try{const r=await this.rpc('cvb_payments',{p_token:a.token});if(Array.isArray(r)){const ids=new Set(r.map(x=>x.id));list=r.concat(list.filter(x=>!ids.has(x.id)));}}catch(e){}}
+    list.sort((p,q)=>String(q.at).localeCompare(String(p.at)));this.setState({pays:list});}
+  invoice(p){const a=this.acct()||{};const d=new Date(p.at);const ds=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});const esc=x=>String(x||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const html='<!DOCTYPE html><html><head><meta charset="utf-8"><title>Invoice '+esc(p.id)+'</title><link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet"><style>@page{size:A4;margin:18mm}body{font-family:Lato,Arial,sans-serif;color:#2C3E50;margin:0}h1{font-family:"Cormorant Garamond",serif;color:#042D7C;font-size:40px;margin:0}table{width:100%;border-collapse:collapse;margin-top:28px}th{text-align:left;font-size:11px;letter-spacing:.12em;color:#5B6470;border-bottom:2px solid #042D7C;padding:10px 0}td{padding:14px 0;border-bottom:1px solid #E3E4E8;font-size:14px}.r{text-align:right}.k{font-size:11px;letter-spacing:.12em;color:#5B6470;font-weight:900}.bar{display:flex;justify-content:space-between;gap:24px;margin-top:28px}@media screen{body{max-width:760px;margin:40px auto;padding:0 24px}}</style></head><body>'+
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px"><div><img src="'+new URL('assets/wordmark-blue.png',location.href).href+'" alt="Skilleaze" style="height:34px"><div style="margin-top:10px;font-size:13px;line-height:1.6">Skilleaze Global LLP<br>Puttur, Mangalore, Karnataka, India<br>hello@skilleaze.com · skilleaze.com</div></div><div style="text-align:right"><h1>Invoice</h1><div style="font-size:13px;line-height:1.7">No. <b>'+esc(p.id)+'</b><br>Date '+ds+'<br>Status <b style="color:#1E7A4C">Paid</b></div></div></div>'+
+      '<div class="bar"><div><div class="k">BILLED TO</div><div style="margin-top:6px;font-size:14px;line-height:1.6"><b>'+esc(a.name||'')+'</b><br>'+esc(a.email||'')+(a.phone?'<br>'+esc(a.phone):'')+'</div></div><div style="text-align:right"><div class="k">PAYMENT</div><div style="margin-top:6px;font-size:14px;line-height:1.6">'+esc(p.kind==='sub'?'Monthly plan':'One-time')+'<br>'+esc(p.currency||'')+'</div></div></div>'+
+      '<table><thead><tr><th>DESCRIPTION</th><th class="r">AMOUNT</th></tr></thead><tbody><tr><td><b>'+esc(p.item)+'</b>'+(p.until?'<br><span style="color:#5B6470;font-size:12px">Valid until '+new Date(p.until).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+'</span>':'')+'</td><td class="r">'+esc(p.amount)+'</td></tr><tr><td class="r" style="border:none;font-weight:900;color:#042D7C">Total paid</td><td class="r" style="border:none;font-weight:900;color:#042D7C;font-size:18px">'+esc(p.amount)+'</td></tr></tbody></table>'+
+      '<div style="margin-top:40px;font-size:12px;color:#5B6470;line-height:1.6">Thank you for choosing Skilleaze. Digital service: no refund once the work has started. Questions: hello@skilleaze.com</div><script>setTimeout(()=>print(),600)<\/script></body></html>';
+    const w=window.open('','_blank');if(!w){this.flash('Allow pop-ups to open the invoice.');return;}w.document.open();w.document.write(html);w.document.close();}
   async acctSync(){const a=this.acct();if(!a||!a.token)return;try{const me=await this.rpc('cvb_me',{p_token:a.token});this.setAcct(Object.assign({},a,me));const list=await this.rpc('cvb_list',{p_token:a.token})||[];
       this.setState(x=>{const map=new Map(x.cvs.map(c=>[c.id,c]));list.forEach(d=>{if(!d||!d.id)return;const l=map.get(d.id);if(!l||(d.updated||0)>(l.updated||0))map.set(d.id,d);});const cvs=[...map.values()].sort((p,q)=>(q.updated||0)-(p.updated||0));return {cvs};});
       this._acctReady=true;this.acctPushAll();}catch(e){if(/sign in again/i.test(e.message))this.setAcct(null);}}
@@ -898,7 +1017,7 @@ class Component extends DCLogic {
   checkout(o){return new Promise(res=>{this._ckRes=res;const a=this.acct();this.setState({ck:Object.assign({step:'form',name:'',card:'',exp:'',cvc:'',email:(a&&a.email)||'',pass:''},o)});});}
   ckDone(ok){const r=this._ckRes;this._ckRes=null;this.setState({ck:null});r&&r(ok);}
   async subscribe(){const C=window.SKC_SUB||{};{this.setState({subBusy:true,subOpen:false});let ok=false;try{ok=typeof window.SKC_SUBSCRIBE==='function'?await window.SKC_SUBSCRIBE({plan:'jd-unlimited',price:SUBP,currency:REG}):await this.checkout({kind:'sub',title:'Unlimited JD CVs',line:'Monthly plan · tailor and download unlimited CVs',price:SUBP,per:' / month'});}catch(e){}this.setState({subBusy:false});
-      if(ok){const me0=this.acct();const ac=this._ckAcct||{email:me0&&me0.email};try{const r=me0&&me0.token&&!this._ckAcct?await this.rpc('cvb_subscribe_tok',{p_token:me0.token,p_days:C.days||30}):await this.rpc('cvb_subscribe',{p_email:ac.email,p_name:ac.name||'',p_pass:ac.pass,p_days:C.days||30});this._ckAcct=null;this.setAcct(r);this._acctReady=true;this._sent={};this.acctPushAll();}catch(e){this.flash(e.message);this.setState({subBusy:false});return;}this.setState({subOpen:false});this.flash('Plan active. Your tailored CVs are saved to '+ac.email+'.');if((this.state.jdText||this.state.jdUrl||'').trim())this.tailorJD();}else this.flash('Payment not completed.');return;}
+      if(ok){const me0=this.acct();const ac=this._ckAcct||{email:me0&&me0.email};try{const r=me0&&me0.token&&!this._ckAcct?await this.rpc('cvb_subscribe_tok',{p_token:me0.token,p_days:C.days||30}):await this.rpc('cvb_subscribe',{p_email:ac.email,p_name:ac.name||'',p_pass:ac.pass,p_days:C.days||30});this._ckAcct=null;this.setAcct(r);this._acctReady=true;this._sent={};this.acctPushAll();}catch(e){this.flash(e.message);this.setState({subBusy:false});return;}this.payLog('sub','Unlimited JD CVs · monthly plan',SUBP);this.setState({subOpen:false});this.flash('Plan active. Your tailored CVs are saved to '+ac.email+'.');if((this.state.jdText||this.state.jdUrl||'').trim())this.tailorJD();}else this.flash('Payment not completed.');return;}
     window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('Hi Skilleaze, I would like the Unlimited JD CV plan ('+SUBP+' per month).'),'_blank');}
   async jdFetch(url){const C=window.SKP_CONFIG||{};if(!C.supabaseUrl)throw new Error('offline');const r=await fetch(C.supabaseUrl.replace(/\/$/,'')+'/functions/v1/'+(C.aiFunction||'ai-public'),{method:'POST',headers:{'content-type':'application/json','apikey':C.supabaseAnonKey,'Authorization':'Bearer '+C.supabaseAnonKey},body:JSON.stringify({url})});const j=await r.json().catch(()=>({}));if(!r.ok||!j.text)throw new Error(j.error||'unreadable');return j.text;}
   async tailorJD(){const s=this.state;if(s.jdBusy)return;const shown=s.cvs.find(c=>c.id===s.jdShow);const base=(shown&&shown.jdFor?s.cvs.find(c=>c.id===shown.jdFor.base):shown)||s.cvs.find(c=>c.id===s.jdBase)||s.cvs.find(c=>!c.jdFor)||s.cvs[0];
@@ -981,7 +1100,7 @@ class Component extends DCLogic {
     this.setState({fixNotes:[...new Set(left)].slice(0,6).join('\n')});this.flash('ATS score '+before+' → '+A.score+(via==='local'?' (AI offline: basic fixes only)':'')+'. Undo is available.');
     }catch(e){this.flash('Could not fix: '+e.message);}this.setState({busy:''});}
   undoAi(){const u=this.state.undo;if(!u)return;this.lastKey='';this.setState(x=>({cvs:x.cvs.map(c=>{if(c.id!==u.id)return c;const n=Object.assign({},c,{data:u.data,margin:u.margin,updated:Date.now()});['fitN','tight','src'].forEach(k=>{if(u[k]===undefined)delete n[k];else n[k]=u[k];});return n;}),undo:null,fixNotes:''}));this.flash('Undone.');}
-  ats(cv){const D=this.toD(cv.data);const bul=D.exp.flatMap(e=>e.b);const words=(D.summary.match(/\S+/g)||[]).length;
+  ats(cv,opt){opt=opt||{};const D=this.toD(cv.data);const bul=D.exp.flatMap(e=>e.b);const words=(D.summary.match(/\S+/g)||[]).length;
     const text=[D.title,D.sub,D.summary,...D.skills.flat(),...D.exp.flatMap(e=>[e.t,e.c,...e.b]),...D.edu.flat(),D.langs,...D.extra.flatMap(x=>[x.title,...x.items])].join(' ').toLowerCase();
     const metric=bul.length?bul.filter(b=>/\d/.test(b)).length/bul.length:0;const verb=bul.length?bul.filter(b=>VERBS.test(b)).length/bul.length:0;
     const C=[
@@ -994,7 +1113,7 @@ class Component extends DCLogic {
      ['Strong action verbs',verb>=.6,'Bullets start with clear action verbs.','Start bullets with verbs like Led, Built, Reduced, Launched.'],
      ['Skills section',D.skills.length>0,'Skills are listed and searchable.','Add a skills section with the tools and skills from job ads.'],
      ['Education',D.edu.length>0,'Education is included.','Add your highest qualification.'],
-     ['Length: 1–2 pages',(this.state.pages||1)<=2,'Within 2 pages.','Over 2 pages. Trim older roles or bullets.'],
+     ['Length: 1–2 pages',(opt.pages||this.state.pages||1)<=2,'Within 2 pages.','Over 2 pages. Trim older roles or bullets.'],
      ['No clichés',!/(hard[- ]?working|team player|go[- ]getter|think outside the box|detail[- ]oriented|self[- ]motivated|dynamic individual|results[- ]driven|responsible for)/i.test(bul.join(' ')+' '+D.summary),'No overused phrases.','Swap phrases like “hardworking”, “team player” or “responsible for” for real results.'],
      ['Professional email',!cv.data.email||!/(\d{4,}|cute|cool|baby|king|queen|love|sexy|boy|girl)/i.test(cv.data.email.split('@')[0]),'Email looks professional.','Use a simple name-based email, e.g. firstname.lastname@gmail.com.'],
      ['Dates on every job',D.exp.length>0&&D.exp.every(e=>/\d{4}/.test(e.d)),'Every role has dates.','Add month and year (e.g. Mar 2022 – Present) to every job.'],
@@ -1002,7 +1121,7 @@ class Component extends DCLogic {
      ['No first person',!/\b(i|my|me)\b/i.test(bul.join(' ')+' '+D.summary),'Written without "I" or "my".','Remove "I" and "my" from bullets and summary.']];
     const checks=C.map(([label,ok,good,bad])=>({label,ok,tip:ok?good:bad}));
     let base=checks.filter(c=>c.ok).length/checks.length*100;
-    let matched=[],missing=[],pct=null;const jd=this.state.jd.trim();
+    let matched=[],missing=[],pct=null;const jd=String(opt.jd!=null?opt.jd:(this.state.jd||'')).trim();
     if(jd){const toks=(jd.toLowerCase().match(/[a-z][a-z0-9+#.\-]{1,}/g)||[]).map(t=>t.replace(/[.\-]+$/,'')).filter(t=>t.length>2&&!STOP.has(t));
       const f={};toks.forEach(t=>f[t]=(f[t]||0)+1);const big={};const tw=jd.toLowerCase().match(/[a-z][a-z0-9+#]+/g)||[];for(let i=0;i<tw.length-1;i++){if(STOP.has(tw[i])||STOP.has(tw[i+1])||tw[i].length<3||tw[i+1].length<3)continue;const k=tw[i]+' '+tw[i+1];big[k]=(big[k]||0)+1;}
       const kws=[...Object.entries(big).filter(([k,v])=>v>1).map(([k])=>k),...Object.entries(f).sort((a,b)=>b[1]-a[1]).map(([k])=>k)].filter((k,i,a)=>a.indexOf(k)===i).slice(0,28);
@@ -1035,6 +1154,26 @@ class Component extends DCLogic {
       D.extra.forEach(x=>{if(!x.items.length)return;ch.push(H(x.title||'Additional'));x.items.forEach(b=>ch.push(P(T(b),{bullet:{level:0}})));});}
     const doc=new X.Document({creator:'Skilleaze',numbering:window.SKRT?SKRT.numbering:undefined,title:(D.name||'CV')+(kind==='cover'?' Cover Letter':' CV'),sections:[{properties:{page:{size:this.ph===1056?{width:12240,height:15840}:{width:11906,height:16838},margin:{top:900,bottom:900,left:1000,right:1000}}},children:ch}]});const blob=await X.Packer.toBlob(doc);
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(D.name||'CV').replace(/\s+/g,'_')+(kind==='cover'?'_Cover_Letter':'_CV')+'.docx';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href);},4000);}
+  async atsCheck(file){if(!file)return;this.setState({ckRes:null,ckBusy:'Reading your CV…',ckFile:file.name});
+    try{let pages=0,text='';if(/\.pdf$/i.test(file.name)){try{const L=window.pdfjsLib;L.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';const pdf=await L.getDocument({data:await file.arrayBuffer()}).promise;pages=pdf.numPages;}catch(e){}}
+      try{text=await this.extract(file);}catch(e){this.setState({ckBusy:''});this.flash(/doc/.test(e.message)?'Save the file as .docx or PDF, then upload it again.':'That file could not be read. Try a PDF or Word file.');return;}
+      const raw=String(text||'');const words=(raw.match(/\S+/g)||[]).length;if(!pages)pages=Math.max(1,Math.round(words/500));
+      this.setState({ckBusy:'Checking it like an ATS…'});
+      let d=window.SKIMPORT?window.SKIMPORT.parse(raw):null;
+      if((!d||(window.SKIMPORT&&window.SKIMPORT.score(d)<2))&&words>40){try{const t=new Promise((_,rj)=>setTimeout(()=>rj(new Error('t')),25000));const o=await Promise.race([this.ai('Extract this CV into JSON with keys: name,title,location,phone,email,linkedin,summary,skills (array of {cat,list}),exp (array of {t,c,d,b} with b = bullets joined by \\n),edu (array of {deg,school,yrs}),langs,extra (array of {title,items}). Copy text exactly; use "" when missing. JSON only.\n\n'+raw.slice(0,20000)),t]);d=this.json(o);}catch(e){}}
+      d=Object.assign(blank(),d||{});['skills','exp','edu','extra'].forEach(k=>{if(!Array.isArray(d[k]))d[k]=[];});this.normalizeExp(d);
+      const r=this.ats({data:d},{jd:this.state.ckJd||'',pages});
+      const low=raw.toLowerCase();const has=re=>re.test(low);
+      const extra=[
+        ['Readable by ATS',words>=120,'The text can be read by applicant tracking systems.','Very little text could be read. It may be a scanned image or exported as a picture. Use a text-based PDF or Word file.'],
+        ['Standard section headings',['experience|employment|work history','education|qualification','skills|competenc'].every(p=>has(new RegExp('\\b('+p+')'))),'Experience, Education and Skills headings were found.','Use standard headings: Experience, Education, Skills.'],
+        ['Contact details found',!!(d.email||/@/.test(raw))&&!!(d.phone||/\+?\d[\d\s-]{7,}/.test(raw)),'Email and phone were detected.','ATS could not find both an email and a phone number.'],
+        ['File type',/\.(pdf|docx)$/i.test(file.name),'PDF or Word works well with ATS.','Use PDF or .docx.']];
+      const xc=extra.map(([label,ok,good,bad])=>({label,ok,tip:ok?good:bad}));
+      const checks=xc.concat(r.checks.filter(c=>!/^(Length|Professional email)/.test(c.label)||true));
+      let score=Math.round(checks.filter(c=>c.ok).length/checks.length*100);if(r.pct!=null)score=Math.round(score*.65+r.pct*.35);if(words<120)score=Math.min(score,25);
+      this.setState({ckBusy:'',ckRes:{score,checks,matched:r.matched||[],missing:r.missing||[],pct:r.pct,data:d,name:d.name||'',pages,words}});
+    }catch(e){console.error(e);this.setState({ckBusy:''});this.flash('Could not check that file. Please try again.');}}
   async extract(file){const buf=await file.arrayBuffer();
     if(/\.docx$/i.test(file.name)){const r=await window.mammoth.extractRawText({arrayBuffer:buf});return r.value;}
     if(/\.(txt|rtf)$/i.test(file.name)){let t=new TextDecoder().decode(buf);if(/\.rtf$/i.test(file.name))t=t.replace(/\\par[d]?/g,'\n').replace(/\{\*?\\[^{}]+\}|[{}]|\\[a-z]+-?\d* ?/gi,'');return t;}
@@ -1080,7 +1219,7 @@ class Component extends DCLogic {
     const COLS=[['Navy','#1F3A5F'],['Black','#1C1C1C'],['Charcoal','#3B4450'],['Dark Blue','#1E4D8C'],['Maroon','#6E2633'],['Forest','#2E5E4E'],['Slate','#44505C'],['Teal','#1F5F6B']];
     const paid=true;
     const doDl=fmt=>async()=>{const k=s.pay.kind;const key=cv.id+':'+k;
-      const PAYC=window.SKC_PAYMENTS||{};const SUBOK=!!(window.SKC_SUB||{}).enabled&&this.subActive()&&!!this.lockOf()&&this.samePerson(this.lockOf(),d);if(PAYC.enabled&&!SUBOK&&!(s.paid||{})[key]){const price=k==='cover'?PRICE[1]:PRICE[0];this.setState({dlBusy:'Opening secure payment…'});let ok=false;try{ok=typeof window.SKC_PAY==='function'?await window.SKC_PAY({kind:k,price,currency:REG,cvName:d.name||'',cvId:cv.id}):(this.setState({pay:null}),await this.checkout({kind:k,title:k==='cover'?'Cover letter download':'CV download',line:(d.name||'Your CV')+' · PDF and Word, this document',price,per:''}));}catch(e){ok=false;}if(ok)this.setState({pay:{kind:k}});this.setState({dlBusy:''});if(!ok){this.flash('Payment not completed.');return;}this.setState(x=>({paid:Object.assign({},x.paid||{},{[key]:Date.now()})}));}
+      const PAYC=window.SKC_PAYMENTS||{};const SUBOK=!!(window.SKC_SUB||{}).enabled&&this.subActive()&&!!this.lockOf()&&this.samePerson(this.lockOf(),d);if(PAYC.enabled&&!SUBOK&&!(s.paid||{})[key]){const price=k==='cover'?PRICE[1]:PRICE[0];this.setState({dlBusy:'Opening secure payment…'});let ok=false;try{ok=typeof window.SKC_PAY==='function'?await window.SKC_PAY({kind:k,price,currency:REG,cvName:d.name||'',cvId:cv.id}):(this.setState({pay:null}),await this.checkout({kind:k,title:k==='cover'?'Cover letter download':'CV download',line:(d.name||'Your CV')+' · PDF and Word, this document',price,per:''}));}catch(e){ok=false;}if(ok){this.setState({pay:{kind:k}});this.payLog(k,(k==='cover'?'Cover letter download · ':'CV download · ')+(d.name||'CV'),price);}this.setState({dlBusy:''});if(!ok){this.flash('Payment not completed.');return;}this.setState(x=>({paid:Object.assign({},x.paid||{},{[key]:Date.now()})}));}
       
       try{if(fmt==='pdf'){if(k==='cover')this.printHtml([this.coverPage(cv)],(d.name||'Cover')+' Cover Letter');else this.printHtml(this.render1(cv).pages,(d.name||'CV')+' CV');}else{this.setState({dlBusy:'Preparing Word file…'});await this.docx(k);this.setState({dlBusy:''});}}catch(err){console.error(err);this.setState({dlBusy:''});this.flash((fmt==='pdf'?'PDF':'Word')+' download failed. Please try again.');return;}
       try{if(cv.code&&SKP.logCV)SKP.logCV(cv.code,fmt==='pdf'?'download_pdf':'download_docx',k==='cover'?'cover letter':'cv');}catch(e){}
@@ -1125,7 +1264,37 @@ class Component extends DCLogic {
       jdGo:()=>this.tailorJD(),jdGoLabel:s.jdBusy||'Apply to my CV',jdBusy:s.jdBusy||'',jdHasDone:s.cvs.some(c=>c.jdFor),
       subPrice:SUBP,priceCv:PRICE[0],subOpen:!!s.subOpen,closeSub:()=>this.setState({subOpen:false}),subscribe:()=>this.subscribe(),subBtn:s.subBusy?'Opening payment…':'Subscribe · '+SUBP+' / month',
       subCanBuy:!!(window.SKC_SUB||{}).enabled&&!this.subActive(),subNote:!(window.SKC_SUB||{}).enabled?'Free at launch':this.subActive()?'Active':'',subLine:!(window.SKC_SUB||{}).enabled?'Free while we launch. Subscriptions start soon.':this.subActive()?'Your plan is active.':'Billed monthly.',
-      isHome:v==='home',isEdit:v==='edit'&&!!cv,isAts:v==='ats'&&!!cv,isCover:v==='cover'&&!!cv,isShare:v==='share',
+      isHome:v==='home',isEdit:v==='edit'&&!!cv,isAccount:v==='account',...(()=>{const a=this.acct();const live=!!(a&&a.token);const until=a&&a.until?new Date(a.until):null;const act=!!(until&&until>new Date());const fmt=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+        const nm=(a&&a.name)||'';const ini=(nm||(a&&a.email)||'?').split(/[\s@.]+/).filter(Boolean).slice(0,2).map(x=>x[0].toUpperCase()).join('');
+        const bases=(s.cvs||[]).filter(c=>!c.jdFor).length,tails=(s.cvs||[]).filter(c=>c.jdFor).length;const pays=s.pays||[];const L=this.lockOf();
+        const edit=!!s.pfEdit;
+        return {acLive:live,acGuest:!live,acPic:live&&a.picture?a.picture:'',acPicCss:live&&a.picture?'url("'+String(a.picture).replace(/["\\()]/g,'')+'")':'none',acNoPic:!(live&&a.picture),acIni:ini||'S',acName:nm||'Add your name',acEmail:live?a.email:'',acPhone:(a&&a.phone)||'',acHasPhone:!!(a&&a.phone),pfAddPhone:!(a&&a.phone),acVia:live&&a.picture?'Signed in with Google':'Signed in with email',
+          acSince:a&&a.created?'Member since '+fmt(new Date(a.created)):'',
+          acStats:[{n:String(bases),l:'CVs created'},{n:String(tails),l:'Tailored for jobs'},{n:String(pays.length),l:'Purchases'}],
+          acPlanOn:act,acPlanOff:!act,acPlanTitle:act?'Unlimited JD CVs':'No active plan',acPlanSub:act?'Renews or ends on '+fmt(until):(until?'Ended on '+fmt(until):'Tailor your CV to every job for '+SUBP+' a month'),
+          acPlanFor:L&&L.label?L.label:'',acHasFor:!!(L&&L.label),acPlanBtn:act?'Extend 1 month':'Subscribe',acPlanGo:()=>this.subscribe(),
+          acPays:pays.map(p=>({date:fmt(new Date(p.at)),item:p.item||'Purchase',amount:p.amount||'',id:p.id,inv:()=>this.invoice(p)})),acHasPays:pays.length>0,acNoPays:!pays.length,
+          pfEdit:edit,pfView:!edit,pfName:s.pfName??nm,pfPhone:s.pfPhone??((a&&a.phone)||''),pfSetName:e=>this.setState({pfName:e.target.value}),pfSetPhone:e=>this.setState({pfPhone:e.target.value}),
+          pfOpen:()=>this.setState({pfEdit:true,pfName:nm,pfPhone:(a&&a.phone)||''}),pfCancel:()=>this.setState({pfEdit:false}),pfSaveLbl:s.pfBusy?'Saving…':'Save changes',
+          pfSave:async()=>{const a2=this.acct();if(!a2||!a2.token)return;const name=String(this.state.pfName||'').trim(),phone=String(this.state.pfPhone||'').trim();if(name.length<2){this.flash('Enter your name.');return;}this.setState({pfBusy:true});
+            try{const r=await this.rpc('cvb_profile',{p_token:a2.token,p_name:name,p_phone:phone});this.setAcct(Object.assign({},a2,r||{name,phone}));}catch(e){this.setAcct(Object.assign({},a2,{name,phone}));}this.setState({pfBusy:false,pfEdit:false});this.flash('Profile updated.');},
+          acOut:async()=>{const a2=this.acct();try{if(a2)await this.rpc('cvb_logout',{p_token:a2.token});}catch(e){}this.setAcct(null);this._acctReady=false;this.setState({view:'home'});this.flash('Signed out.');},
+          acSignIn:()=>this.setState({siOpen:true,siEmail:'',siPass:''}),acMyCvs:()=>{this.setState({view:'home'});window.scrollTo(0,0);},acTailor:()=>this.setState({view:'jd'})};})(),
+      isChecker:v==='checker',goChecker:()=>{this.setState({view:'checker'});window.scrollTo(0,0);},navChecker:pill(v==='checker'),
+      ...(()=>{const r=s.ckRes;const sc=r?r.score:0;const col=sc>=80?'#1E7A4C':sc>=60?'#053BA0':sc>=40?'#B26A00':'#B3261E';
+        return {ckBusy:s.ckBusy||'',ckIdle:!s.ckBusy&&!r,ckHasRes:!!r&&!s.ckBusy,ckFileName:s.ckFile||'',
+          ckPick:e=>{const f=e.target.files&&e.target.files[0];e.target.value='';this.atsCheck(f);},
+          ckDrop:e=>{e.preventDefault();const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];this.atsCheck(f);},ckOver:e=>e.preventDefault(),
+          ckJd:s.ckJd||'',ckSetJd:e=>this.setState({ckJd:e.target.value}),ckRecheck:()=>{this.setState({ckRes:null,ckFile:''});},
+          ckScore:String(sc),ckRing:'conic-gradient('+col+' '+(sc*3.6)+'deg,#E3E4E8 0)',ckCol:col,
+          ckGrade:sc>=80?'Strong: ready for most ATS':sc>=60?'Good, with a few fixes to make':sc>=40?'Needs work before you apply':'At risk of being filtered out',
+          ckPassN:r?r.checks.filter(c=>c.ok).length:0,ckTotal:r?r.checks.length:0,
+          ckFails:r?r.checks.filter(c=>!c.ok).map(c=>({label:c.label,tip:c.tip})):[],ckPasses:r?r.checks.filter(c=>c.ok).map(c=>({label:c.label,tip:c.tip})):[],ckHasFails:!!r&&r.checks.some(c=>!c.ok),
+          ckHasKw:!!r&&r.pct!=null,ckPct:r&&r.pct!=null?r.pct+'%':'',ckMissing:r?(r.missing||[]).slice(0,14).map(k=>({k})):[],ckHasMissing:!!r&&(r.missing||[]).length>0,
+          ckBuild:()=>{if(!r)return;const d=JSON.parse(JSON.stringify(r.data));this.create(d,(d.name?d.name+' CV':'My CV'));this.flash('Your CV is loaded. Pick a design and fix the items marked in red.');},
+          ckExpert:'https://wa.me/'+WA+'?text='+encodeURIComponent('Hi Skilleaze, my CV scored '+sc+'/100 on your free ATS checker. I would like an expert to fix it.'),
+          ckMeta:r?(r.pages+(r.pages===1?' page':' pages')+' · '+r.words+' words'):''};})(),
+      isAts:v==='ats'&&!!cv,isCover:v==='cover'&&!!cv,isShare:v==='share',
       navHome:pill(v==='home'),navEdit:pill(v==='edit'),navAts:pill(v==='ats'),navCover:pill(v==='cover'),
       goHome:e=>{e&&e.preventDefault&&e.preventDefault();if(!this.state.cvs.length){location.replace(/skilleaze\.com$|vercel\.app$/i.test(location.hostname)?'/':new URL('index.html',location.href).href);return;}if(location.hash)history.replaceState(null,'',location.pathname);this.setState({view:'home'});},
       goEditCur:need(()=>this.setState({view:'edit'})),goAts:need(()=>this.setState({view:'ats'})),goCover:need(()=>this.setState({view:'cover'})),
@@ -1233,10 +1402,10 @@ class Component extends DCLogic {
       ckSet:k=>e=>{let v=e.target.value;if(k==='card')v=v.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();if(k==='exp')v=v.replace(/\D/g,'').slice(0,4).replace(/^(\d{2})(\d)/,'$1/$2');if(k==='cvc')v=v.replace(/\D/g,'').slice(0,4);this.setState(x=>({ck:Object.assign({},x.ck,{[k]:v})}));},
       ckSetName:e=>this.setState(x=>({ck:Object.assign({},x.ck,{name:e.target.value})})),ckSetCard:e=>{const v=e.target.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})(?=.)/g,'$1 ');this.setState(x=>({ck:Object.assign({},x.ck,{card:v})}));},ckSetExp:e=>{const v=e.target.value.replace(/\D/g,'').slice(0,4).replace(/^(\d{2})(\d)/,'$1/$2');this.setState(x=>({ck:Object.assign({},x.ck,{exp:v})}));},ckSetCvc:e=>{const v=e.target.value.replace(/\D/g,'').slice(0,4);this.setState(x=>({ck:Object.assign({},x.ck,{cvc:v})}));},ckIsSub:!!(s.ck&&s.ck.kind==='sub'),
       ...(()=>{const a=this.acct();const live=!!(a&&a.token);const until=a&&a.until?new Date(a.until):null;return {
-        acctIn:live,acctOut:!live,acctShort:live?(String(a.email).split('@')[0].slice(0,14)):'',acctEmail:live?a.email:'',navAcct:pill(!!s.siOpen),
+        acctIn:live,acctOut:!live,acctShort:live?(String(a.email).split('@')[0].slice(0,14)):'',acctEmail:live?a.email:'',navAcct:pill(!!s.siOpen||v==='account'),
         acctPlan:until&&until>new Date()?'Active until '+until.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'Not active',
         acctCount:String((s.cvs||[]).length),
-        siOpen:!!s.siOpen,openAcct:()=>this.setState({siOpen:true}),openSignIn:()=>this.setState({siOpen:true,siEmail:'',siPass:''}),closeSi:()=>this.setState({siOpen:false}),
+        siOpen:!!s.siOpen,openAcct:()=>{this.setState({view:'account',siOpen:false});this.loadPays();window.scrollTo(0,0);},openSignIn:()=>this.setState({siOpen:true,siEmail:'',siPass:''}),closeSi:()=>this.setState({siOpen:false}),
         siForm:!live,siMe:live,siEmail:s.siEmail||'',siPass:s.siPass||'',siLabel:s.siBusy?'Signing in…':'Sign in',
         siSetEmail:e=>this.setState({siEmail:e.target.value}),siSetPass:e=>this.setState({siPass:e.target.value}),
         siGo:async()=>{if(this.state.siBusy)return;this.setState({siBusy:true});try{const r=await this.rpc('cvb_login',{p_email:this.state.siEmail||'',p_pass:this.state.siPass||''});this.setAcct(r);this._sent={};await this.acctSync();this.setState({siOpen:false,siBusy:false,siPass:''});this.flash('Signed in. Your saved CVs are here.');}catch(e){this.setState({siBusy:false});this.flash(e.message);}},

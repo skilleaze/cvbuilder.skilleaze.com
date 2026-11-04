@@ -1,12 +1,6 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/ats-cv-builder",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)\\.dc\\.html",

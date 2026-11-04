@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/assets/fav-32.png">
+<title>Tailor your CV to every job · Skilleaze CV Builder</title>
+<meta name="description" content="Paste any job description and get a CV matched to it in seconds. Unlimited tailored CVs from one original CV, saved in your account. PDF and Word.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Lato:wght@400;700;900&amp;display=swap">
+<style>
+html{background:#050E26}
+body{margin:0;background:#050E26;font-family:Lato,sans-serif;color:#E6ECF7;-webkit-font-smoothing:antialiased}
+a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
+::selection{background:#1F4FD0;color:#FFFFFF}
+@keyframes mg-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes mg-drift{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
+@keyframes mg-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes tl-pop{0%,30%{opacity:0;transform:scale(.8)}45%,100%{opacity:1;transform:none}}
+@keyframes tl-glow{0%,100%{background:rgba(127,224,176,0)}50%{background:rgba(127,224,176,.35)}}
+</style>
+<script src="cv-builder/cv-engine.js?v=40"></script>
+<script src="cv-builder/muneez.js?v=38"></script>
+</helmet>
+
+<div data-screen-label="Tailor to each job" style="position:relative;min-height:100vh;overflow:hidden">
+<div style="position:absolute;width:640px;height:640px;border-radius:50%;background:#1F4FD0;filter:blur(140px);opacity:.45;right:-200px;top:-220px;animation:mg-drift 18s ease-in-out infinite;pointer-events:none"></div>
+<div style="position:absolute;width:520px;height:520px;border-radius:50%;background:#1E8F6A;filter:blur(150px);opacity:.22;left:-220px;top:560px;pointer-events:none"></div>
+<div style="position:absolute;width:560px;height:560px;border-radius:50%;background:#6C5CE7;filter:blur(160px);opacity:.22;right:-160px;top:2100px;pointer-events:none"></div>
+<div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(180deg,#000 0%,transparent 35%);-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 35%);pointer-events:none"></div>
+
+<header style="position:sticky;top:20px;z-index:30;max-width:1200px;margin:28px auto 0;padding:0 16px;box-sizing:border-box">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(10,22,56,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:10px 12px 10px 20px">
+<a href="/" style="display:block"><img src="assets/wordmark-white.png" alt="Skilleaze" style="height:26px;width:auto;display:block"></a>
+<nav style="{{ navStyle }}">
+<a href="/" style="padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#C9D3E8" style-hover="background:rgba(255,255,255,.08);color:#FFFFFF">Home</a>
+<a href="#how" style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#FFFFFF;background:rgba(127,224,176,.12);box-shadow:inset 0 0 0 1px rgba(127,224,176,.35)"><span style="width:6px;height:6px;border-radius:50%;background:#7FE0B0;box-shadow:0 0 8px #7FE0B0"></span>Tailor to each job</a>
+<a href="/#templates" style="padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#C9D3E8" style-hover="background:rgba(255,255,255,.08);color:#FFFFFF">Templates</a>
+<a href="#pricing" style="padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#C9D3E8" style-hover="background:rgba(255,255,255,.08);color:#FFFFFF">Pricing</a>
+<a href="#faq" style="padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#C9D3E8" style-hover="background:rgba(255,255,255,.08);color:#FFFFFF">FAQ</a>
+</nav>
+<a href="#pricing" style="background:#FFFFFF;color:#050E26;border-radius:12px;padding:11px 18px;font-weight:900;font-size:14px" style-hover="background:#DCE6FF">Start tailoring</a>
+</div>
+</header>
+
+<main style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,32px) 120px;box-sizing:border-box">
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,72px);align-items:center;padding:clamp(48px,7vw,96px) 0 clamp(40px,5vw,72px)">
+<div style="display:flex;flex-direction:column;gap:24px;animation:mg-rise .7s ease both">
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:rgba(127,224,176,.1);border:1px solid rgba(127,224,176,.3);font-size:13px;font-weight:900;letter-spacing:.08em;color:#7FE0B0"><span style="width:6px;height:6px;border-radius:50%;background:#7FE0B0;box-shadow:0 0 8px #7FE0B0"></span>MONTHLY PLAN · UNLIMITED</span>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(46px,6vw,78px);line-height:.98;letter-spacing:-.015em;color:#FFFFFF;text-wrap:balance">One CV for <span style="background:linear-gradient(90deg,#7FE0B0,#AFC4FF);-webkit-background-clip:text;background-clip:text;color:transparent">every job</span> you apply to.</h1>
+<p style="margin:0;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:#C9D3E8;max-width:540px;text-wrap:pretty">Paste a job description. Skilleaze rewrites your CV to match that role: <br>the right keywords, the right skills first, the right summary. <br>Download it in PDF or Word and apply.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="#pricing" style="display:inline-flex;align-items:center;gap:14px;background:#FFFFFF;color:#050E26;border-radius:14px;padding:18px 26px;font-weight:900;font-size:17px;box-shadow:0 10px 40px rgba(95,140,255,.35)" style-hover="background:#DCE6FF">Start tailoring <span>→</span></a>
+<a href="#how" style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.07);color:#FFFFFF;border-radius:14px;padding:18px 24px;font-weight:900;font-size:17px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);backdrop-filter:blur(14px)" style-hover="background:rgba(175,196,255,.18)">See how it works</a>
+</div>
+<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:700;color:#AEB9D3">
+<span>From {{ p2 }} / month</span><span>PDF + Word</span><span>Saved in your account</span>
+</div>
+</div>
+
+<div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;align-items:center">
+<div style="background:rgba(10,22,56,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:11px;font-weight:900;letter-spacing:.14em;color:#8D9AB8">JOB DESCRIPTION</span>
+<div style="font-weight:900;font-size:15px;color:#FFFFFF;line-height:1.35">Performance Marketing Manager</div>
+<div style="font-size:13px;line-height:1.7;color:#AEB9D3">We need someone to own <span style="color:#7FE0B0;font-weight:700">paid social</span> and <span style="color:#7FE0B0;font-weight:700">Google Ads</span>, improve <span style="color:#7FE0B0;font-weight:700">ROAS</span>, run <span style="color:#7FE0B0;font-weight:700">A/B testing</span> and report in <span style="color:#7FE0B0;font-weight:700">GA4</span>. Experience with <span style="color:#7FE0B0;font-weight:700">HubSpot</span> and <span style="color:#7FE0B0;font-weight:700">lead generation</span> in real estate is a plus.</div>
+<div style="margin-top:6px;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:11px;font-weight:900;letter-spacing:.14em;color:#8D9AB8">KEYWORDS FOUND</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ kws }}" as="k" hint-placeholder-count="6"><span style="font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:rgba(127,224,176,.12);color:#7FE0B0;border:1px solid rgba(127,224,176,.3)">{{ k }}</span></sc-for>
+</div>
+</div>
+</div>
+<div style="position:relative;border-radius:16px;overflow:hidden;background:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 40px 90px rgba(0,0,0,.6),0 0 80px rgba(31,79,208,.35);animation:mg-float 7s ease-in-out infinite;align-self:center;justify-self:center;width:100%;max-width:340px">
+<div data-tl="cv" data-tpl="0" style="width:100%;aspect-ratio:794/1123;position:relative;overflow:hidden;background:#FFFFFF"></div>
+<span style="position:absolute;top:10px;right:10px;font-size:12px;font-weight:900;color:#04210F;background:#7FE0B0;border-radius:8px;padding:5px 10px;box-shadow:0 6px 20px rgba(127,224,176,.5);animation:tl-pop 4s ease both infinite alternate">96% match</span>
+</div>
+</div>
+</section>
+
+<section id="pricing" style="padding:clamp(24px,4vw,48px) 0 0">
+<div style="position:relative;overflow:hidden;border-radius:32px;padding:clamp(32px,5vw,64px);background:radial-gradient(70% 100% at 100% 0%,rgba(95,140,255,.35),rgba(95,140,255,0) 60%),radial-gradient(60% 90% at 0% 100%,rgba(127,224,176,.18),rgba(127,224,176,0) 60%),rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,56px);align-items:center">
+<div style="display:flex;flex-direction:column;gap:18px">
+<span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#FFC9A8">TAILOR PLAN · LIMITED OFFER</span>
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(64px,8vw,96px);line-height:1;color:#FFFFFF">{{ p2 }}</span><span style="font-size:22px;color:#8D9AB8;text-decoration:line-through">{{ p2o }}</span><span style="font-size:16px;color:#C9D3E8">per month</span></div>
+<span style="font-size:14px;font-weight:700;color:#AEB9D3">Prices shown in {{ curName }}</span>
+<a href="/" style="align-self:flex-start;display:inline-flex;align-items:center;gap:14px;background:#FFFFFF;color:#050E26;border-radius:14px;padding:18px 26px;font-weight:900;font-size:17px;box-shadow:0 10px 40px rgba(95,140,255,.4)" style-hover="background:#DCE6FF">Subscribe and start <span>→</span></a>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;background:rgba(10,22,56,.55);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:clamp(22px,3vw,32px)">
+<div style="font-size:12px;font-weight:900;letter-spacing:.14em;color:#8D9AB8">HOW THE PLAN WORKS</div>
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="4"><div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.55;color:#E6ECF7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7FE0B0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span>{{ r }}</span></div></sc-for>
+</div>
+</div>
+</section>
+
+<section style="padding:clamp(64px,9vw,112px) 0 0;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:720px"><span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#FFC9A8">WHY IT MATTERS</span><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,4.4vw,58px);line-height:1.02;color:#FFFFFF;text-wrap:balance">Sending the same CV everywhere quietly costs you interviews.</h2></div>
+<div style="display:grid;grid-template-columns:{{ colsPains }};gap:16px">
+<sc-for list="{{ pains }}" as="p" hint-placeholder-count="3">
+<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px" style-hover="background:rgba(255,255,255,.07)">
+<span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px;line-height:1;color:#FFC9A8">{{ p.n }}</span>
+<span style="font-weight:900;font-size:18px;color:#FFFFFF">{{ p.t }}</span>
+<span style="font-size:15px;line-height:1.6;color:#AEB9D3">{{ p.d }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="how" style="padding:clamp(88px,11vw,136px) 0 0;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:720px"><span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#7FE0B0">HOW IT WORKS</span><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,4.4vw,58px);line-height:1.02;color:#FFFFFF;text-wrap:balance">Four steps. About a minute per job.</h2></div>
+<div style="display:grid;grid-template-columns:{{ colsSteps }};gap:16px">
+<sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+<div style="position:relative;background:linear-gradient(160deg,rgba(31,79,208,.22),rgba(255,255,255,.03));border:1px solid rgba(175,196,255,.2);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px">
+<span style="width:44px;height:44px;border-radius:14px;background:rgba(127,224,176,.14);border:1px solid rgba(127,224,176,.35);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;color:#7FE0B0">{{ s.n }}</span>
+<span style="font-weight:900;font-size:19px;color:#FFFFFF">{{ s.t }}</span>
+<span style="font-size:15px;line-height:1.6;color:#C9D3E8">{{ s.d }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="padding:clamp(88px,11vw,136px) 0 0">
+<div style="border-radius:32px;padding:clamp(28px,5vw,56px);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(28px,5vw,56px);align-items:center">
+<div style="display:flex;flex-direction:column;gap:18px">
+<span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#AFC4FF">WHAT CHANGES IN YOUR CV</span>
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,4vw,52px);line-height:1.04;color:#FFFFFF;text-wrap:balance">Same you. Better aimed.</h2>
+<p style="margin:0;font-size:16px;line-height:1.65;color:#C9D3E8;text-wrap:pretty">We only work with what is already true in your CV. Nothing is invented. You confirm every keyword before it is added.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ changes }}" as="c" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;background:rgba(10,22,56,.55);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px 16px">
+<span style="font-size:14px;line-height:1.45;color:#8D9AB8;text-decoration:line-through;text-decoration-color:rgba(255,201,168,.6)">{{ c.a }}</span>
+<span style="color:#7FE0B0;font-weight:900">→</span>
+<span style="font-size:14px;line-height:1.45;color:#FFFFFF;font-weight:700">{{ c.b }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="padding:clamp(88px,11vw,136px) 0 0;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:720px"><span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#AFC4FF">EVERYTHING INCLUDED</span><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,4.4vw,58px);line-height:1.02;color:#FFFFFF;text-wrap:balance">Built for people applying to a lot of jobs.</h2></div>
+<div style="display:grid;grid-template-columns:{{ colsFeats }};gap:16px">
+<sc-for list="{{ feats }}" as="f" hint-placeholder-count="6">
+<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:24px;display:flex;gap:16px;align-items:flex-start" style-hover="background:rgba(255,255,255,.07)">
+<span style="flex:none;width:40px;height:40px;border-radius:12px;background:rgba(175,196,255,.12);border:1px solid rgba(175,196,255,.25);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AFC4FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="font-weight:900;font-size:17px;color:#FFFFFF">{{ f.t }}</span><span style="font-size:14px;line-height:1.6;color:#AEB9D3">{{ f.d }}</span></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+
+
+<section id="faq" style="padding:clamp(88px,11vw,136px) 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(28px,5vw,56px);align-items:start">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#AFC4FF">FAQ</span><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,4.4vw,58px);line-height:1.02;color:#FFFFFF">Good questions.</h2></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
+<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden">
+<button onClick="{{ q.on }}" style="all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;font-weight:900;font-size:16px;color:#FFFFFF"><span>{{ q.q }}</span><span style="font-size:22px;color:#AFC4FF">{{ q.ic }}</span></button>
+<sc-if value="{{ q.open }}"><div style="padding:0 20px 18px;font-size:15px;line-height:1.65;color:#C9D3E8">{{ q.a }}</div></sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="padding:clamp(88px,11vw,136px) 0 0">
+<div style="position:relative;overflow:hidden;border-radius:32px;padding:clamp(36px,6vw,72px);background:linear-gradient(135deg,#1F4FD0,#3A2FA8);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:620px"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,4.6vw,60px);line-height:1;color:#FFFFFF">Your next application deserves its own CV.</h2><p style="margin:0;font-size:17px;line-height:1.6;color:#DCE6FF">Build or upload your CV once. Tailor it for every role this month.</p></div>
+<a href="#pricing" style="background:#FFFFFF;color:#050E26;border-radius:14px;padding:18px 26px;font-weight:900;font-size:17px" style-hover="background:#DCE6FF">Start tailoring →</a>
+</div>
+</section>
+
+<footer style="margin-top:72px;padding-top:32px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
+<div style="display:flex;flex-direction:column;gap:10px"><img src="assets/wordmark-white.png" alt="Skilleaze" style="height:24px;width:auto;align-self:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;color:#FFFFFF">Career Simplified</span></div>
+<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:700"><a href="/">CV Builder</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="https://www.skilleaze.com">skilleaze.com</a></div>
+</footer>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state={faq:0,w:typeof window!=='undefined'?window.innerWidth:1280,cur:(()=>{try{const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';const M={'Asia/Kolkata':'INR','Asia/Calcutta':'INR','Asia/Dubai':'AED','Asia/Riyadh':'SAR','Asia/Qatar':'QAR','Asia/Kuwait':'KWD','Asia/Bahrain':'BHD','Asia/Muscat':'OMR','Europe/London':'GBP','Europe/Dublin':'EUR','Asia/Singapore':'SGD'};if(M[tz])return M[tz];if(tz.startsWith('Europe/'))return 'EUR';if(tz.startsWith('Australia/'))return 'AUD';if(/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|Regina|St_Johns)/.test(tz))return 'CAD';}catch(e){}return 'USD';})()};
+  componentDidMount(){
+    fetch('https://ipapi.co/currency/').then(r=>r.ok?r.text():'').then(c=>{c=(c||'').trim().toUpperCase();const ok=['INR','AED','SAR','QAR','KWD','BHD','OMR','GBP','EUR','CAD','AUD','SGD','USD'];if(/^[A-Z]{3}$/.test(c))this.setState({cur:ok.includes(c)?c:'USD'});}).catch(()=>{});
+    this._r=()=>this.setState({w:window.innerWidth});window.addEventListener('resize',this._r);
+    this.paintCv();
+  }
+  componentDidUpdate(){this.paintCv();}
+  paintCv(){const paint=()=>{if(!window.SKCV||!window.SKCV_MUNEEZ){setTimeout(paint,150);return;}document.querySelectorAll('[data-tl]').forEach(el=>{if(el.firstChild)return;try{const h=window.SKCV.render(window.SKCV_MUNEEZ,+el.dataset.tpl,{}).pages[0];el.innerHTML='<div style="position:absolute;left:0;top:0;width:794px;height:1123px;transform-origin:0 0;pointer-events:none">'+h+'</div>';const fit=()=>{const c=el.firstChild;if(c)c.style.transform='scale('+((el.clientWidth||230)/794)+')';};fit();if(window.ResizeObserver)new ResizeObserver(fit).observe(el);}catch(e){console.warn(e);}});};paint();if(!this._iv)this._iv=setInterval(paint,1000);
+  }
+  componentWillUnmount(){window.removeEventListener('resize',this._r);clearInterval(this._iv);}
+  renderVals(){
+    const s=this.state;
+    const PT={INR:['₹990','₹2,990','Indian rupees'],AED:['AED 49','AED 149','UAE dirhams'],SAR:['SAR 49','SAR 149','Saudi riyals'],QAR:['QAR 49','QAR 149','Qatari riyals'],KWD:['KWD 4.99','KWD 14.99','Kuwaiti dinars'],BHD:['BHD 4.99','BHD 14.99','Bahraini dinars'],OMR:['OMR 4.99','OMR 14.99','Omani rials'],GBP:['£15.99','£46.99','British pounds'],EUR:['€18.49','€54.99','euros'],CAD:['C$27.49','C$81.99','Canadian dollars'],AUD:['A$29.99','A$89.99','Australian dollars'],SGD:['S$25.99','S$77.99','Singapore dollars'],USD:['$19.99','$59.99','US dollars']};
+    const P=PT[s.cur]||PT.USD;
+    const FAQ=[
+      ['Do I need a CV before I can tailor?','Yes. Build one with our builder or upload your existing CV. That becomes your original CV for the subscription, and every tailored version is made from it.'],
+      ['How many tailored CVs can I make?','As many as you need during your subscription month. Each one is saved in your account.'],
+      ['Can I tailor CVs for other people?','No. One subscription covers one original CV, which is one person. To tailor a different CV, start a new subscription.'],
+      ['Will it add skills I do not have?','No. It only reorders and rewrites what is already in your CV. Suggested keywords are shown to you first, and you choose which to add.'],
+      ['Which formats can I download?','PDF and Word, in the same template and layout as your preview.'],
+      ['What if I just want one CV?','Use the One CV option on the main builder page. Build free and pay once to download.']
+    ];
+    return {
+      colsPains:'repeat('+(s.w>=760?3:1)+',minmax(0,1fr))',colsSteps:'repeat('+(s.w>=1100?4:s.w>=600?2:1)+',minmax(0,1fr))',colsFeats:'repeat('+(s.w>=1000?3:s.w>=600?2:1)+',minmax(0,1fr))',
+      navStyle:s.w<900?'display:none':'display:flex;gap:2px;align-items:center',
+      p2:P[0],p2o:P[1],curName:P[2],
+      kws:['Paid social','Google Ads','ROAS','A/B testing','GA4','HubSpot','Lead generation'],
+      pains:[
+        {n:'01',t:'ATS filters by keywords',d:'Most applications are screened by software first. If your CV does not use the words in the job description, it can be ranked low before anyone reads it.'},
+        {n:'02',t:'Recruiters skim in seconds',d:'They look for the skills the role asks for. A generic CV makes them search for it. A tailored one puts it first.'},
+        {n:'03',t:'Rewriting takes hours',d:'Editing your CV for every application is slow, so most people stop doing it. Here it takes about a minute.'}
+      ],
+      steps:[
+        {n:'1',t:'Add your CV once',d:'Build a new CV in our builder or upload the one you already have. This is your original CV.'},
+        {n:'2',t:'Paste the job description',d:'Copy the text of any job post from LinkedIn, Indeed, Naukri, Bayt or a company site.'},
+        {n:'3',t:'Review and confirm',d:'See your match score and the missing keywords. Tap the ones that are true for you to add them.'},
+        {n:'4',t:'Download and apply',d:'Get the tailored CV in PDF or Word. It is saved in your account for later.'}
+      ],
+      changes:[
+        {a:'Generic summary',b:'Summary written for this role'},
+        {a:'Skills in random order',b:'Most relevant skills first'},
+        {a:'Missing job keywords',b:'Keywords you confirm, added naturally'},
+        {a:'Same bullet points for every job',b:'Bullets reworded to match the role'},
+        {a:'Unknown ATS fit',b:'Match score before you apply'}
+      ],
+      feats:[
+        {t:'Unlimited tailored CVs',d:'Tailor for as many jobs as you apply to during your month.'},
+        {t:'Match score for every job',d:'See how well your CV fits the job before and after tailoring.'},
+        {t:'Keyword suggestions you approve',d:'Nothing is added without your tap. No made-up experience.'},
+        {t:'All 99 ATS templates',d:'Tailored CVs keep your chosen template, colours and layout.'},
+        {t:'PDF and Word downloads',d:'Same layout in both, ready to upload to any job portal.'},
+        {t:'Saved to your account',d:'Every tailored CV is stored with the job it was made for.'}
+      ],
+      rules:[
+        'One original CV per subscription: the CV you start tailoring with is locked as your original.',
+        'Unlimited tailored versions of that CV, for any job, during the month.',
+        'All tailored CVs are saved in your account to download again.',
+        'Want to tailor a different person\'s CV? Start a new subscription.'
+      ],
+      faqs:FAQ.map((f,i)=>({q:f[0],a:f[1],open:s.faq===i,ic:s.faq===i?'−':'+',on:()=>this.setState({faq:s.faq===i?-1:i})}))
+    };
+  }
+}
+</script>
+</body>
+</html>

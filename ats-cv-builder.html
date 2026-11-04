@@ -876,7 +876,8 @@ class Component extends DCLogic {
       if(code){try{const rec=await SKP.getCV(code);if(!rec||!rec.doc){this.flash('CV '+code+' not found.');}else{const doc=Object.assign({},rec.doc,{code:rec.code});this.setState(x=>{const cvs=x.cvs.filter(c=>c.code!==rec.code&&c.id!==doc.id);return {cvs:[doc,...cvs],cur:doc.id,view:'edit',synced:rec.code};});}}catch(e){this.flash(e.message);}}
       else if(q.get('new')&&!ro){this.create();}
       else if(q.get('import')&&!ro){this.setState({importOpen:true,importInto:null,impTab:'file'});}
-      if(code||q.get('new')||q.get('import'))history.replaceState(null,'',location.pathname);this.authed=true;},60);
+      else if(q.get('check')){this.setState({view:'checker'});window.scrollTo(0,0);}
+      if(code||q.get('new')||q.get('import')||q.get('check'))history.replaceState(null,'',location.pathname);this.authed=true;},60);
     const h=location.hash;if(h.startsWith('#cv=')){try{this.setState({view:'share',share:JSON.parse(b64d(h.slice(4)))});}catch(e){}}
     this._last={cvs:this.state.cvs,cur:this.state.cur,paid:this.state.paid};this.ro=new ResizeObserver(en=>{const w=Math.round(en[0].contentRect.width);if(Math.abs(w-(this._rw||0))<24)return;this._rw=w;this.lastKey='';this.paint();});
     this.wait=setInterval(()=>{if(window.SKCV){clearInterval(this.wait);this.lastKey='';this.paint();}},120);

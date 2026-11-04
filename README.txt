@@ -4,6 +4,7 @@ Pages
   /                      index.html                Landing page (Midnight Glass)
   /tailor                tailor.html               Tailor to each job
   /ats-cv-builder        ats-cv-builder.html       International ATS CV builder (99 templates)
+  /ats-score-checker     ats-score-checker.html    Free ATS score checker
   /europass-cv-builder   europass-cv-builder.html  Europass CV builder
 
 Push with GitHub Desktop

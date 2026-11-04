@@ -19,7 +19,7 @@ html{background:#050E26}
 body{margin:0;background:#050E26;font-family:Lato,sans-serif;color:#E6ECF7;-webkit-font-smoothing:antialiased}
 a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
 ::selection{background:#1F4FD0;color:#FFFFFF}
-@keyframes mg-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes mg-spin{to{transform:rotate(360deg)}}@keyframes mg-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes mg-drift{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
 @keyframes mg-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes mg-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -46,11 +46,12 @@ a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
 <a href="#pricing" style="padding:8px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#C9D3E8" style-hover="background:rgba(255,255,255,.08);color:#FFFFFF">Pricing</a>
 </nav>
 <div style="display:flex;gap:8px;align-items:center">
-<button style="{{ signInStyle }}">Sign in</button>
+<a href="{{ signInHref }}" style="{{ signInStyle }}">Sign in</a>
 <button onClick="{{ openChooser }}" style="{{ createCvStyle }}" style-hover="background:#DCE6FF">Create CV</button>
 </div>
 </div>
 </header>
+<sc-if value="{{ going }}" hint-placeholder-val="{{ false }}"><div style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:#050E26;animation:mg-rise .25s ease both"><div style="display:flex;flex-direction:column;align-items:center;gap:22px"><div style="position:relative;width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)"><span style="position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;border-top-color:#AFC4FF;border-right-color:rgba(175,196,255,.35);animation:mg-spin 1s linear infinite"></span><img src="assets/logo-white.png" alt="" style="width:44px;height:44px;object-fit:contain"></div><span style="font-weight:700;font-size:14px;letter-spacing:.14em;color:#AFC4FF">{{ goingLabel }}</span></div></div></sc-if>
 
 <sc-if value="{{ chooser }}" hint-placeholder-val="{{ false }}">
 <div onClick="{{ closeChooser }}" style="position:fixed;inset:0;z-index:100;background:rgba(3,8,24,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto">
@@ -58,13 +59,13 @@ a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
 <button onClick="{{ closeChooser }}" aria-label="Close" style="all:unset;cursor:pointer;position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:#FFFFFF;font-size:20px" style-hover="background:rgba(255,255,255,.16)">×</button>
 <div style="display:flex;flex-direction:column;gap:8px;padding-right:40px"><span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#AFC4FF">CREATE FREE CV</span><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,42px);line-height:1.05;color:#FFFFFF">Which CV do you need?</h2></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px">
-<a href="{{ atsHref }}" style="display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px;color:inherit;text-decoration:none;transition:all .2s" style-hover="background:rgba(175,196,255,.12);border-color:rgba(175,196,255,.5);transform:translateY(-2px)">
+<a href="{{ atsHref }}" onClick="{{ goBuilder }}" style="display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px;color:inherit;text-decoration:none;transition:all .2s" style-hover="background:rgba(175,196,255,.12);border-color:rgba(175,196,255,.5);transform:translateY(-2px)">
 <span style="align-self:flex-start;font-size:11px;font-weight:900;letter-spacing:.14em;color:#7FE0B0;background:rgba(127,224,176,.12);border:1px solid rgba(127,224,176,.3);border-radius:999px;padding:5px 10px">99 TEMPLATES</span>
 <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.05;color:#FFFFFF">International ATS CV</span>
 <span style="font-size:14px;line-height:1.6;color:#AEB9D3">For jobs in India, the GCC, UK, US and worldwide. ATS-friendly layouts.</span>
 <span style="margin-top:auto;font-weight:900;font-size:15px;color:#FFFFFF">Choose a template →</span>
 </a>
-<a href="{{ epHref }}" style="display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px;color:inherit;text-decoration:none;transition:all .2s" style-hover="background:rgba(175,196,255,.12);border-color:rgba(175,196,255,.5);transform:translateY(-2px)">
+<a href="{{ epHref }}" onClick="{{ goBuilder }}" style="display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px;color:inherit;text-decoration:none;transition:all .2s" style-hover="background:rgba(175,196,255,.12);border-color:rgba(175,196,255,.5);transform:translateY(-2px)">
 <span style="align-self:flex-start;font-size:11px;font-weight:900;letter-spacing:.14em;color:#7FE0B0;background:rgba(127,224,176,.12);border:1px solid rgba(127,224,176,.3);border-radius:999px;padding:5px 10px">EUROPASS TEMPLATES</span>
 <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.05;color:#FFFFFF">Europass CV</span>
 <span style="font-size:14px;line-height:1.6;color:#AEB9D3">The European standard format, for jobs and studies across Europe.</span>
@@ -77,7 +78,7 @@ a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
 
 <main style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,32px) 120px;box-sizing:border-box">
 
-<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,72px);align-items:stretch;padding:clamp(40px,8vw,120px) 0 clamp(48px,6vw,80px)">
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,72px);align-items:stretch;padding:clamp(40px,8vw,120px) 0 0">
 <div style="display: flex; flex-direction: column; justify-content: center; gap: 26px; min-height: 0; padding: 0; animation: mg-rise .7s ease both; border-radius: 0px; align-self: stretch; box-sizing: border-box">
 <div style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px 12px;align-self:flex-start;width:max-content;max-width:100%;box-sizing:border-box;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);font-size:14px;font-weight:700;color:#FFFFFF"><span style="white-space:nowrap">International CV formats</span><span style="width:4px;height:4px;border-radius:50%;background:#AFC4FF;flex:none"></span><span style="white-space:nowrap">Europass CV</span><span style="width:4px;height:4px;border-radius:50%;background:#AFC4FF;flex:none"></span><span style="white-space:nowrap">100+ ATS templates</span></div>
 <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(48px,6vw,80px);line-height:.96;letter-spacing:-.015em;color:#FFFFFF;text-wrap:balance">Get noticed by <span style="background:linear-gradient(90deg,#AFC4FF,#C9B8FF);-webkit-background-clip:text;background-clip:text;color:transparent">every ATS</span>.</h1>
@@ -179,7 +180,7 @@ a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
 <span style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#7FE0B0">FREE ATS CHECK</span>
 <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(36px,4.4vw,58px);line-height:1.02;color:#FFFFFF">See your score before a recruiter does.</h2>
 <p style="margin:0;font-size:16px;line-height:1.65;color:#AEB9D3;max-width:460px">Upload your current CV. We check layout, sections and keywords, then show you what to fix.</p>
-<div style="display:flex;gap:10px;flex-wrap:wrap"><button style="all:unset;cursor:pointer;background:#FFFFFF;color:#050E26;border-radius:14px;padding:15px 22px;font-weight:900;font-size:15px" style-hover="background:#DCE6FF">Check my CV free</button><button style="all:unset;cursor:pointer;color:#FFFFFF;border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:14px 20px;font-weight:900;font-size:15px" style-hover="background:rgba(255,255,255,.08)">Talk to an expert</button></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a href="{{ checkHref }}" style="display:inline-flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;background:#FFFFFF;color:#050E26;border-radius:14px;padding:15px 22px;font-weight:900;font-size:15px" style-hover="background:#DCE6FF">Check my CV free</a><button style="all:unset;cursor:pointer;color:#FFFFFF;border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:14px 20px;font-weight:900;font-size:15px" style-hover="background:rgba(255,255,255,.08)">Talk to an expert</button></div>
 </div>
 <div style="position:relative;background:rgba(10,22,56,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:900;font-size:15px;color:#FFFFFF">Aakash_CV.pdf</span><span style="font-size:12px;font-weight:900;color:#7FE0B0;background:rgba(127,224,176,.14);border-radius:8px;padding:4px 10px">92 / 100</span></div>
@@ -293,9 +294,9 @@ class Component extends DCLogic {
     const FAQ=[['Is building really free?','Yes. Build, edit and preview with every template for free. You only pay when you download.'],['Will my CV pass ATS?','Every template uses real text, standard headings and a clean reading order. The free ATS check shows your score and what to improve.'],['What does tailoring do?','Paste a job description and we rewrite your CV around it, using only your real experience, and show the keywords you can add.'],['Do I get Word and PDF?','Yes. Both formats keep the same layout, fonts and links.']];
     return {
       navStyle:narrow?'display:none':'display:flex;gap:2px',
-      chooser:!!s.chooser,openChooser:()=>this.setState({chooser:true}),closeChooser:()=>this.setState({chooser:false}),stop:e=>e.stopPropagation(),
+      chooser:!!s.chooser,going:!!s.going,goingLabel:s.going||'',goBuilder:e=>{const ep=/europass/i.test(e.currentTarget.getAttribute('href')||'');this.setState({chooser:false,going:ep?'OPENING EUROPASS BUILDER':'OPENING CV BUILDER'});},openChooser:()=>this.setState({chooser:true}),closeChooser:()=>this.setState({chooser:false}),stop:e=>e.stopPropagation(),
       planGo:()=>{if(one)this.setState({chooser:true});else location.href='/tailor';},
-      checkHref:'/ats-cv-builder?check=1',atsHref:'/ats-cv-builder?new=1',epHref:'/europass-cv-builder?new=1',
+      checkHref:'/ats-score-checker',signInHref:'/ats-cv-builder?signin=1',atsHref:'/ats-cv-builder?new=1',epHref:'/europass-cv-builder?new=1',
       signInStyle:narrow?'all:unset;cursor:pointer;padding:10px 18px;border-radius:12px;font-weight:900;font-size:14px;color:#050E26;background:#FFFFFF':'all:unset;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:900;font-size:14px;color:#FFFFFF',
       createCvStyle:'all:unset;cursor:pointer;background:#FFFFFF;color:#050E26;border-radius:12px;padding:11px 18px;font-weight:900;font-size:14px;'+(narrow?'display:none':''),
       setOne:()=>this.setState({plan:'one'}),setEvery:()=>this.setState({plan:'every'}),segOne:seg(one),segEvery:seg(!one),

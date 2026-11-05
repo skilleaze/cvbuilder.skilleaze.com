@@ -29,13 +29,13 @@
 <script src="./cv-builder/cv-engine.js?v=143"></script>
 <script src="./cv-builder/muneez.js?v=138"></script>
 <script src="./cv-builder/client-config.js?v=138"></script>
-<script src="./cv-builder/dodo-pay.js?v=103"></script>
+<script src="./cv-builder/dodo-pay.js?v=170"></script>
 <script src="./cv-builder/client-store.js?v=138"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="./cv-builder/rich-text.js?v=139"></script>
 <script src="./cv-builder/photo-crop.js?v=139"></script>
 <script src="./cv-builder/sk-ui.js?v=139"></script>
-<script src="./cv-builder/shield.js?v=150"></script>
+<script src="./cv-builder/shield.js?v=160"></script>
 <script src="./cv-builder/pdf-export.js?v=151"></script>
 <script src="./cv-builder/docx-dom.js?v=138"></script>
 <script src="./cv-builder/cv-import.js?v=138"></script>
@@ -801,13 +801,14 @@ class Component extends DCLogic {
     let i=0;const next=()=>{if(i>=chain.length)return;chain[i++]().then(c=>{self.setCur(CC2CUR[c]||'USD',true);}).catch(next);};next();}
   _pickPhoto(){const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=ev=>{this.lastKey='';this._onPhoto&&this._onPhoto(ev);};inp.click();}
   _adjustPhoto(){const cv=this.cvObj();const d=cv&&cv.data;if(!d||!d.photo||!window.SKPHOTO){this._pickPhoto();return;}SKPHOTO.open({src:d.photoOrig||d.photo,crop:d.photoOrig?d.photoCrop:{cx:.5,cy:.5,z:1},shape:cv.photoShape,onApply:(u,c)=>{this.lastKey='';this.upd(x=>{x.photo=u;x.photoCrop=c;if(!x.photoOrig)x.photoOrig=d.photo;});},onReplace:()=>this._pickPhoto()});}
-  componentDidMount(){setTimeout(()=>window.__skBootOff&&window.__skBootOff(),350);setTimeout(()=>this.fillProfile(),600);this.geoCur();this.acctSync();setTimeout(()=>this.googleBack(),0);
+  componentDidMount(){window.__skPayResume=P=>{if(!P)return;if(P.kind==='sub'){if(this.subscribe)this.subscribe();return;}const k=P.kind==='cover'?'cover':'cv';const has=P.cvId&&(this.state.cvs||[]).some(c=>c.id===P.cvId);this.setState(Object.assign(has?{cur:P.cvId}:{},{view:'edit',pay:{kind:k}}));};setTimeout(()=>window.__skBootOff&&window.__skBootOff(),350);setTimeout(()=>this.fillProfile(),600);this.geoCur();this.acctSync();setTimeout(()=>this.googleBack(),0);
     this._act=Date.now();this._sec=0;this._mk=()=>{this._act=Date.now();};['keydown','input','pointerdown','wheel','touchstart'].forEach(ev=>document.addEventListener(ev,this._mk,{passive:true,capture:true}));
     this._tick=setInterval(()=>{if(document.visibilityState==='visible'&&Date.now()-this._act<90000&&!this.state.ro&&this.authed&&this.cvObj())this._sec+=5;if(this._sec>=60)this.pushCv(true);},5000);
     this._vis=()=>{if(document.visibilityState==='hidden'&&this._sec>0)this.pushCv(true,true);};document.addEventListener('visibilitychange',this._vis);
     this.authed=false;const gate=setInterval(async()=>{if(!window.SKP)return;clearInterval(gate);const me=await SKP.me();if(!me){location.replace(/skilleaze\.com$|vercel\.app$/i.test(location.hostname)?'/ats-cv-builder':new URL('index.html',location.href).href);return;}const q=new URLSearchParams(location.search);const code=q.get('code');const ro=me.role==='admin';if(ro&&!code){location.replace(/skilleaze\.com$|vercel\.app$/i.test(location.hostname)?'/ats-cv-builder':new URL('index.html',location.href).href);return;}this.setState({me,ro});if(ro){const st=document.createElement('style');st.textContent='main input,main textarea,main select,main [contenteditable]{pointer-events:none!important;background:#FFFFFF!important}';document.head.appendChild(st);}
       if(code){try{const rec=await SKP.getCV(code);if(!rec||!rec.doc){this.flash('CV '+code+' not found.');}else{const doc=Object.assign({},rec.doc,{code:rec.code});this.setState(x=>{const cvs=x.cvs.filter(c=>c.code!==rec.code&&c.id!==doc.id);return {cvs:[doc,...cvs],cur:doc.id,view:'edit',synced:rec.code};});}}catch(e){this.flash(e.message);}}
       else if(q.get('new')&&!ro){this.create();}
+      else if(q.get('tailor')&&!ro){this.setState({view:'jd'});window.scrollTo(0,0);}
       else if(q.get('import')&&!ro){this.setState({importOpen:true,importInto:null,impTab:'file'});}
       else if(q.get('check')){this.setState({view:'checker'});window.scrollTo(0,0);}
       else if(q.get('signin')){this.setState({siOpen:true,siEmail:'',siPass:''});}

@@ -28,12 +28,12 @@
 <script src="./cv-builder/europass-engine.js?v=139"></script>
 <script src="./cv-builder/muneez.js?v=138"></script>
 <script src="./cv-builder/client-config.js?v=138"></script>
-<script src="./cv-builder/dodo-pay.js?v=103"></script>
+<script src="./cv-builder/dodo-pay.js?v=171"></script>
 <script src="./cv-builder/client-store.js?v=138"></script>
 <script src="./cv-builder/rich-text.js?v=139"></script>
 <script src="./cv-builder/photo-crop.js?v=139"></script>
 <script src="./cv-builder/sk-ui.js?v=139"></script>
-<script src="./cv-builder/shield.js?v=150"></script>
+<script src="./cv-builder/shield.js?v=160"></script>
 <script src="./cv-builder/pdf-export.js?v=151"></script>
 <script src="./cv-builder/docx-dom.js?v=138"></script>
 <script src="./cv-builder/cv-import.js?v=138"></script>
@@ -489,7 +489,7 @@ class Component extends DCLogic {
     let i=0;const next=()=>{if(i>=chain.length)return;chain[i++]().then(c=>{self.setCur(CC2CUR[c]||'USD',true);}).catch(next);};next();}
   _pickPhoto(){const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=ev=>{this.lastKey='';this._onPhoto&&this._onPhoto(ev);};inp.click();}
   _adjustPhoto(){const cv=this.cvObj();const d=cv&&cv.data;if(!d||!d.photo||!window.SKPHOTO){this._pickPhoto();return;}SKPHOTO.open({src:d.photoOrig||d.photo,crop:d.photoOrig?d.photoCrop:{cx:.5,cy:.5,z:1},shape:cv.photoShape,onApply:(u,c)=>{this.lastKey='';this.upd(x=>{x.photo=u;x.photoCrop=c;if(!x.photoOrig)x.photoOrig=d.photo;});},onReplace:()=>this._pickPhoto()});}
-  componentDidMount(){setTimeout(()=>window.__skBootOff&&window.__skBootOff(),350);this.geoCur();
+  componentDidMount(){window.__skPayResume=P=>{if(!P)return;if(P.kind==='sub'){if(this.subscribe)this.subscribe();return;}const k=P.kind==='cover'?'cover':'cv';const has=P.cvId&&(this.state.cvs||[]).some(c=>c.id===P.cvId);this.setState(Object.assign(has?{cur:P.cvId}:{},{view:'edit',pay:{kind:k}}));};setTimeout(()=>window.__skBootOff&&window.__skBootOff(),350);this.geoCur();
     this._act=Date.now();this._sec=0;this._mk=()=>{this._act=Date.now();};['keydown','input','pointerdown','wheel','touchstart'].forEach(ev=>document.addEventListener(ev,this._mk,{passive:true,capture:true}));
     this._tick=setInterval(()=>{if(document.visibilityState==='visible'&&Date.now()-this._act<90000&&!this.state.ro&&this.authed&&this.cvObj())this._sec+=5;if(this._sec>=60)this.pushCv(true);},5000);
     this._vis=()=>{if(document.visibilityState==='hidden'&&this._sec>0)this.pushCv(true,true);};document.addEventListener('visibilitychange',this._vis);
@@ -498,8 +498,9 @@ class Component extends DCLogic {
       {const tq=q.get('tpl');if(tq!=null&&/^\d+$/.test(tq))this._nextTpl=+tq;}
       if(q.get('start')&&this._nextTpl!=null&&!ro){const n=this._nextTpl;this.create();setTimeout(()=>this.setState({tplAsk:n,pickerOpen:false}),50);}
       else if(q.get('new')&&!ro){this.create();}
+      else if(q.get('tailor')&&!ro){this.setState({view:'jd'});window.scrollTo(0,0);if(q.get('activate'))setTimeout(()=>{try{this.subscribe();}catch(e){}},900);}
       else if(q.get('import')&&!ro){this.setState({importOpen:true,importInto:null,impTab:'file'});}
-      if(code||q.get('start')||q.get('tpl')||q.get('new')||q.get('import'))history.replaceState(null,'',location.pathname);this.authed=true;},60);
+      if(code||q.get('tailor')||q.get('start')||q.get('tpl')||q.get('new')||q.get('import'))history.replaceState(null,'',location.pathname);this.authed=true;},60);
     const h=location.hash;if(h.startsWith('#cv=')){try{this.setState({view:'share',share:JSON.parse(b64d(h.slice(4)))});}catch(e){}}
     this._last={cvs:this.state.cvs,cur:this.state.cur,paid:this.state.paid};this.ro=new ResizeObserver(en=>{const w=Math.round(en[0].contentRect.width);if(Math.abs(w-(this._rw||0))<24)return;this._rw=w;this.lastKey='';this.paint();});
     this.wait=setInterval(()=>{if(window.SKCV){clearInterval(this.wait);this.lastKey='';this.paint();}},120);

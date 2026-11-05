@@ -25,7 +25,7 @@ a{color:#AFC4FF;text-decoration:none}a:hover{color:#FFFFFF}
 @keyframes mg-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes mg-scan{0%{top:6%}100%{top:90%}}
 </style>
-<script src="cv-builder/cv-engine.js?v=40"></script>
+<script src="cv-builder/cv-engine.js?v=43"></script>
 <script src="cv-builder/muneez.js?v=38"></script>
 </helmet>
 
@@ -277,7 +277,7 @@ class Component extends DCLogic {
   componentDidMount(){this._hashNav=e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;e.preventDefault();const id=a.getAttribute('href').slice(1);const el=id&&document.getElementById(id);if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-90,behavior:'smooth'});else window.scrollTo({top:0,behavior:'smooth'});if(location.hash)history.replaceState(null,'',location.pathname+location.search);};document.addEventListener('click',this._hashNav);if(location.hash)history.replaceState(null,'',location.pathname+location.search);fetch('https://ipapi.co/currency/').then(r=>r.ok?r.text():'').then(c=>{c=(c||'').trim().toUpperCase();const ok=['INR','AED','SAR','QAR','KWD','BHD','OMR','GBP','EUR','CAD','AUD','SGD','USD'];if(/^[A-Z]{3}$/.test(c))this.setState({cur:ok.includes(c)?c:'USD'});}).catch(()=>{});this.paintHeroCvs();this.loadEp();this._r=()=>this.setState({w:window.innerWidth});window.addEventListener('resize',this._r);this.fill();}
   componentWillUnmount(){window.removeEventListener('resize',this._r);}
   componentDidUpdate(){this.fill();}
-  loadEp(){if(window.SKCV_EP)return;const go=()=>{if(!window.SKCV){setTimeout(go,150);return;}fetch('cv-builder/europass-engine.js?v=40').then(r=>r.text()).then(t=>{const keep=window.SKCV;t=t.replace(/let _lock=0;[\s\S]*?addEventListener\('load',fix\);/,'').replace('window.SKCV=EPX;','');try{(0,eval)(t);}catch(e){console.warn(e);}window.SKCV=keep;this.forceUpdate();}).catch(e=>console.warn(e));};go();}
+  loadEp(){if(window.SKCV_EP)return;const go=()=>{if(!window.SKCV){setTimeout(go,150);return;}fetch('cv-builder/europass-engine.js?v=41').then(r=>r.text()).then(t=>{const keep=window.SKCV;t=t.replace(/let _lock=0;[\s\S]*?addEventListener\('load',fix\);/,'').replace('window.SKCV=EPX;','');try{(0,eval)(t);}catch(e){console.warn(e);}window.SKCV=keep;this.forceUpdate();}).catch(e=>console.warn(e));};go();}
   fill(){const rail=this.rail;if(!rail)return;const ep=this.state.kind==='ep';const E=ep?window.SKCV_EP:window.SKCV;if(!E||!window.SKCV_MUNEEZ){if((this._t=(this._t||0)+1)<120)setTimeout(()=>this.fill(),150);return;}
     if(!this._io&&window.IntersectionObserver)this._io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting)this.paintBox(x.target);}),{root:rail,rootMargin:'0px 600px'});
     rail.querySelectorAll('[data-tplbox]').forEach(b=>{const key=(ep?'ep':'ats')+b.getAttribute('data-tplbox');if(b._key===key)return;b._key=key;b._painted=null;b.innerHTML='';if(this._io){this._io.unobserve(b);this._io.observe(b);}else this.paintBox(b);});}

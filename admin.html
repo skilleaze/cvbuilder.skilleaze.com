@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Skilleaze CV Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&amp;family=Lato:wght@400;700;900&amp;display=swap">
+<script src="./cv-builder/client-config.js?v=139"></script>
+<style>
+html,body{margin:0;background:#F4F6FA;font-family:Lato,system-ui,sans-serif;color:#2C3E50;-webkit-font-smoothing:antialiased}
+a{color:#042D7C}a:hover{color:#053BA0}
+*:focus-visible{outline:2px solid #2F5BEA;outline-offset:2px}
+input[type=date]{color-scheme:light}
+@keyframes skpulse{0%{r:3;opacity:.9}70%{r:13;opacity:0}100%{r:13;opacity:0}}
+</style>
+</helmet>
+
+<sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box">
+<form onSubmit="{{ login }}" style="width:100%;max-width:400px;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:32px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px;box-shadow:0 20px 60px rgba(4,45,124,.08)">
+<img src="./assets/logo-blue.png" alt="Skilleaze" style="height:44px;width:auto;align-self:flex-start">
+<div style="display:flex;flex-direction:column;gap:6px">
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:34px;color:#042D7C;line-height:1.05">CV Builder admin</h1>
+<div style="font-size:14px;color:#5B6B7F">Analytics, payments and marketing tags.</div>
+</div>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#2C3E50">Username
+<input value="{{ user }}" onInput="{{ setUser }}" autocomplete="username" style="font:inherit;font-size:15px;font-weight:400;padding:13px 14px;border:1px solid #D5DAE3;border-radius:12px;background:#FFFFFF;color:#2C3E50;outline:none">
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#2C3E50">Password
+<input type="password" value="{{ pass }}" onInput="{{ setPass }}" autocomplete="current-password" style="font:inherit;font-size:15px;font-weight:400;padding:13px 14px;border:1px solid #D5DAE3;border-radius:12px;background:#FFFFFF;color:#2C3E50;outline:none">
+</label>
+<sc-if value="{{ err }}"><div style="font-size:13px;color:#B42318;background:#FEF3F2;border-radius:10px;padding:10px 12px">{{ err }}</div></sc-if>
+<button type="submit" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:12px;padding:14px 18px;font:inherit;font-weight:900;font-size:15px;cursor:pointer;text-align:left" style-hover="background:#053BA0">{{ loginLabel }}</button>
+</form>
+</div>
+</sc-if>
+
+<sc-if value="{{ showDash }}">
+<div style="min-height:100vh">
+<header style="position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #E3E4E8">
+<div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:14px">
+<img src="./assets/logo-blue.png" alt="Skilleaze" style="height:34px;width:auto">
+<span style="font-size:12px;font-weight:900;letter-spacing:.14em;color:#5B6B7F">CV BUILDER ADMIN</span>
+</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ ranges }}" as="r" hint-placeholder-count="4">
+<button onClick="{{ r.pick }}" style="border:1px solid {{ r.bd }};background:{{ r.bg }};color:{{ r.fg }};border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ r.label }}</button>
+</sc-for>
+<input type="date" value="{{ from }}" onChange="{{ setFrom }}" style="font:inherit;font-size:13px;padding:7px 10px;border:1px solid #D5DAE3;border-radius:10px;background:#FFFFFF;color:#2C3E50">
+<span style="font-size:13px;color:#5B6B7F">to</span>
+<input type="date" value="{{ to }}" onChange="{{ setTo }}" style="font:inherit;font-size:13px;padding:7px 10px;border:1px solid #D5DAE3;border-radius:10px;background:#FFFFFF;color:#2C3E50">
+<button onClick="{{ refresh }}" style="border:none;background:#042D7C;color:#FFFFFF;border-radius:999px;padding:8px 16px;font:inherit;font-size:13px;font-weight:900;cursor:pointer" style-hover="background:#053BA0">{{ refreshLabel }}</button>
+<button onClick="{{ logout }}" style="border:1px solid #E3E4E8;background:#FFFFFF;color:#5B6B7F;border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#F1F3F7">Log out</button>
+</div>
+</div>
+</header>
+
+<main style="max-width:1280px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:28px;box-sizing:border-box">
+
+<sc-if value="{{ err }}"><div style="font-size:14px;color:#B42318;background:#FEF3F2;border:1px solid #FECDCA;border-radius:14px;padding:14px 16px">{{ err }}</div></sc-if>
+
+<section style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;color:#042D7C">Overview</h2>
+<span style="font-size:13px;color:#5B6B7F">{{ rangeText }}</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="8">
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span>
+<span style="font-size:30px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span>
+<span style="font-size:12px;color:#8A96A8">{{ k.sub }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Visitors around the world</h3>
+<span style="display:inline-flex;align-items:center;gap:8px;background:#E7F6EF;color:#14684D;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:900"><span style="width:8px;height:8px;border-radius:50%;background:#1E8F6A;box-shadow:0 0 0 4px rgba(30,143,106,.18)"></span>{{ liveText }}</span>
+</div>
+<div style="display:flex;gap:14px;font-size:12px;color:#5B6B7F;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#2F5BEA;opacity:.55"></span>Visitors in period</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#1E8F6A"></span>Live now (last 5 min)</span></div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(220px,1fr);gap:18px;align-items:start">
+<div style="position:relative;width:100%;aspect-ratio:2/1;background:#F4F7FC;border-radius:16px;overflow:hidden;min-width:0">
+<div ref="{{ mapRef }}" style="position:absolute;inset:0"></div>
+<sc-if value="{{ mapMsg }}"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#8A96A8;padding:16px;text-align:center">{{ mapMsg }}</div></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+<div style="font-size:12px;font-weight:900;letter-spacing:.1em;color:#8A96A8">TOP COUNTRIES</div>
+<sc-if value="{{ noCountries }}"><div style="font-size:13px;color:#8A96A8">No location data yet.</div></sc-if>
+<sc-for list="{{ countries }}" as="c" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;gap:5px">
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.label }}</span><strong style="color:#042D7C">{{ c.n }}</strong></div>
+<div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ c.pct }};background:#2F5BEA;border-radius:999px"></div></div>
+</div>
+</sc-for>
+<sc-if value="{{ hasLive }}">
+<div style="font-size:12px;font-weight:900;letter-spacing:.1em;color:#8A96A8;margin-top:8px">LIVE NOW</div>
+<sc-for list="{{ live }}" as="v" hint-placeholder-count="3">
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ v.label }}</span><span style="color:#14684D;font-weight:900">{{ v.n }}</span></div>
+</sc-for>
+</sc-if>
+</div>
+</div>
+</section>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Daily visitors and payments</h3>
+<div style="display:flex;gap:14px;font-size:12px;color:#5B6B7F"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#B9C8F5"></span>Visitors</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#1E8F6A"></span>Paid</span></div>
+</div>
+<div style="height:200px;display:flex;align-items:flex-end;gap:3px;border-bottom:1px solid #E3E4E8;overflow-x:auto">
+<sc-for list="{{ daily }}" as="d" hint-placeholder-count="14">
+<div title="{{ d.tip }}" style="flex:1 0 8px;min-width:8px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:2px">
+<div style="height:{{ d.ph }};background:#1E8F6A;border-radius:3px 3px 0 0"></div>
+<div style="height:{{ d.vh }};background:#B9C8F5;border-radius:3px 3px 0 0"></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:11px;color:#8A96A8"><span>{{ from }}</span><span>{{ to }}</span></div>
+</div>
+
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Revenue (paid)</h3>
+<sc-if value="{{ noRevenue }}"><div style="font-size:14px;color:#5B6B7F">No completed payments in this period.</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
+<sc-for list="{{ revenue }}" as="v" hint-placeholder-count="2">
+<div style="background:#F4F8F6;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:22px;font-weight:900;color:#14684D">{{ v.total }}</span>
+<span style="font-size:12px;color:#5B6B7F">{{ v.n }}</span>
+</div>
+</sc-for>
+</div>
+<h3 style="margin:6px 0 0;font-size:14px;font-weight:900;color:#2C3E50">Paid by product</h3>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ byKind }}" as="b" hint-placeholder-count="3">
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:8px 0;border-bottom:1px solid #EEF1F5"><span>{{ b.name }}</span><strong style="color:#042D7C">{{ b.n }}</strong></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#8A96A8">{{ payNote }}</div>
+</div>
+</section>
+
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Marketing channels</h3>
+<span style="font-size:12px;color:#5B6B7F">{{ tagNote }}</span>
+</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ channels }}" as="c" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EEF1F5">
+<div style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:15px;font-weight:900;color:#2C3E50">{{ c.name }}</span><span style="font-size:12px;color:#8A96A8;word-break:break-all">{{ c.id }}</span></div>
+<div><span style="display:inline-flex;align-items:center;gap:6px;background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:6px 12px;font-size:12px;font-weight:900"><span style="width:7px;height:7px;border-radius:50%;background:{{ c.fg }}"></span>{{ c.status }}</span></div>
+<div style="font-size:13px;color:#5B6B7F;line-height:1.45;min-width:0;word-break:break-word">{{ c.detail }}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+<sc-for list="{{ lists }}" as="l" hint-placeholder-count="4">
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">{{ l.title }}</h3>
+<sc-if value="{{ l.empty }}"><div style="font-size:13px;color:#8A96A8">No data yet.</div></sc-if>
+<sc-for list="{{ l.rows }}" as="w" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:5px">
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ w.label }}</span><strong style="color:#042D7C">{{ w.n }}</strong></div>
+<div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ w.pct }};background:#2F5BEA;border-radius:999px"></div></div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</section>
+
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Recent payments</h3>
+<sc-if value="{{ noPayments }}"><div style="font-size:13px;color:#8A96A8">No payments in this period.</div></sc-if>
+<div style="overflow-x:auto">
+<div style="min-width:720px;display:flex;flex-direction:column">
+<sc-if value="{{ hasPayments }}"><div style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>DATE</span><span>PRODUCT</span><span>STATUS</span><span>AMOUNT</span><span>CUSTOMER</span></div></sc-if>
+<sc-for list="{{ payments }}" as="p" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#5B6B7F">{{ p.date }}</span><span>{{ p.kind }}</span>
+<span><span style="background:{{ p.bg }};color:{{ p.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ p.status }}</span></span>
+<strong style="color:#042D7C">{{ p.amount }}</strong>
+<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.who }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Live activity</h3>
+<sc-if value="{{ noEvents }}"><div style="font-size:13px;color:#8A96A8">No activity in this period.</div></sc-if>
+<div style="overflow-x:auto">
+<div style="min-width:640px;display:flex;flex-direction:column">
+<sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:150px 130px minmax(0,1fr) 130px 90px;gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#5B6B7F">{{ e.date }}</span>
+<span><span style="background:#EEF3FF;color:#042D7C;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ e.ev }}</span></span>
+<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.path }}</span>
+<span style="color:#5B6B7F;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.source }}</span>
+<span style="color:#5B6B7F">{{ e.dev }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const CH=[
+ {k:'ga',name:'Google Analytics 4',id:'G-HM0RMGSK4X'},
+ {k:'gads',name:'Google Ads',id:'AW-18558698998'},
+ {k:'fb',name:'Meta Pixel',id:'1109298925311765'},
+ {srv:'meta_capi',name:'Meta Conversions API',id:'Server · sent on each paid order'},
+ {k:'tt',name:'TikTok Pixel',id:'DBMDU1RC77UASCMH61QG'},
+ {srv:'tiktok_events_api',name:'TikTok Events API',id:'Server · sent on each paid order'},
+ {k:'oai',name:'ChatGPT Ads',id:'DhnmpDnkxG13M7TutQeBwn'},
+ {k:'clarity',name:'Microsoft Clarity',id:'z90cinb8w4'}];
+const KIND={ats:'ATS CV',europass:'Europass CV',cover:'Cover letter',sub:'Tailor subscription'};
+const EVN={page_view:'Page view',checkout:'Checkout',purchase:'Purchase',whatsapp:'WhatsApp',download:'Download',signin:'Sign in',ats_check:'ATS check'};
+const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const ago=n=>{const d=new Date();d.setDate(d.getDate()-n);return iso(d);};
+const nf=n=>Number(n||0).toLocaleString('en-IN');
+const when=t=>{if(!t)return '';const d=new Date(t);return d.toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});};
+const rel=t=>{if(!t)return 'never';const s=(Date.now()-new Date(t))/1000;if(s<90)return 'just now';if(s<3600)return Math.round(s/60)+' min ago';if(s<86400)return Math.round(s/3600)+' h ago';return Math.round(s/86400)+' d ago';};
+const money=(c,v)=>{try{return new Intl.NumberFormat('en',{style:'currency',currency:c||'USD',maximumFractionDigits:2}).format(v||0);}catch(e){return (c||'')+' '+(v||0);}};
+class Component extends DCLogic {
+  state={user:'',pass:'',err:'',busy:false,authed:false,data:null,range:30,from:ago(29),to:iso(new Date())};
+  componentWillUnmount(){clearInterval(this._lt);}
+  libs(){if(this._libs)return this._libs;const add=u=>new Promise((r,j)=>{const x=document.createElement('script');x.src=u;x.onload=r;x.onerror=j;document.head.appendChild(x);});
+    this._libs=add('https://cdn.jsdelivr.net/npm/d3-array@3').then(()=>add('https://cdn.jsdelivr.net/npm/d3-geo@3')).then(()=>add('https://cdn.jsdelivr.net/npm/topojson-client@3')).then(()=>fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')).then(r=>r.json()).then(w=>{this._world=w;});return this._libs;}
+  async loadGeo(){if(!this.cred)return;try{const g=await this.rpc('cvb_admin_geo',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({geo:g,geoErr:''},()=>this.drawMap());}catch(x){this.setState({geoErr:/setup needed/i.test(x.message)?'Map setup needed: run cvbuilder-admin-geo.sql in Supabase → SQL Editor.':x.message});}}
+  async drawMap(){const el=this.mapEl;if(!el)return;try{await this.libs();}catch(e){this.setState({geoErr:'Could not load the world map. Check your connection.'});return;}const d3=window.d3,tj=window.topojson;if(!d3||!tj||!this._world)return;
+    const W=1000,H=500,pr=d3.geoEqualEarth().fitExtent([[12,12],[W-12,H-12]],{type:'Sphere'}),pa=d3.geoPath(pr);const land=tj.feature(this._world,this._world.objects.countries);
+    const g=this.state.geo||{},pts=g.points||[],lv=g.live||[],mx=Math.max(1,...pts.map(p=>p.n));const esc=v=>String(v||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+    let h='<svg viewBox="0 0 '+W+' '+H+'" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block"><path d="'+pa({type:'Sphere'})+'" fill="#F4F7FC"/><path d="'+pa(land)+'" fill="#DCE3EF" stroke="#FFFFFF" stroke-width="0.6"/>';
+    pts.forEach(p=>{const c=pr([+p.lon,+p.lat]);if(!c)return;const r=(3+Math.sqrt(p.n/mx)*9).toFixed(1);h+='<circle cx="'+c[0].toFixed(1)+'" cy="'+c[1].toFixed(1)+'" r="'+r+'" fill="#2F5BEA" fill-opacity=".45" stroke="#2F5BEA" stroke-opacity=".7" stroke-width="1"><title>'+esc([p.city,p.country].filter(Boolean).join(', '))+' · '+p.n+' visitor'+(p.n==1?'':'s')+'</title></circle>';});
+    lv.forEach(p=>{const c=pr([+p.lon,+p.lat]);if(!c)return;const x=c[0].toFixed(1),y=c[1].toFixed(1);h+='<circle cx="'+x+'" cy="'+y+'" r="3" fill="#1E8F6A" style="animation:skpulse 1.8s ease-out infinite"/><circle cx="'+x+'" cy="'+y+'" r="4.5" fill="#1E8F6A" stroke="#FFFFFF" stroke-width="1.5"><title>Live: '+esc([p.city,p.country].filter(Boolean).join(', '))+' · '+p.n+' now'+(p.path?' · '+esc(p.path):'')+'</title></circle>';});
+    el.innerHTML=h+'</svg>';}
+  componentDidMount(){this._lt=setInterval(()=>{if(this.cred&&document.visibilityState==='visible')this.loadGeo();},30000);try{const s=JSON.parse(sessionStorage.getItem('skc_admin')||'null');if(s&&s.u&&s.p){this.cred=s;this.setState({authed:true},()=>this.load());}}catch(e){}}
+  async rpc(fn,body){const C=window.SKP_CONFIG||{};const r=await fetch(C.supabaseUrl+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey},body:JSON.stringify(body)});const t=await r.text();let j=null;try{j=JSON.parse(t)}catch(e){}if(!r.ok){const m=(j&&(j.message||j.hint))||t||'Request failed';if(/cvb_admin|function .* does not exist|Could not find the function/i.test(m))throw new Error('Database setup needed: run cvbuilder-admin.sql in Supabase → SQL Editor.');throw new Error(m);}return j;}
+  async login(e){e&&e.preventDefault&&e.preventDefault();const u=this.state.user.trim(),p=this.state.pass;if(!u||!p){this.setState({err:'Enter your username and password.'});return;}
+    this.setState({busy:true,err:''});try{const ok=await this.rpc('cvb_admin_login',{p_user:u,p_pass:p});if(!ok){this.setState({busy:false,err:'Wrong username or password.'});return;}this.cred={u,p};try{sessionStorage.setItem('skc_admin',JSON.stringify(this.cred));}catch(x){}this.setState({authed:true,busy:false,pass:''},()=>this.load());}catch(x){this.setState({busy:false,err:x.message});}}
+  async load(){if(!this.cred)return;this.setState({busy:true,err:''});try{const d=await this.rpc('cvb_admin_stats',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({data:d,busy:false});this.loadGeo();}catch(x){if(/Wrong username/i.test(x.message)){this.logout();return;}this.setState({busy:false,err:x.message});}}
+  logout(){this.cred=null;try{sessionStorage.removeItem('skc_admin');}catch(e){}this.setState({authed:false,data:null,pass:'',err:''});}
+  pick(n){const to=iso(new Date()),from=n===1?to:ago(n-1);this.setState({range:n,from,to},()=>this.load());}
+  renderVals(){const s=this.state,d=s.data||{},T=d.totals||{},P=d.payments||{};
+    const paid=P.paid||0,vis=T.visitors||0;
+    const kpis=[{label:'Visitors',value:nf(vis),sub:nf(T.pageviews)+' page views'},{label:'Checkouts started',value:nf(T.checkouts),sub:vis?((T.checkouts/vis*100).toFixed(1)+'% of visitors'):'—'},
+      {label:'Payments completed',value:nf(paid),sub:nf(P.pending||0)+' pending · '+nf(P.failed||0)+' failed'},{label:'Conversion rate',value:vis?((paid/vis*100).toFixed(2)+'%'):'—',sub:'Paid orders ÷ visitors'},
+      {label:'Checkout to paid',value:T.checkouts?((paid/T.checkouts*100).toFixed(0)+'%'):'—',sub:'Paid ÷ checkouts'},{label:'Downloads',value:nf(T.downloads),sub:'PDF and Word files'},
+      {label:'WhatsApp clicks',value:nf(T.whatsapp),sub:'Expert enquiries'},{label:'Pages per visitor',value:vis?(T.pageviews/vis).toFixed(1):'—',sub:'Average'}];
+    const days=d.daily||[];const mx=Math.max(1,...days.map(x=>x.visitors||0));const pm=Math.max(1,...days.map(x=>x.paid||0));
+    const daily=days.map(x=>({vh:Math.round((x.visitors||0)/mx*100*0.8)+'%',ph:(x.paid?Math.max(4,Math.round(x.paid/pm*18)):0)+'%',tip:x.d+' · '+(x.visitors||0)+' visitors · '+(x.paid||0)+' paid'}));
+    const rev=(P.revenue||[]).map(r=>({total:money(r.cur,r.total),n:r.n+' paid order'+(r.n===1?'':'s')}));
+    const B=d.channels_browser||{},checked=B.checked||0,SV={};(d.channels_server||[]).forEach(x=>SV[x.channel]=x);
+    const st=(lbl,c)=>({status:lbl,bg:c==='g'?'#E7F6EF':c==='a'?'#FFF6E5':c==='r'?'#FEF3F2':'#F1F3F7',fg:c==='g'?'#14684D':c==='a'?'#9A6100':c==='r'?'#B42318':'#5B6B7F'});
+    const channels=CH.map(c=>{if(c.srv){const x=SV[c.srv];if(!x)return Object.assign({name:c.name,id:c.id,detail:'No paid orders sent yet in this period. Needs its token in Supabase secrets.'},st('Waiting','n'));
+        const good=x.ok>0&&!x.failed;return Object.assign({name:c.name,id:c.id,detail:x.ok+' sent · '+x.failed+' failed · last '+rel(x.last)+(x.failed&&x.last_reply?' · '+String(x.last_reply).slice(0,120):'')},st(good?'Working':(x.ok?'Some errors':'Failing'),good?'g':x.ok?'a':'r'));}
+      const y=B[c.k]||{n:0};if(!checked)return Object.assign({name:c.name,id:c.id,detail:'No visits checked yet in this period.'},st('No data','n'));
+      const pct=Math.round((y.n||0)/checked*100);return Object.assign({name:c.name,id:c.id,detail:'Fired on '+pct+'% of '+nf(checked)+' checked visits · last '+rel(y.last)},st(pct>=40?'Firing':pct>0?'Partly':'Not firing',pct>=40?'g':pct>0?'a':'r'));});
+    const lst=(title,rows,lab,val)=>{const m=Math.max(1,...rows.map(val));return {title,empty:!rows.length,rows:rows.map(r=>({label:lab(r),n:nf(val(r)),pct:Math.round(val(r)/m*100)+'%'}))};};
+    const lists=[lst('Traffic sources',d.sources||[],r=>r.source+(r.medium?' · '+r.medium:''),r=>r.visitors),lst('Top pages',d.pages||[],r=>r.path,r=>r.views),
+      lst('Devices',d.devices||[],r=>r.dev,r=>r.n),lst('Regions (time zone)',d.regions||[],r=>r.tz.replace(/_/g,' '),r=>r.n),
+      lst('All events',(d.events||[]).filter(r=>r.ev!=='tags'&&r.ev!=='ping'),r=>EVN[r.ev]||r.ev,r=>r.n)];
+    const payments=(d.recent_payments||[]).map(p=>{const S={paid:['Paid','#E7F6EF','#14684D'],pending:['Pending','#FFF6E5','#9A6100'],failed:['Failed','#FEF3F2','#B42318'],ended:['Ended','#F1F3F7','#5B6B7F']}[p.status]||[p.status,'#F1F3F7','#5B6B7F'];
+      return {date:when(p.created_at),kind:KIND[p.kind]||p.kind,status:S[0],bg:S[1],fg:S[2],amount:p.amount?money(p.currency,p.amount):'—',who:[p.name,p.email].filter(Boolean).join(' · ')||p.cv_name||'—'};});
+    const events=(d.recent_events||[]).filter(e=>e.ev!=='ping').map(e=>({date:when(e.at),ev:EVN[e.ev]||e.ev,path:e.path||'/',source:e.source||'direct',dev:e.dev||''}));
+    const R=[[1,'Today'],[7,'7 days'],[30,'30 days'],[90,'90 days']].map(([n,l])=>{const on=s.range===n;return {label:l,pick:()=>this.pick(n),bg:on?'#042D7C':'#FFFFFF',fg:on?'#FFFFFF':'#2C3E50',bd:on?'#042D7C':'#E3E4E8'};});
+    const G=s.geo||{},cs=G.countries||[],cm=Math.max(1,...cs.map(c=>c.n)),lc=G.live_count||0;
+    const geoVals={mapRef:el=>{if(el&&el!==this.mapEl){this.mapEl=el;this.drawMap();}},liveText:lc+' live now',countries:cs.map(c=>({label:c.country,n:nf(c.n),pct:Math.round(c.n/cm*100)+'%'})),noCountries:!cs.length,
+      live:(G.live||[]).map(v=>({label:[v.city,v.country].filter(Boolean).join(', ')||'Unknown',n:v.n})),hasLive:!!(G.live||[]).length,
+      mapMsg:s.geoErr||(s.geo&&!(G.points||[]).length&&!(G.live||[]).length?'No visitor locations yet. Dots appear as people visit.':'')};
+    return {...geoVals,showLogin:!s.authed,showDash:s.authed,user:s.user,pass:s.pass,err:s.err,loginLabel:s.busy?'Signing in…':'Sign in',
+      setUser:e=>this.setState({user:e.target.value}),setPass:e=>this.setState({pass:e.target.value}),login:e=>this.login(e),logout:()=>this.logout(),
+      ranges:R,from:s.from,to:s.to,setFrom:e=>this.setState({from:e.target.value,range:0},()=>this.load()),setTo:e=>this.setState({to:e.target.value,range:0},()=>this.load()),
+      refresh:()=>this.load(),refreshLabel:s.busy?'Loading…':'Refresh',rangeText:s.from+' to '+s.to,
+      kpis,daily,revenue:rev,noRevenue:!rev.length,byKind:(P.by_kind||[]).map(b=>({name:KIND[b.kind]||b.kind,n:nf(b.n)})),
+      payNote:'Amounts are what Dodo charged, in the charged currency.',
+      channels,tagNote:'Checked in each visitor’s browser about 9 seconds after arrival. Ad blockers lower these numbers.',
+      lists,payments,hasPayments:payments.length>0,noPayments:!payments.length,events,noEvents:!events.length};
+  }
+}
+</script>
+</body>
+</html>

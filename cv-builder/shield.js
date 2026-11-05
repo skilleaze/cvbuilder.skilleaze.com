@@ -1,16 +1,14 @@
 /* Skilleaze screen shield (customer builder).
    Browsers cannot fully block screenshots. This makes them useless:
-   - a tiled watermark over every on-screen CV page (not in downloads)
    - the screen goes black when a screenshot or screen-capture tool takes focus,
      on Print Screen / Cmd+Shift / Win+Shift, and when the tab is hidden
    - printing, right-click, copy and drag are blocked on the CV preview */
 (function(){
 if(window.__skShield)return;window.__skShield=1;
+/* no watermark: remove any old one left by a cached copy */document.querySelectorAll('style#sk-shield').forEach(n=>n.remove());
 const SEL='[data-skb="prev"],[data-skb="jdprev"],[data-skb="cover"]';
-const wm=encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><g transform="rotate(-30 150 100)" fill="#042D7C" fill-opacity="0.13" font-family="Lato,Arial,sans-serif" font-weight="900"><text x="20" y="96" font-size="22" letter-spacing="3">SKILLEAZE PREVIEW</text><text x="44" y="124" font-size="12" letter-spacing="2">DOWNLOAD TO GET YOUR CV</text></g></svg>');
 const css=document.createElement('style');css.id='sk-shield';css.textContent=`
 ${SEL.split(',').map(s=>s+' > *').join(',')}{position:relative!important}
-${SEL.split(',').map(s=>s+' > *::after').join(',')}{content:"";position:absolute;inset:0;z-index:50;pointer-events:none;background-image:url("data:image/svg+xml,${wm}");background-repeat:repeat;background-size:300px 200px}
 ${SEL}{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 ${SEL} [contenteditable="true"],${SEL} [data-f]:focus{-webkit-user-select:text;user-select:text}
 ${SEL} img{-webkit-user-drag:none;pointer-events:none}

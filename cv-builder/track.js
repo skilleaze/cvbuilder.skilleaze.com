@@ -22,6 +22,7 @@ var S={};try{S=JSON.parse(ss('sk_src')||'{}')}catch(e){}
 var ua=navigator.userAgent,dev=/iPad|Tablet/i.test(ua)?'tablet':/Mobi|Android|iPhone/i.test(ua)?'mobile':'desktop';
 var br=/Edg\//.test(ua)?'Edge':/OPR\/|Opera/.test(ua)?'Opera':/SamsungBrowser/.test(ua)?'Samsung Internet':/FBAN|FBAV|Instagram/.test(ua)?(/Instagram/.test(ua)?'Instagram app':'Facebook app'):/CriOS|Chrome\//.test(ua)?'Chrome':/FxiOS|Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'Other';
 var os=/Windows/.test(ua)?'Windows':/iPhone|iPad|iPod/.test(ua)?'iOS':/Mac OS X/.test(ua)?'macOS':/Android/.test(ua)?'Android':/Linux/.test(ua)?'Linux':'Other';
+var isBot=(navigator.webdriver||/bot|crawl|spider|slurp|headless|lighthouse|pagespeed|gtmetrix|pingdom|uptime|facebookexternalhit|preview|python|curl|wget|axios|go-http|java\/|phantom|puppeteer|playwright|selenium/i.test(ua)||!navigator.languages||navigator.languages.length===0)?'1':'0';
 var scr=(screen&&screen.width?screen.width+'x'+screen.height:'');var lang=(navigator.language||'').slice(0,10);
 var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
 var land=ss('sk_land');if(!land){land=location.pathname;ss('sk_land',land);}
@@ -30,7 +31,8 @@ function send(ev,o){o=o||{};var g=G||{};var m={vid:vid};var x=o.meta||{};for(var
  var body=JSON.stringify({p:{sid:sid,ev:ev,lat:g.lat!=null?String(g.lat):'',lon:g.lon!=null?String(g.lon):'',city:g.city||'',country:g.country||'',path:location.pathname,ref:first,src:S.src||'',med:S.med||'',camp:S.camp||'',dev:dev,tz:tz,value:o.value!=null?String(o.value):'',currency:o.currency||'',tags:o.tags||null,meta:m}});
  try{fetch(U,{method:'POST',headers:H,body:body,keepalive:true}).catch(function(){});}catch(e){}}
 window.skTrack=send;
-function pv(){send('page_view',{meta:{new:isNew,land:land,term:S.term||'',content:S.content||'',clid:S.clid||'',br:br,os:os,scr:scr,lang:lang,title:(document.title||'').slice(0,120)}});}
+function pv(){send('page_view',{meta:{new:isNew,land:land,term:S.term||'',content:S.content||'',clid:S.clid||'',br:br,os:os,scr:scr,lang:lang,title:(document.title||'').slice(0,120),bot:isBot,v:'2'}});}
+var hum=false;['pointermove','touchstart','keydown','wheel','scroll'].forEach(function(e){window.addEventListener(e,function(){if(hum)return;hum=true;send('human');},{passive:true,once:true});});
 var geo=G?Promise.resolve():Promise.race([fetch('https://get.geojs.io/v1/ip/geo.json').then(function(r){return r.json();}).then(function(j){if(j&&j.latitude){G={lat:+(+j.latitude).toFixed(2),lon:+(+j.longitude).toFixed(2),city:j.city||'',country:j.country||''};ss('sk_geo',JSON.stringify(G));}}).catch(function(){}),new Promise(function(r){setTimeout(r,2500);})]);
 geo.then(pv);
 var last=location.pathname;function route(){if(location.pathname!==last){flush();last=location.pathname;sd={};pv();}}

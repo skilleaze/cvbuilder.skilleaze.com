@@ -39,7 +39,7 @@
 <script src="./cv-builder/muneez.js?v=138"></script>
 <script src="./cv-builder/client-config.js?v=139"></script>
 <script src="./cv-builder/track.js?v=2" defer></script>
-<script src="./cv-builder/dodo-pay.js?v=172"></script>
+<script src="./cv-builder/dodo-pay.js?v=173"></script>
 <script src="./cv-builder/client-store.js?v=138"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="./cv-builder/rich-text.js?v=140"></script>
@@ -1257,7 +1257,7 @@ class Component extends DCLogic {
       askUpload:()=>{if(fresh){apply();this.setState({tplAsk:null,importOpen:true,importInto:true,impTab:'file'});}else{this._nextTpl=n;this.setState({tplAsk:null,importOpen:true,importInto:null,impTab:'file'});}},
       askScratch:()=>{if(fresh){apply();this.setState({tplAsk:null});this.flash(code+' applied');}else{this._nextTpl=n;this.setState({tplAsk:null});this.create();this.flash(code+' ready. Add your details.');}},
       askKeep:()=>{apply();this.setState({tplAsk:null});this.flash(code+' applied');}};}
-ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==='function')return Promise.resolve();return new Promise(r=>{const s=document.createElement('script');s.src='/cv-builder/dodo-pay.js?v=172';s.onload=s.onerror=()=>setTimeout(r,50);document.head.appendChild(s);setTimeout(r,6000);});}
+ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==='function')return Promise.resolve();return new Promise(r=>{const s=document.createElement('script');s.src='/cv-builder/dodo-pay.js?v=173';s.onload=s.onerror=()=>setTimeout(r,50);document.head.appendChild(s);setTimeout(r,6000);});}
   renderVals(){try{(this.state.cvs||[]).forEach(c=>{if(c&&c.code&&typeof c.code!=='string'){c.code=window.SKP&&SKP.newCode?SKP.newCode(/europass/.test(location.pathname)?'europass':'ats'):'';}});}catch(e){}const o=this._rv0();const st=this.state;const open=!!st.menuOpen;const close=f=>e=>{this.setState({menuOpen:false});f&&f(e);};
     o.menuOpen=open;o.menuClosed=!open;o.menuOpenStr=open?'true':'false';o.toggleMenu=()=>this.setState(x=>({menuOpen:!x.menuOpen}));
     o.mGoHome=close(o.goHome);o.mGoJd=close(o.goJd);o.mGoEdit=close(o.goEditCur);o.mGoAts=close(o.goAts);o.mGoChecker=close(o.goChecker);o.mGoCover=close(o.goCover);o.mGoAcct=close(o.openAcct);o.mSignIn=close(o.openSignIn);

@@ -51,13 +51,12 @@ function build(){if(ui)return;ui={};
   ui.btn.onclick=toggle;ui.dot=el('span','width:10px;height:10px;border-radius:50%;flex:none');ui.lbl=el('span');ui.btn.appendChild(ui.dot);ui.btn.appendChild(ui.lbl);
   ui.mute=el('button','position:fixed;right:16px;bottom:66px;z-index:99999;display:none;border:1px solid #E3E4E8;background:#FFFFFF;color:#2C3E50;border-radius:999px;padding:6px 12px;font:700 12px Lato,system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 18px rgba(4,45,124,.12)');
   ui.mute.onclick=function(){snd=!snd;ls(KEY_SND,snd?'1':'0');paint();if(snd)play('free_cv');};
-  ui.test=el('button','position:fixed;right:118px;bottom:66px;z-index:99999;display:none;border:1px solid #E3E4E8;background:#FFFFFF;color:#2C3E50;border-radius:999px;padding:6px 12px;font:700 12px Lato,system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 18px rgba(4,45,124,.12)','Test sounds');
-  ui.test.onclick=testAll;
-  document.body.appendChild(ui.stack);document.body.appendChild(ui.mute);document.body.appendChild(ui.test);document.body.appendChild(ui.btn);paint();}
+  
+  document.body.appendChild(ui.stack);document.body.appendChild(ui.mute);document.body.appendChild(ui.btn);paint();}
 function paint(){if(!ui)return;var perm=('Notification' in window)?Notification.permission:'unsupported';
   ui.dot.style.background=on?(perm==='denied'?'#C9821A':'#1E8F6A'):'#B8C0CC';
   ui.lbl.textContent=on?(perm==='denied'?'Live alerts on · browser notifications blocked':'Live alerts on'):'Turn on live alerts';
-  ui.mute.style.display=on?'block':'none';ui.test.style.display=on?'block':'none';ui.mute.textContent=snd?'Sound: on':'Sound: off';}
+  ui.mute.style.display=on?'block':'none';ui.mute.textContent=snd?'Sound: on':'Sound: off';}
 function toast(ev,body,when){if(!ui)return;var t=T[ev]||{title:ev,color:'#042D7C'};
   var c=el('div','pointer-events:auto;background:#FFFFFF;border:1px solid #E3E4E8;border-left:5px solid '+t.color+';border-radius:14px;padding:12px 14px;box-shadow:0 14px 36px rgba(4,45,124,.18);font:400 13px/1.45 Lato,system-ui,sans-serif;color:#2C3E50;opacity:0;transform:translateY(8px);transition:all .25s ease;cursor:pointer',
    '<div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><strong style="font-size:14px;color:#042D7C">'+esc(t.title)+'</strong><span style="font-size:11px;color:#5B6B7F;white-space:nowrap">'+esc(when)+'</span></div><div style="margin-top:3px">'+esc(body)+'</div>');
@@ -97,7 +96,7 @@ document.addEventListener('pointerdown',function(){if(on)ctx();},{once:true,capt
 
 window.SKNotify={
   start:function(c){if(!c||!c.u)return;cred=c;baseTitle=document.title;var b=function(){build();if(on){regSW();poll();}clearInterval(timer);timer=setInterval(poll,POLL);};if(document.body)b();else document.addEventListener('DOMContentLoaded',b);},
-  stop:function(){cred=null;clearInterval(timer);if(ui){[ui.btn,ui.mute,ui.test,ui.stack].forEach(function(e){e.remove();});ui=null;}},
+  stop:function(){cred=null;clearInterval(timer);if(ui){[ui.btn,ui.mute,ui.stack].forEach(function(e){e.remove();});ui=null;}},
   test:testAll
 };
 })();

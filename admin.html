@@ -18,6 +18,27 @@ html,body{margin:0;background:#F4F6FA;font-family:Lato,system-ui,sans-serif;colo
 a{color:#042D7C}a:hover{color:#053BA0}
 *:focus-visible{outline:2px solid #2F5BEA;outline-offset:2px}
 input[type=date]{color-scheme:light}
+[data-m=lbl]{display:none}
+@media (max-width:760px){[data-m=irow]{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:8px!important;padding:12px 0!important}[data-m=irow]>*:first-child{grid-column:1/-1}[data-m=lbl]{display:block!important}}
+@media (max-width:760px){
+[data-m=pad]{padding-left:14px!important;padding-right:14px!important}
+main[data-m=pad]{padding-top:18px!important;gap:20px!important}
+[data-m=stack]{grid-template-columns:minmax(0,1fr)!important}
+[data-m=stats]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+[data-m=chan]{grid-template-columns:minmax(0,1fr) auto!important;row-gap:8px!important}
+[data-m=chan]>*:nth-child(3){grid-column:1/-1}
+[data-m=tbl]{min-width:0!important}
+[data-m=thead]{display:none!important}
+[data-m=row]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;row-gap:4px!important;padding:12px 0!important}
+[data-m=row]>*:last-child{grid-column:1/-1}
+[data-m=map]{border-radius:12px!important}
+h2{font-size:24px!important}
+h1{font-size:28px!important}
+header img{height:24px!important}
+section{min-width:0}
+input[type=date]{min-width:0;max-width:100%}
+}
+@media (max-width:420px){[data-m=stats]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}[data-m=row]{grid-template-columns:minmax(0,1fr)!important}}
 @keyframes skpulse{0%{r:3;opacity:.9}70%{r:13;opacity:0}100%{r:13;opacity:0}}
 </style>
 </helmet>
@@ -45,7 +66,7 @@ input[type=date]{color-scheme:light}
 <sc-if value="{{ showDash }}">
 <div style="min-height:100vh">
 <header style="position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #E3E4E8">
-<div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+<div data-m="pad" style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
 <div style="display:flex;align-items:center;gap:14px">
 <img src="/assets/wordmark-blue.png" onerror="this.onerror=null;this.src='https://www.skilleaze.com/assets/wordmark-blue.png'" alt="Skilleaze" width="90" height="28" style="height:28px;width:auto">
 <span style="font-size:12px;font-weight:900;letter-spacing:.14em;color:#5B6B7F">CV BUILDER ADMIN</span>
@@ -63,7 +84,7 @@ input[type=date]{color-scheme:light}
 </div>
 </header>
 
-<main style="max-width:1280px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:28px;box-sizing:border-box">
+<main data-m="pad" style="max-width:1280px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:28px;box-sizing:border-box">
 
 <sc-if value="{{ err }}"><div style="font-size:14px;color:#B42318;background:#FEF3F2;border:1px solid #FECDCA;border-radius:14px;padding:14px 16px">{{ err }}</div></sc-if>
 
@@ -72,7 +93,7 @@ input[type=date]{color-scheme:light}
 <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;color:#042D7C">Overview</h2>
 <span style="font-size:13px;color:#5B6B7F">{{ rangeText }}</span>
 </div>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
+<div data-m="stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
 <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="8">
 <div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px">
 <span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span>
@@ -91,8 +112,8 @@ input[type=date]{color-scheme:light}
 </div>
 <div style="display:flex;gap:14px;font-size:12px;color:#5B6B7F;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#2F5BEA;opacity:.55"></span>Visitors in period</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#1E8F6A"></span>Live now (last 5 min)</span></div>
 </div>
-<div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(220px,1fr);gap:18px;align-items:start">
-<div style="position:relative;width:100%;aspect-ratio:2/1;background:#F4F7FC;border-radius:16px;overflow:hidden;min-width:0">
+<div data-m="stack" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(220px,1fr);gap:18px;align-items:start">
+<div data-m="map" style="position:relative;width:100%;aspect-ratio:2/1;background:#F4F7FC;border-radius:16px;overflow:hidden;min-width:0">
 <div ref="{{ mapRef }}" style="position:absolute;inset:0"></div>
 <sc-if value="{{ mapMsg }}"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#8A96A8;padding:16px;text-align:center">{{ mapMsg }}</div></sc-if>
 </div>
@@ -115,6 +136,60 @@ input[type=date]{color-scheme:light}
 </div>
 </section>
 
+
+<section style="display:flex;flex-direction:column;gap:16px;min-width:0">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;color:#042D7C">Insights</h2><span style="font-size:13px;color:#5B6B7F">{{ insNote }}</span></div>
+<sc-if value="{{ insErr }}"><div style="font-size:14px;color:#B42318;background:#FEF3F2;border:1px solid #FECDCA;border-radius:14px;padding:12px 16px">{{ insErr }}</div></sc-if>
+<div data-m="stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
+<sc-for list="{{ insKpis }}" as="k" hint-placeholder-count="8"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:11px;font-weight:900;letter-spacing:.06em;color:#5B6B7F;text-transform:uppercase">{{ k.label }}</span><span style="font-size:26px;font-weight:900;color:#042D7C;line-height:1.15">{{ k.value }}</span><span style="font-size:12px;color:#5B6B7F">{{ k.sub }}</span></div></sc-for>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13px;font-weight:900;color:#2C3E50">Filter by channel</span>
+<sc-for list="{{ insChips }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.pick }}" style="border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ c.label }}</button></sc-for>
+</div>
+<sc-for list="{{ insTables }}" as="t" hint-placeholder-count="4">
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">{{ t.title }}</h3><span style="font-size:12px;color:#5B6B7F">{{ t.note }}</span></div>
+<sc-if value="{{ t.empty }}"><div style="font-size:13px;color:#8A96A8;line-height:1.5">{{ t.emptyText }}</div></sc-if>
+<sc-if value="{{ t.has }}"><div style="display:flex;flex-direction:column">
+<div data-m="thead" style="display:grid;grid-template-columns:{{ t.grid }};gap:12px;padding:6px 0;font-size:11px;font-weight:900;letter-spacing:.06em;color:#8A96A8;text-transform:uppercase;border-bottom:1px solid #EEF1F5"><sc-for list="{{ t.cols }}" as="h" hint-placeholder-count="5"><span>{{ h.l }}</span></sc-for></div>
+<sc-for list="{{ t.rows }}" as="r" hint-placeholder-count="5"><div data-m="irow" style="display:grid;grid-template-columns:{{ t.grid }};gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center"><sc-for list="{{ r.c }}" as="c" hint-placeholder-count="5"><span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span data-m="lbl" style="font-size:10px;font-weight:900;color:#8A96A8;text-transform:uppercase;letter-spacing:.05em">{{ c.l }}</span><span style="{{ c.vs }}">{{ c.v }}</span></span></sc-for></div></sc-for>
+</div></sc-if>
+</div>
+</sc-for>
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Organic Google keywords</h3><button onClick="{{ loadGsc }}" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:999px;padding:9px 16px;font:inherit;font-size:13px;font-weight:900;cursor:pointer" style-hover="background:#053BA0">{{ gscLabel }}</button></div>
+<div style="font-size:13px;color:#5B6B7F;line-height:1.5">Google never passes search keywords to websites. They come from Google Search Console (2–3 day delay). Once connected, the keyword, keyword → page and Search Console pages tables appear above.</div>
+<sc-if value="{{ hasGscMsg }}"><div style="font-size:13px;color:#9A6100;background:#FFF6E5;border-radius:12px;padding:10px 14px">{{ gscMsg }}</div></sc-if>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px">
+<sc-for list="{{ insGroups }}" as="g" hint-placeholder-count="6"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">{{ g.title }}</h3><sc-if value="{{ g.empty }}"><div style="font-size:13px;color:#8A96A8">No data yet.</div></sc-if>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span style="min-width:0;overflow-wrap:anywhere">{{ r.label }}</span><span style="font-weight:900;white-space:nowrap">{{ r.n }}</span></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ r.pct }};background:#2F5BEA;border-radius:999px"></div></div></div></sc-for></div></sc-for>
+</div>
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">When people visit</h3><span style="font-size:12px;color:#5B6B7F">Sessions by day and hour, India time. Darker = busier.</span></div>
+<div style="overflow-x:auto"><div style="min-width:560px;display:flex;flex-direction:column;gap:3px">
+<div style="display:grid;grid-template-columns:40px repeat(24,minmax(0,1fr));gap:3px;font-size:10px;color:#8A96A8"><span></span><sc-for list="{{ insHourLabels }}" as="h" hint-placeholder-count="24"><span style="text-align:center">{{ h.l }}</span></sc-for></div>
+<sc-for list="{{ insHeat }}" as="w" hint-placeholder-count="7"><div style="display:grid;grid-template-columns:40px repeat(24,minmax(0,1fr));gap:3px;align-items:center"><span style="font-size:11px;font-weight:700;color:#5B6B7F">{{ w.day }}</span><sc-for list="{{ w.cells }}" as="c" hint-placeholder-count="24"><span title="{{ c.tip }}" style="height:18px;border-radius:4px;background:{{ c.bg }}"></span></sc-for></div></sc-for>
+</div></div>
+</div>
+<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Visitor sessions and screen recordings</h3></div>
+<div style="font-size:13px;color:#5B6B7F;line-height:1.5">Every visit step by step. Recordings play in Microsoft Clarity: open Recordings, then Filters → Custom tags → <strong>sk_sid</strong> and paste the session ID shown on a card.</div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a href="{{ clarityUrl }}" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap;background:#042D7C;color:#FFFFFF;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:900;text-decoration:none">Watch recordings ↗</a><a href="{{ heatmapUrl }}" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap;background:#FFFFFF;color:#042D7C;border:1px solid #C9D3E8;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:900;text-decoration:none">Heatmaps ↗</a></div>
+<sc-if value="{{ noInsSessions }}"><div style="font-size:13px;color:#8A96A8">No sessions in this period yet.</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:12px">
+<sc-for list="{{ insSessions }}" as="v" hint-placeholder-count="4"><div style="border:1px solid #E3E4E8;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0;background:#FBFCFE">
+<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#5B6B7F"><span>{{ v.when }}</span><span style="background:#EEF3FF;color:#042D7C;border-radius:999px;padding:2px 8px;font-weight:900">{{ v.tag }}</span></div>
+<div style="font-size:14px;font-weight:900;color:#2C3E50">{{ v.where }}</div>
+<div style="font-size:12px;color:#5B6B7F">{{ v.who }}</div>
+<div style="font-size:13px;color:#042D7C;font-weight:700">{{ v.src }}</div>
+<div style="font-size:12px;color:#2C3E50">{{ v.stats }}</div>
+<sc-if value="{{ v.hasActs }}"><div style="font-size:12px;font-weight:900;color:#14684D">Key action: {{ v.acts }}</div></sc-if>
+<div style="font-size:12px;color:#5B6B7F;overflow-wrap:anywhere;line-height:1.5">{{ v.journey }}</div>
+<div style="font-size:11px;color:#8A96A8;overflow-wrap:anywhere;user-select:all">Session ID: {{ v.sid }}</div>
+</div></sc-for>
+</div>
+</div>
+</section>
 <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
 <div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0">
 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
@@ -135,7 +210,7 @@ input[type=date]{color-scheme:light}
 <div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
 <h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Revenue (paid)</h3>
 <sc-if value="{{ noRevenue }}"><div style="font-size:14px;color:#5B6B7F">No completed payments in this period.</div></sc-if>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
+<div data-m="stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
 <sc-for list="{{ revenue }}" as="v" hint-placeholder-count="2">
 <div style="background:#F4F8F6;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px">
 <span style="font-size:22px;font-weight:900;color:#14684D">{{ v.total }}</span>
@@ -160,7 +235,7 @@ input[type=date]{color-scheme:light}
 </div>
 <div style="display:flex;flex-direction:column">
 <sc-for list="{{ channels }}" as="c" hint-placeholder-count="8">
-<div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EEF1F5">
+<div data-m="chan" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EEF1F5">
 <div style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:15px;font-weight:900;color:#2C3E50">{{ c.name }}</span><span style="font-size:12px;color:#8A96A8;word-break:break-all">{{ c.id }}</span></div>
 <div><span style="display:inline-flex;align-items:center;gap:6px;background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:6px 12px;font-size:12px;font-weight:900"><span style="width:7px;height:7px;border-radius:50%;background:{{ c.fg }}"></span>{{ c.status }}</span></div>
 <div style="font-size:13px;color:#5B6B7F;line-height:1.45;min-width:0;word-break:break-word">{{ c.detail }}</div>
@@ -188,10 +263,10 @@ input[type=date]{color-scheme:light}
 <h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Recent payments</h3>
 <sc-if value="{{ noPayments }}"><div style="font-size:13px;color:#8A96A8">No payments in this period.</div></sc-if>
 <div style="overflow-x:auto">
-<div style="min-width:720px;display:flex;flex-direction:column">
-<sc-if value="{{ hasPayments }}"><div style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>DATE</span><span>PRODUCT</span><span>STATUS</span><span>AMOUNT</span><span>CUSTOMER</span></div></sc-if>
+<div data-m="tbl" style="min-width:720px;display:flex;flex-direction:column">
+<sc-if value="{{ hasPayments }}"><div data-m="thead" style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>DATE</span><span>PRODUCT</span><span>STATUS</span><span>AMOUNT</span><span>CUSTOMER</span></div></sc-if>
 <sc-for list="{{ payments }}" as="p" hint-placeholder-count="5">
-<div style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<div data-m="row" style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
 <span style="color:#5B6B7F">{{ p.date }}</span><span>{{ p.kind }}</span>
 <span><span style="background:{{ p.bg }};color:{{ p.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ p.status }}</span></span>
 <strong style="color:#042D7C">{{ p.amount }}</strong>
@@ -206,9 +281,9 @@ input[type=date]{color-scheme:light}
 <h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Live activity</h3>
 <sc-if value="{{ noEvents }}"><div style="font-size:13px;color:#8A96A8">No activity in this period.</div></sc-if>
 <div style="overflow-x:auto">
-<div style="min-width:640px;display:flex;flex-direction:column">
+<div data-m="tbl" style="min-width:640px;display:flex;flex-direction:column">
 <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:150px 130px minmax(0,1fr) 130px 90px;gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<div data-m="row" style="display:grid;grid-template-columns:150px 130px minmax(0,1fr) 130px 90px;gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
 <span style="color:#5B6B7F">{{ e.date }}</span>
 <span><span style="background:#EEF3FF;color:#042D7C;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ e.ev }}</span></span>
 <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.path }}</span>
@@ -234,6 +309,7 @@ const CH=[
  {srv:'tiktok_events_api',name:'TikTok Events API',id:'Server · sent on each paid order'},
  {k:'oai',name:'ChatGPT Ads',id:'DhnmpDnkxG13M7TutQeBwn'},
  {k:'clarity',name:'Microsoft Clarity',id:'z90cinb8w4'}];
+const SITE='cv',CLARITY='z90cinb8w4',ACT='Checkout, purchase, WhatsApp';
 const KIND={ats:'ATS CV',europass:'Europass CV',cover:'Cover letter',sub:'Tailor subscription'};
 const EVN={page_view:'Page view',checkout:'Checkout',purchase:'Purchase',whatsapp:'WhatsApp',download:'Download',signin:'Sign in',ats_check:'ATS check'};
 const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
@@ -250,17 +326,53 @@ class Component extends DCLogic {
   async loadGeo(){if(!this.cred)return;try{const g=await this.rpc('cvb_admin_geo',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({geo:g,geoErr:''},()=>this.drawMap());}catch(x){this.setState({geoErr:/setup needed/i.test(x.message)?'Map setup needed: run cvbuilder-admin-geo.sql in Supabase → SQL Editor.':x.message});}}
   async drawMap(){const el=this.mapEl;if(!el)return;try{await this.libs();}catch(e){this.setState({geoErr:'Could not load the world map. Check your connection.'});return;}const d3=window.d3,tj=window.topojson;if(!d3||!tj||!this._world)return;
     const W=1000,H=500,pr=d3.geoEqualEarth().fitExtent([[12,12],[W-12,H-12]],{type:'Sphere'}),pa=d3.geoPath(pr);const land=tj.feature(this._world,this._world.objects.countries);
-    const g=this.state.geo||{},pts=g.points||[],lv=g.live||[],mx=Math.max(1,...pts.map(p=>p.n));const esc=v=>String(v||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+    const g=this.state.geo||{},pts=g.points||[],lv=g.live||[],mx=Math.max(1,...pts.map(p=>p.n));const K=el.clientWidth&&el.clientWidth<640?Math.min(2.4,640/el.clientWidth):1;const esc=v=>String(v||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
     let h='<svg viewBox="0 0 '+W+' '+H+'" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block"><path d="'+pa({type:'Sphere'})+'" fill="#F4F7FC"/><path d="'+pa(land)+'" fill="#DCE3EF" stroke="#FFFFFF" stroke-width="0.6"/>';
-    pts.forEach(p=>{const c=pr([+p.lon,+p.lat]);if(!c)return;const r=(3+Math.sqrt(p.n/mx)*9).toFixed(1);h+='<circle cx="'+c[0].toFixed(1)+'" cy="'+c[1].toFixed(1)+'" r="'+r+'" fill="#2F5BEA" fill-opacity=".45" stroke="#2F5BEA" stroke-opacity=".7" stroke-width="1"><title>'+esc([p.city,p.country].filter(Boolean).join(', '))+' · '+p.n+' visitor'+(p.n==1?'':'s')+'</title></circle>';});
-    lv.forEach(p=>{const c=pr([+p.lon,+p.lat]);if(!c)return;const x=c[0].toFixed(1),y=c[1].toFixed(1);h+='<circle cx="'+x+'" cy="'+y+'" r="3" fill="#1E8F6A" style="animation:skpulse 1.8s ease-out infinite"/><circle cx="'+x+'" cy="'+y+'" r="4.5" fill="#1E8F6A" stroke="#FFFFFF" stroke-width="1.5"><title>Live: '+esc([p.city,p.country].filter(Boolean).join(', '))+' · '+p.n+' now'+(p.path?' · '+esc(p.path):'')+'</title></circle>';});
-    el.innerHTML=h+'</svg>';}
+    pts.forEach(p=>{const c=pr([+p.lon,+p.lat]);if(!c)return;const r=((3+Math.sqrt(p.n/mx)*9)*K).toFixed(1);const tp=esc([p.city,p.country].filter(Boolean).join(', ')||'Unknown')+' · '+p.n+' visitor'+(p.n==1?'':'s');h+='<circle data-tip="'+tp+'" cx="'+c[0].toFixed(1)+'" cy="'+c[1].toFixed(1)+'" r="'+r+'" fill="#2F5BEA" fill-opacity=".45" stroke="#2F5BEA" stroke-opacity=".7" stroke-width="1"><title>'+esc([p.city,p.country].filter(Boolean).join(', '))+' · '+p.n+' visitor'+(p.n==1?'':'s')+'</title></circle>';});
+    lv.forEach(p=>{const c=pr([+p.lon,+p.lat]);if(!c)return;const x=c[0].toFixed(1),y=c[1].toFixed(1);const tl='Live: '+esc([p.city,p.country].filter(Boolean).join(', ')||'Unknown')+' · '+p.n+' now';h+='<circle cx="'+x+'" cy="'+y+'" r="'+(3*K).toFixed(1)+'" fill="#1E8F6A" style="animation:skpulse 1.8s ease-out infinite"/><circle data-tip="'+tl+'" cx="'+x+'" cy="'+y+'" r="'+(4.5*K).toFixed(1)+'" fill="#1E8F6A" stroke="#FFFFFF" stroke-width="1.5"><title>Live: '+esc([p.city,p.country].filter(Boolean).join(', '))+' · '+p.n+' now'+(p.path?' · '+esc(p.path):'')+'</title></circle>';});
+    el.innerHTML=h+'</svg><div data-maptip style="position:absolute;display:none;pointer-events:none;background:#0B1A3A;color:#FFFFFF;font-size:12px;font-weight:700;padding:6px 10px;border-radius:10px;white-space:nowrap;transform:translate(-50%,-130%);box-shadow:0 6px 20px rgba(0,0,0,.2)"></div>';const tip=el.querySelector('[data-maptip]');const show=ev=>{const c=ev.target.closest&&ev.target.closest('[data-tip]');if(!c){tip.style.display='none';return;}const b=el.getBoundingClientRect(),cb=c.getBoundingClientRect();tip.textContent=c.getAttribute('data-tip');tip.style.left=Math.min(b.width-60,Math.max(60,cb.left-b.left+cb.width/2))+'px';tip.style.top=(cb.top-b.top)+'px';tip.style.display='block';};el.onclick=show;el.onmousemove=show;el.onmouseleave=()=>{tip.style.display='none';};if(!this._mapRs){this._mapRs=1;let t;window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>this.drawMap(),250);});}}
   componentDidMount(){this._lt=setInterval(()=>{if(this.cred&&document.visibilityState==='visible')this.loadGeo();},30000);try{const s=JSON.parse(sessionStorage.getItem('skc_admin')||'null');if(s&&s.u&&s.p){this.cred=s;this.setState({authed:true},()=>this.load());}}catch(e){}}
   async rpc(fn,body){const C=window.SKP_CONFIG||{};const r=await fetch(C.supabaseUrl+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey},body:JSON.stringify(body)});const t=await r.text();let j=null;try{j=JSON.parse(t)}catch(e){}if(!r.ok){const m=(j&&(j.message||j.hint))||t||'Request failed';if(/cvb_admin|function .* does not exist|Could not find the function/i.test(m))throw new Error('Database setup needed: run cvbuilder-admin.sql in Supabase → SQL Editor.');throw new Error(m);}return j;}
   async login(e){e&&e.preventDefault&&e.preventDefault();const u=this.state.user.trim(),p=this.state.pass;if(!u||!p){this.setState({err:'Enter your username and password.'});return;}
     this.setState({busy:true,err:''});try{const ok=await this.rpc('cvb_admin_login',{p_user:u,p_pass:p});if(!ok){this.setState({busy:false,err:'Wrong username or password.'});return;}this.cred={u,p};try{sessionStorage.setItem('skc_admin',JSON.stringify(this.cred));}catch(x){}this.setState({authed:true,busy:false,pass:''},()=>this.load());}catch(x){this.setState({busy:false,err:x.message});}}
-  async load(){if(!this.cred)return;this.setState({busy:true,err:''});try{const d=await this.rpc('cvb_admin_stats',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({data:d,busy:false});this.loadGeo();}catch(x){if(/Wrong username/i.test(x.message)){this.logout();return;}this.setState({busy:false,err:x.message});}}
-  logout(){this.cred=null;try{sessionStorage.removeItem('skc_admin');}catch(e){}this.setState({authed:false,data:null,pass:'',err:''});}
+  async load(){if(!this.cred)return;this.setState({busy:true,err:''});try{const d=await this.rpc('cvb_admin_stats',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({data:d,busy:false});this.loadGeo();this.loadIns();}catch(x){if(/Wrong username/i.test(x.message)){this.logout();return;}this.setState({busy:false,err:x.message});}}
+
+  async loadIns(){if(!this.cred)return;try{const d=await this.rpc('sk_insights',{p_user:this.cred.u,p_pass:this.cred.p,p_site:SITE,p_from:this.state.from,p_to:this.state.to});this.setState({ins:d,insErr:''});}catch(x){this.setState({insErr:/setup needed|sk_insights|does not exist|Could not find/i.test(x.message)?'Insights setup needed: run admin-insights.sql in Supabase → SQL Editor.':x.message});}}
+  async loadGsc(){if(!this.cred)return;this.setState({gscBusy:true,gscErr:''});try{const C=window.SKP_CONFIG||{};const r=await fetch(C.supabaseUrl+'/functions/v1/gsc-insights',{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey},body:JSON.stringify({user:this.cred.u,pass:this.cred.p,site:SITE,from:this.state.from,to:this.state.to})});const j=await r.json().catch(()=>({}));if(j.setup){this.setState({gscBusy:false,gscErr:'Search Console is not connected yet. Follow “Connect Google Search Console” in the README (one time).'});return;}if(!r.ok||j.error)throw new Error(j.error||('Error '+r.status));this.setState({gsc:j,gscBusy:false});}catch(x){this.setState({gscBusy:false,gscErr:/Failed to fetch|404|not found/i.test(x.message)?'Search Console is not connected yet. Deploy the gsc-insights function (see README).':x.message});}}
+  insVals(){const s=this.state,I=s.ins||{},K=I.kpi||{},S=K.sessions||0,cur=s.insCh||'All';
+    const fmt=v=>{v=Math.round(+v||0);if(v<60)return v+'s';return Math.floor(v/60)+'m '+String(v%60).padStart(2,'0')+'s';};const pc=(a,b)=>b?((a||0)/b*100).toFixed(1)+'%':'—';
+    const insKpis=[{label:'Sessions',value:nf(S),sub:nf(K.users)+' users'},{label:'New users',value:nf(K.new_users),sub:pc(K.new_users,K.users)+' of users'},
+      {label:'Engagement rate',value:pc(K.engaged,S),sub:nf(K.engaged)+' engaged sessions'},{label:'Bounce rate',value:S?pc(S-(K.engaged||0),S):'—',sub:'Left without engaging'},
+      {label:'Avg engagement time',value:fmt(S?(K.sec||0)/S:0),sub:'Active time per session'},{label:'Pages per session',value:S?((K.pages||0)/S).toFixed(1):'—',sub:nf(K.pages)+' page views'},
+      {label:'Key actions',value:nf(K.conv),sub:ACT},{label:'Conversion rate',value:pc(K.conv_sessions,S),sub:'Sessions with a key action'}];
+    const CHS=['All','Organic search','Organic social','Paid search','Paid social','AI assistants','Direct','Referral','Email','Paid other','Other campaigns'];const have=new Set((I.channels||[]).map(c=>c.ch));
+    const insChips=CHS.filter(c=>c==='All'||have.has(c)).map(c=>{const on=cur===c;return {label:c,pick:()=>this.setState({insCh:c}),bg:on?'#042D7C':'#FFFFFF',fg:on?'#FFFFFF':'#2C3E50',bd:on?'#042D7C':'#E3E4E8'};});
+    const tb=(title,note,cols,grid,rows,emptyText)=>({title,note,grid,cols:cols.map(l=>({l})),empty:!rows.length,has:rows.length>0,emptyText:emptyText||'No data in this period yet.',
+      rows:rows.map(r=>({c:r.map((v,i)=>({l:cols[i],v:v==null||v===''?'—':String(v),vs:i===0?'font-weight:700;color:#2C3E50;overflow-wrap:anywhere':'color:#2C3E50'}))}))});
+    const by=x=>cur==='All'||x.ch===cur;const sfx=cur==='All'?'':' · '+cur;
+    const T=[tb('Traffic by channel','Organic, paid, social, AI and direct',['Channel','Sessions','Users','Engaged','Avg time','Key actions','Conv. rate'],'minmax(0,1.6fr) repeat(6,minmax(0,1fr))',(I.channels||[]).map(c=>[c.ch,nf(c.sessions),nf(c.users),pc(c.engaged,c.sessions),fmt(c.avg_sec),nf(c.conv),pc(c.conv,c.sessions)]))];
+    const pm={};(I.platforms||[]).filter(by).forEach(p=>{const k=p.plat+'|'+p.ch;pm[k]=p;});
+    T.push(tb('Platforms'+sfx,'Google, Instagram, ChatGPT, LinkedIn and more',['Platform','Channel','Sessions','Engaged','Key actions'],'minmax(0,1.4fr) minmax(0,1.2fr) repeat(3,minmax(0,1fr))',Object.values(pm).sort((a,b)=>b.sessions-a.sessions).slice(0,25).map(p=>[p.plat,p.ch,nf(p.sessions),pc(p.engaged,p.sessions),nf(p.conv)])));
+    const lm={};(I.landing||[]).filter(by).forEach(l=>{const o=lm[l.land]||(lm[l.land]={land:l.land,sessions:0,engaged:0,sec:0,conv:0});o.sessions+=+l.sessions;o.engaged+=+l.engaged;o.sec+=+l.sec||0;o.conv+=+l.conv;});
+    T.push(tb('Landing pages'+sfx,'The page each visit started on',['Landing page','Sessions','Engaged','Avg time','Key actions'],'minmax(0,2.4fr) repeat(4,minmax(0,1fr))',Object.values(lm).sort((a,b)=>b.sessions-a.sessions).slice(0,30).map(l=>[l.land,nf(l.sessions),pc(l.engaged,l.sessions),fmt(l.sec/Math.max(1,l.sessions)),nf(l.conv)])));
+    T.push(tb('All pages','Views, active time, scroll depth and exits',['Page','Views','Sessions','Avg time','Scroll','Exits','Key actions'],'minmax(0,2.2fr) repeat(6,minmax(0,1fr))',(I.pages||[]).map(p=>[p.path,nf(p.views),nf(p.sess),fmt(p.avg_sec),p.scroll?p.scroll+'%':'—',nf(p.exits),nf(p.conv)])));
+    T.push(tb('Campaigns (UTM)','utm_campaign · utm_source / utm_medium',['Campaign','Source / medium','Sessions','Engaged','Key actions'],'minmax(0,1.6fr) minmax(0,1.4fr) repeat(3,minmax(0,1fr))',(I.campaigns||[]).map(c=>[c.camp||'(no campaign name)',[c.src,c.med].filter(Boolean).join(' / '),nf(c.sessions),pc(c.engaged,c.sessions),nf(c.conv)]),'No tagged campaigns yet. Add utm_source, utm_medium and utm_campaign to your ad and social links.'));
+    T.push(tb('Paid ad keywords','From utm_term in your ad links',['Keyword','Source','Sessions','Key actions'],'minmax(0,2fr) minmax(0,1fr) repeat(2,minmax(0,1fr))',(I.keywords||[]).map(k=>[k.term,k.src,nf(k.sessions),nf(k.conv)]),'No ad keywords yet. In Google Ads → Settings → Tracking template, use {lpurl}?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}'));
+    const G=s.gsc;if(G){const pth=u=>String(u||'').replace(/^https?:\/\/[^/]+/,'')||'/';
+      T.push(tb('Organic Google keywords','Search Console · '+s.from+' to '+s.to,['Keyword','Clicks','Impressions','CTR','Position'],'minmax(0,2.2fr) repeat(4,minmax(0,1fr))',(G.queries||[]).map(r=>[r.keys[0],nf(r.clicks),nf(r.impressions),(r.ctr*100).toFixed(1)+'%',(+r.position).toFixed(1)]),'No search data for this period.'));
+      T.push(tb('Keyword → page','Which page ranks for which search',['Keyword','Page','Clicks','Impressions','Position'],'minmax(0,1.6fr) minmax(0,1.8fr) repeat(3,minmax(0,1fr))',(G.qp||[]).map(r=>[r.keys[0],pth(r.keys[1]),nf(r.clicks),nf(r.impressions),(+r.position).toFixed(1)])));
+      T.push(tb('Pages in Google search','Clicks and impressions per page',['Page','Clicks','Impressions','CTR','Position'],'minmax(0,2.2fr) repeat(4,minmax(0,1fr))',(G.pages||[]).map(r=>[pth(r.keys[0]),nf(r.clicks),nf(r.impressions),(r.ctr*100).toFixed(1)+'%',(+r.position).toFixed(1)])));}
+    const A=I.audience||{};const mk=(title,rows)=>{const m=Math.max(1,...rows.map(r=>+r.n));return {title,empty:!rows.length,rows:rows.map(r=>({label:r.k||'Unknown',n:nf(r.n),pct:Math.round(r.n/m*100)+'%'}))};};
+    const insGroups=[mk('New vs returning',A.newret||[]),mk('Devices',A.devices||[]),mk('Browsers and apps',A.browsers||[]),mk('Operating systems',A.os||[]),mk('Screen sizes',A.screens||[]),mk('Languages',A.langs||[]),mk('Cities',A.cities||[])];
+    const HM={};(I.hours||[]).forEach(x=>HM[x.d+'-'+x.h]=+x.n);const hm=Math.max(1,...Object.values(HM));const DN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const insHeat=DN.map((dn,i)=>({day:dn,cells:Array.from({length:24},(_,h)=>{const n=HM[(i+1)+'-'+h]||0;return {bg:n?'rgba(4,45,124,'+(0.15+0.85*n/hm).toFixed(2)+')':'#F1F3F7',tip:dn+' '+String(h).padStart(2,'0')+':00 · '+n+' session'+(n===1?'':'s')};})}));
+    const insHourLabels=Array.from({length:24},(_,h)=>({l:h%3===0?String(h):''}));
+    const insSessions=(I.sessions||[]).filter(by).slice(0,40).map(x=>({when:when(x.st),where:[x.city,x.country].filter(Boolean).join(', ')||'Unknown location',who:[x.dev,x.br,x.os].filter(Boolean).join(' · '),
+      src:x.ch+' · '+(x.plat||'direct'),stats:x.pages+' page'+(x.pages==1?'':'s')+' · '+fmt(x.sec)+' active'+(x.depth?' · scrolled '+x.depth+'%':''),acts:x.acts||'',hasActs:!!x.acts,journey:x.journey||x.land||'/',tag:x.isnew==='1'?'New':'Returning',sid:x.sid}));
+    return {insKpis,insChips,insTables:T,insGroups,insHeat,insHourLabels,insSessions,noInsSessions:!insSessions.length,insErr:s.insErr||'',
+      insNote:'Engaged = 10+ seconds active, 2+ pages, or a key action',clarityUrl:'https://clarity.microsoft.com/projects/view/'+CLARITY+'/impressions',heatmapUrl:'https://clarity.microsoft.com/projects/view/'+CLARITY+'/heatmaps',
+      gscLabel:s.gscBusy?'Loading…':(s.gsc?'Refresh Google keywords':'Load Google keywords'),loadGsc:()=>this.loadGsc(),gscMsg:s.gscErr||'',hasGscMsg:!!s.gscErr};}
+  logout(){this.cred=null;try{sessionStorage.removeItem('skc_admin');}catch(e){}this.setState({authed:false,data:null,ins:null,gsc:null,pass:'',err:''});}
   pick(n){const to=iso(new Date()),from=n===1?to:ago(n-1);this.setState({range:n,from,to},()=>this.load());}
   renderVals(){const s=this.state,d=s.data||{},T=d.totals||{},P=d.payments||{};
     const paid=P.paid||0,vis=T.visitors||0;
@@ -289,7 +401,7 @@ class Component extends DCLogic {
     const geoVals={mapRef:el=>{if(el&&el!==this.mapEl){this.mapEl=el;this.drawMap();}},liveText:lc+' live now',countries:cs.map(c=>({label:c.country,n:nf(c.n),pct:Math.round(c.n/cm*100)+'%'})),noCountries:!cs.length,
       live:(G.live||[]).map(v=>({label:[v.city,v.country].filter(Boolean).join(', ')||'Unknown',n:v.n})),hasLive:!!(G.live||[]).length,
       mapMsg:s.geoErr||(s.geo&&!(G.points||[]).length&&!(G.live||[]).length?'No visitor locations yet. Dots appear as people visit.':'')};
-    return {...geoVals,showLogin:!s.authed,showDash:s.authed,user:s.user,pass:s.pass,err:s.err,loginLabel:s.busy?'Signing in…':'Sign in',
+    const insV=this.insVals();return {...geoVals,...insV,showLogin:!s.authed,showDash:s.authed,user:s.user,pass:s.pass,err:s.err,loginLabel:s.busy?'Signing in…':'Sign in',
       setUser:e=>this.setState({user:e.target.value}),setPass:e=>this.setState({pass:e.target.value}),login:e=>this.login(e),logout:()=>this.logout(),
       ranges:R,from:s.from,to:s.to,setFrom:e=>this.setState({from:e.target.value,range:0},()=>this.load()),setTo:e=>this.setState({to:e.target.value,range:0},()=>this.load()),
       refresh:()=>this.load(),refreshLabel:s.busy?'Loading…':'Refresh',rangeText:s.from+' to '+s.to,

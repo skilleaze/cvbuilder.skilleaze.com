@@ -38,7 +38,7 @@
 <script src="./cv-builder/muneez.js?v=138"></script>
 <script src="./cv-builder/client-config.js?v=139"></script>
 <script src="./cv-builder/track.js?v=2" defer></script>
-<script src="./cv-builder/dodo-pay.js?v=173"></script>
+<script src="./cv-builder/dodo-pay.js?v=174"></script>
 <script src="./cv-builder/client-store.js?v=138"></script>
 <script src="./cv-builder/rich-text.js?v=140"></script>
 <script src="./cv-builder/photo-crop.js?v=140"></script>
@@ -774,7 +774,7 @@ class Component extends DCLogic {
       askUpload:()=>{if(fresh){apply();this.setState({tplAsk:null,importOpen:true,importInto:true,impTab:'file'});}else{this._nextTpl=n;this.setState({tplAsk:null,importOpen:true,importInto:null,impTab:'file'});}},
       askScratch:()=>{if(fresh){apply();this.setState({tplAsk:null});this.flash(code+' applied');}else{this._nextTpl=n;this.setState({tplAsk:null});this.create();this.flash(code+' ready. Add your details.');}},
       askKeep:()=>{apply();this.setState({tplAsk:null});this.flash(code+' applied');}};}
-ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==='function')return Promise.resolve();return new Promise(r=>{const s=document.createElement('script');s.src='/cv-builder/dodo-pay.js?v=173';s.onload=s.onerror=()=>setTimeout(r,50);document.head.appendChild(s);setTimeout(r,6000);});}
+ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==='function')return Promise.resolve();return new Promise(r=>{const s=document.createElement('script');s.src='/cv-builder/dodo-pay.js?v=174';s.onload=s.onerror=()=>setTimeout(r,50);document.head.appendChild(s);setTimeout(r,6000);});}
   renderVals(){try{(this.state.cvs||[]).forEach(c=>{if(c&&c.code&&typeof c.code!=='string'){c.code=window.SKP&&SKP.newCode?SKP.newCode(/europass/.test(location.pathname)?'europass':'ats'):'';}});}catch(e){}const o=this._rv();const CH='all:unset;box-sizing:border-box;cursor:pointer;flex:1 1 0;min-width:0;text-align:center;padding:7px 6px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';const on=x=>typeof x.on==='boolean'?x.on:/F1F3F7|EEF2FA|rgba\(175,196,255,\.14\)|#042D7C;color:#FFFFFF|background:#2F5BEA/i.test(x.style||'');const fix=l=>(l||[]).map(x=>Object.assign({},x,{cs:CH+(on(x)?'background:#FFFFFF;color:#042D7C;box-shadow:0 1px 3px rgba(4,45,124,.18)':'color:#5B6B7F')}));
   ['margins','papers','photoModes','photoShapes','breakOpts'].forEach(k=>{o[k]=fix(o[k]);});
   o.photoShapes=(o.photoShapes||[]).map(x=>Object.assign(x,{short:x.label==='Design default'?'Default':x.label}));o.breakOpts=(o.breakOpts||[]).map(x=>Object.assign(x,{short:/split/i.test(x.label)?'Allow split':'Keep jobs whole'}));

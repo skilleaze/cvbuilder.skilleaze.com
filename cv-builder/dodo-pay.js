@@ -1,6 +1,6 @@
 // Skilleaze x Dodo Payments: pay-what-you-want checkout priced by the visitor's country.
 // India: 4% platform fee is added here and charged. Other countries: the 4% fee is shown here and Dodo adds it at checkout.
-(function(){
+(function(){if(window.__skDodoLoaded)return;window.__skDodoLoaded=true;
 const C=window.SKP_CONFIG||{};const FN=C.supabaseUrl+'/functions/v1/dodo-checkout';const FEE=0.04;
 const H={'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey};
 const call=b=>fetch(FN,{method:'POST',headers:H,body:JSON.stringify(b)}).then(r=>r.json());
@@ -47,7 +47,7 @@ function resume(){const P=pend();if(!P||P.paid)return;if(Date.now()-(P.t||0)>2*6
  const cancel=()=>{clearInterval(tm);try{localStorage.removeItem('skc_pay_pending');}catch(e){}try{const u=new URL(location.href);['payment_id','status','ref','paid'].forEach(k=>u.searchParams.delete(k));history.replaceState(null,'',u.pathname+u.search+u.hash);}catch(e){}ov.remove();};
  q('[data-back]').onclick=cancel;
  try{const st=new URLSearchParams(location.search).get('status');if(st&&/fail|cancel|declin|expire/i.test(st)){cancel();return;}}catch(e){}
- const done=ok=>{clearInterval(tm);if(ok){if(!P.paid)fbt('Purchase',{value:P.value||0,currency:P.currency||'USD',content_name:P.title||P.kind,content_category:P.kind},P.ref);P.paid=1;try{localStorage.setItem('skc_pay_pending',JSON.stringify(P));}catch(e){}q('[data-t]').textContent='Payment received';q('[data-m]').textContent=P.kind==='sub'?'Your plan is ready. Tap below to activate it.':'Your download is unlocked. Tap below to download.';
+ const done=ok=>{clearInterval(tm);if(ok){{const sentKey='skc_purchase_sent_'+P.ref;let sent=false;try{sent=!!localStorage.getItem(sentKey);}catch(e){}if(!sent){try{localStorage.setItem(sentKey,'1');}catch(e){}fbt('Purchase',{value:P.value||0,currency:P.currency||'USD',content_name:P.title||P.kind,content_category:P.kind},P.ref);}}P.paid=1;try{localStorage.setItem('skc_pay_pending',JSON.stringify(P));}catch(e){}q('[data-t]').textContent='Payment received';q('[data-m]').textContent=P.kind==='sub'?'Your plan is ready. Tap below to activate it.':'Your download is unlocked. Tap below to download.';
    q('[data-a]').innerHTML='<button data-go style="all:unset;cursor:pointer;background:#FFFFFF;color:#050E26;border-radius:14px;padding:14px 20px;font-weight:900;font-size:15px">'+(P.kind==='sub'?'Activate my plan':'Download my CV')+'</button>';
    q('[data-go]').onclick=()=>{close();const fn=window.__skPayResume;if(typeof fn==='function')fn(P);};}
   else{try{localStorage.removeItem('skc_pay_pending');}catch(e){}q('[data-t]').textContent='Payment not completed';q('[data-m]').textContent='No money was taken. You can try again any time.';q('[data-a]').innerHTML='<button data-c style="all:unset;cursor:pointer;background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:13px 18px;font-weight:900;font-size:14px">Close</button>';q('[data-c]').onclick=close;}};

@@ -3,6 +3,15 @@
   "trailingSlash": false,
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, must-revalidate"
+        }
+      ]
+    },
+    {
       "source": "/(.*)\\.dc\\.html",
       "headers": [
         {
@@ -16,7 +25,16 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/version.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
         }
       ]
     }

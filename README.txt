@@ -2,7 +2,8 @@ Skilleaze CV Builder · customer site (cvbuilder.skilleaze.com)
 No login. CVs are saved in the visitor's browser.
 
 Pages
-  /                       ATS CV Builder (index.html)
+  /                       Landing page – Midnight Glass (index.html)
+  /ats-cv-builder         ATS CV Builder (ats-cv-builder.html)
   /europass-cv-builder    Europass CV Builder
 
 Go live

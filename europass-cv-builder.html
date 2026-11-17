@@ -51,7 +51,7 @@ var ps=ls.join('\n').split(/\n\s*\n/).map(function(p){return p.trim().replace(/^
 <script src="./cv-builder/muneez.js?v=20261109.2"></script>
 <script src="./cv-builder/client-config.js?v=20261109.2"></script>
 <script src="./cv-builder/track.js?v=20261109.2" defer></script>
-<script src="./cv-builder/dodo-pay.js?v=200.2"></script>
+<script src="./cv-builder/dodo-pay.js?v=201.2"></script>
 <script src="./cv-builder/client-store.js?v=20261109.2"></script>
 <script src="./cv-builder/rich-text.js?v=20261109.2"></script>
 <script src="./cv-builder/photo-crop.js?v=20261109.2"></script>
@@ -822,7 +822,7 @@ class Component extends DCLogic {
       askUpload:()=>{if(fresh){apply();this.setState({tplAsk:null,importOpen:true,importInto:true,impTab:'file'});}else{this._nextTpl=n;this.setState({tplAsk:null,importOpen:true,importInto:null,impTab:'file'});}},
       askScratch:()=>{if(fresh){apply();this.setState({tplAsk:null});this.flash(code+' applied');}else{this._nextTpl=n;this.setState({tplAsk:null});this.create();this.flash(code+' ready. Add your details.');}},
       askKeep:()=>{apply();this.setState({tplAsk:null});this.flash(code+' applied');}};}
-ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==='function')return Promise.resolve();return new Promise(r=>{const s=document.createElement('script');s.src='/cv-builder/dodo-pay.js?v=200';s.onload=s.onerror=()=>setTimeout(r,50);document.head.appendChild(s);setTimeout(r,6000);});}
+ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==='function')return Promise.resolve();return new Promise(r=>{const s=document.createElement('script');s.src='/cv-builder/dodo-pay.js?v=201';s.onload=s.onerror=()=>setTimeout(r,50);document.head.appendChild(s);setTimeout(r,6000);});}
   renderVals(){try{(this.state.cvs||[]).forEach(c=>{if(c&&c.code&&typeof c.code!=='string'){c.code=window.SKP&&SKP.newCode?SKP.newCode(/europass/.test(location.pathname)?'europass':'ats'):'';}});}catch(e){}const o=this._rv();const CH='all:unset;box-sizing:border-box;cursor:pointer;flex:1 1 0;min-width:0;text-align:center;padding:7px 6px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';const on=x=>typeof x.on==='boolean'?x.on:/F1F3F7|EEF2FA|rgba\(175,196,255,\.14\)|#042D7C;color:#FFFFFF|background:#2F5BEA/i.test(x.style||'');const fix=l=>(l||[]).map(x=>Object.assign({},x,{cs:CH+(on(x)?'background:#FFFFFF;color:#042D7C;box-shadow:0 1px 3px rgba(4,45,124,.18)':'color:#5B6B7F')}));
   ['margins','papers','photoModes','photoShapes','breakOpts'].forEach(k=>{o[k]=fix(o[k]);});
   o.photoShapes=(o.photoShapes||[]).map(x=>Object.assign(x,{short:x.label==='Design default'?'Default':x.label}));o.breakOpts=(o.breakOpts||[]).map(x=>Object.assign(x,{short:/split/i.test(x.label)?'Allow split':'Keep jobs whole'}));
@@ -847,7 +847,7 @@ ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==
     const paid=true;
     const doDl=fmt=>async()=>{this.commitEdit();await new Promise(r=>setTimeout(r,150));const k=s.pay.kind;const key=cv.id+':'+k;
       const PAYC=window.SKC_PAYMENTS||{};const VIPA=(()=>{try{const q=JSON.parse(localStorage.getItem('skc_acct')||'null');return !!(q&&q.email&&['muneezahmed183@gmail.com'].includes(String(q.email).toLowerCase().trim()));}catch(e){return false;}})();
-       if(PAYC.enabled&&!VIPA&&!(s.paid||{})[key]){const A=(()=>{try{return JSON.parse(localStorage.getItem('skc_acct')||'null');}catch(e){return null;}})();const act=!!(A&&A.until&&new Date(A.until).getTime()>Date.now());if(!act){try{localStorage.setItem('skc_dl_after',JSON.stringify({k,cvId:cv.id,page:'/europass-cv-builder',t:Date.now()}));}catch(e){}this.flash('Start your free trial to download.');setTimeout(()=>{location.href='/ats-cv-builder?trial=1';},500);return;}const L=A.lock;if(L&&L.label&&String(d.name||'').trim().toLowerCase()!==String(L.label).trim().toLowerCase()){this.flash('Your plan is linked to '+L.label+'. Each plan covers one person.');return;}}
+       if(PAYC.enabled&&!VIPA&&!(s.paid||{})[key]){const A=(()=>{try{return JSON.parse(localStorage.getItem('skc_acct')||'null');}catch(e){return null;}})();const act=!!(A&&A.until&&new Date(A.until).getTime()>Date.now());if(!act){try{localStorage.setItem('skc_dl_after',JSON.stringify({k,cvId:cv.id,page:'/europass-cv-builder',t:Date.now()}));}catch(e){}setTimeout(()=>{location.href='/ats-cv-builder?trial=dl';},500);return;}const L=A.lock;if(L&&L.label&&String(d.name||'').trim().toLowerCase()!==String(L.label).trim().toLowerCase()){this.flash('Your plan is linked to '+L.label+'. Each plan covers one person.');return;}}
       
       for(const ff of (fmt==='both'?['pdf','docx']:[fmt])){try{if(ff==='pdf'){this.setState({dlBusy:'Preparing PDF…'});if(k==='cover')await this.printHtml([this.coverPage(this.cvObj()||cv)],(d.name||'Cover')+' Cover Letter');else await this.printHtml(this.render1(this.cvObj()||cv).pages,(d.name||'CV')+' CV');}else{this.setState({dlBusy:'Preparing Word file…'});await new Promise(r=>setTimeout(r,700));await this.docx(k);}this.setState({dlBusy:''});}catch(err){console.error(err);this.setState({dlBusy:''});this.flash((ff==='pdf'?'PDF':'Word')+' download failed. Please try again.');continue;}
       try{window.skTrack&&window.skTrack('download',{meta:{fmt:ff,kind:k}});}catch(e){}

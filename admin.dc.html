@@ -259,6 +259,31 @@ input[type=date]{min-width:0;max-width:100%}
 </sc-for>
 </section>
 
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Free trials</h3><span style="font-size:13px;color:#5B6B7F">Card added, trial running, converted to paid, cancelled. From Dodo webhooks.</span></div>
+<sc-if value="{{ hasTrErr }}"><div style="font-size:13px;color:#8A5A00;background:#FFF4E5;border-radius:12px;padding:10px 12px">{{ trErr }}</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+<sc-for list="{{ trKpis }}" as="k" hint-placeholder-count="8">
+<div style="background:#F7F9FC;border:1px solid #E3E8F1;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span><span style="font-size:26px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span><span style="font-size:12px;color:#8A96A8">{{ k.sub }}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{ noTr }}"><div style="font-size:13px;color:#8A96A8">No trials in this period.</div></sc-if>
+<div style="overflow-x:auto">
+<div data-m="tbl" style="min-width:680px;display:flex;flex-direction:column">
+<sc-if value="{{ hasTr }}"><div data-m="thead" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>STARTED</span><span>CUSTOMER</span><span>STATUS</span><span>TRIAL ENDS / NEXT</span><span>CHARGES</span></div></sc-if>
+<sc-for list="{{ trList }}" as="r" hint-placeholder-count="4">
+<div data-m="row" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#5B6B7F">{{ r.date }}</span>
+<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.who }}</span>
+<span><span style="background:{{ r.bg }};color:{{ r.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ r.state }}</span></span>
+<span style="color:#5B6B7F">{{ r.ends }}</span>
+<strong style="color:#042D7C">{{ r.charges }}</strong>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
 <section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
 <h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Recent payments</h3>
 <sc-if value="{{ noPayments }}"><div style="font-size:13px;color:#8A96A8">No payments in this period.</div></sc-if>
@@ -335,8 +360,9 @@ class Component extends DCLogic {
   async rpc(fn,body){const C=window.SKP_CONFIG||{};const r=await fetch(C.supabaseUrl+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey},body:JSON.stringify(body)});const t=await r.text();let j=null;try{j=JSON.parse(t)}catch(e){}if(!r.ok){const m=(j&&(j.message||j.hint))||t||'Request failed';if(/cvb_admin|function .* does not exist|Could not find the function/i.test(m))throw new Error('Database setup needed: run cvbuilder-admin.sql in Supabase → SQL Editor.');throw new Error(m);}return j;}
   async login(e){e&&e.preventDefault&&e.preventDefault();const u=this.state.user.trim(),p=this.state.pass;if(!u||!p){this.setState({err:'Enter your username and password.'});return;}
     this.setState({busy:true,err:''});try{const ok=await this.rpc('cvb_admin_login',{p_user:u,p_pass:p});if(!ok){this.setState({busy:false,err:'Wrong username or password.'});return;}this.cred={u,p};try{sessionStorage.setItem('skc_admin',JSON.stringify(this.cred));}catch(x){}this.setState({authed:true,busy:false,pass:''},()=>this.load());}catch(x){this.setState({busy:false,err:x.message});}}
-  async load(){if(!this.cred)return;this.setState({busy:true,err:''});try{const d=await this.rpc('cvb_admin_stats',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({data:d,busy:false});this.loadGeo();this.loadIns();}catch(x){if(/Wrong username/i.test(x.message)){this.logout();return;}this.setState({busy:false,err:x.message});}}
+  async load(){if(!this.cred)return;this.setState({busy:true,err:''});try{const d=await this.rpc('cvb_admin_stats',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({data:d,busy:false});this.loadGeo();this.loadIns();this.loadTrials();}catch(x){if(/Wrong username/i.test(x.message)){this.logout();return;}this.setState({busy:false,err:x.message});}}
 
+  async loadTrials(){if(!this.cred)return;try{const t=await this.rpc('cvb_admin_trials',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({trials:t,trErr:''});}catch(x){this.setState({trErr:/setup needed|cvb_admin_trials|does not exist|Could not find/i.test(x.message)?'Trial tracking setup needed: run cvbuilder-trial.sql in Supabase → SQL Editor, and deploy the new dodo-webhook.':x.message});}}
   async loadIns(){if(!this.cred)return;try{const d=await this.rpc('sk_insights',{p_user:this.cred.u,p_pass:this.cred.p,p_site:SITE,p_from:this.state.from,p_to:this.state.to});this.setState({ins:d,insErr:''});}catch(x){this.setState({insErr:/setup needed|sk_insights|does not exist|Could not find/i.test(x.message)?'Insights setup needed: run admin-insights.sql in Supabase → SQL Editor.':x.message});}}
   async loadGsc(){if(!this.cred)return;this.setState({gscBusy:true,gscErr:''});try{const C=window.SKP_CONFIG||{};const r=await fetch(C.supabaseUrl+'/functions/v1/gsc-insights',{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey},body:JSON.stringify({user:this.cred.u,pass:this.cred.p,site:SITE,from:this.state.from,to:this.state.to})});const j=await r.json().catch(()=>({}));if(j.setup){this.setState({gscBusy:false,gscErr:'Search Console is not connected yet. Follow “Connect Google Search Console” in the README (one time).'});return;}if(!r.ok||j.error)throw new Error(j.error||('Error '+r.status));this.setState({gsc:j,gscBusy:false});}catch(x){this.setState({gscBusy:false,gscErr:/Failed to fetch|404|not found/i.test(x.message)?'Search Console is not connected yet. Deploy the gsc-insights function (see README).':x.message});}}
   insVals(){const s=this.state,I=s.ins||{},K=I.kpi||{},S=K.sessions||0,cur=s.insCh||'All';
@@ -413,7 +439,7 @@ class Component extends DCLogic {
       kpis,daily,revenue:rev,noRevenue:!rev.length,byKind:(P.by_kind||[]).map(b=>({name:KIND[b.kind]||b.kind,n:nf(b.n)})),
       payNote:'Amounts are what Dodo charged, in the charged currency.',
       channels,tagNote:'Checked in each visitor’s browser about 9 seconds after arrival. Ad blockers lower these numbers.',
-      lists,payments,hasPayments:payments.length>0,noPayments:!payments.length,events,noEvents:!events.length};
+      ...(()=>{const T=s.trials||{};const pc=(x,y)=>y?Math.round((x||0)/y*100)+'%':'—';const ST={trialing:['Trial','#EEF3FF','#042D7C'],active:['Paying','#E6F6EE','#1F7A4D'],cancelled:['Cancelled','#FBECEC','#8A2D2D'],on_hold:['Card failed','#FFF4E5','#8A5A00'],failed:['Card failed','#FFF4E5','#8A5A00'],expired:['Ended','#F1F3F6','#5B6470']};       const trKpis=[{label:'Cards added',value:nf(T.cards),sub:nf(T.opened)+' opened checkout · '+pc(T.cards,T.opened)},{label:'Trials active now',value:nf(T.trial_now),sub:nf(T.ending_24h)+' end in the next 24h'},{label:'Converted to paid',value:nf(T.converted),sub:pc(T.converted,T.cards)+' of cards added'},{label:'Paying now',value:nf(T.paying_now),sub:'Active monthly plans'},{label:'Cancelled in trial',value:nf(T.cancel_trial),sub:pc(T.cancel_trial,T.cards)+' of cards added'},{label:'Cancelled after paying',value:nf(T.cancel_paid),sub:'Left after at least 1 charge'},{label:'Card failed',value:nf(T.failed),sub:'On hold or failed renewal'},{label:'Left without card',value:nf(T.no_card),sub:'Opened checkout, no card'}];       const trList=(T.list||[]).map(r=>{const st=r.card_at?(ST[r.sub_state]||['Card added','#EEF3FF','#042D7C']):['No card','#F1F3F6','#5B6470'];return {date:when(r.created_at),who:r.email||r.customer_name||'—',state:st[0],bg:st[1],fg:st[2],ends:r.sub_state==='trialing'?when(r.trial_end||r.next_billing):(r.cancelled_at?'Cancelled '+when(r.cancelled_at):(r.next_billing?'Next '+when(r.next_billing):'—')),charges:String(r.charges||0)};});       return {trKpis,trList,hasTr:trList.length>0,noTr:!trList.length,trErr:s.trErr||'',hasTrErr:!!s.trErr};})(),lists,payments,hasPayments:payments.length>0,noPayments:!payments.length,events,noEvents:!events.length};
   }
 }
 </script>

@@ -102,6 +102,31 @@ input[type=date]{min-width:0;max-width:100%}
 </div>
 </sc-for>
 </div>
+<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Free trials</h3><span style="font-size:13px;color:#5B6B7F">Card added, trial running, converted to paid, cancelled. From Dodo webhooks.</span></div>
+<sc-if value="{{ hasTrErr }}"><div style="font-size:13px;color:#8A5A00;background:#FFF4E5;border-radius:12px;padding:10px 12px">{{ trErr }}</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+<sc-for list="{{ trKpis }}" as="k" hint-placeholder-count="8">
+<div style="background:#F7F9FC;border:1px solid #E3E8F1;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span><span style="font-size:26px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span><span style="font-size:12px;color:#8A96A8">{{ k.sub }}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{ noTr }}"><div style="font-size:13px;color:#8A96A8">No trials in this period.</div></sc-if>
+<div style="overflow-x:auto">
+<div data-m="tbl" style="min-width:680px;display:flex;flex-direction:column">
+<sc-if value="{{ hasTr }}"><div data-m="thead" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>STARTED</span><span>CUSTOMER</span><span>STATUS</span><span>TRIAL ENDS / NEXT</span><span>CHARGES</span></div></sc-if>
+<sc-for list="{{ trList }}" as="r" hint-placeholder-count="4">
+<div data-m="row" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#5B6B7F">{{ r.date }}</span>
+<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.who }}</span>
+<span><span style="background:{{ r.bg }};color:{{ r.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ r.state }}</span></span>
+<span style="color:#5B6B7F">{{ r.ends }}</span>
+<strong style="color:#042D7C">{{ r.charges }}</strong>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
 </section>
 
 <section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0">
@@ -257,31 +282,6 @@ input[type=date]{min-width:0;max-width:100%}
 </sc-for>
 </div>
 </sc-for>
-</section>
-
-<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
-<div style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Free trials</h3><span style="font-size:13px;color:#5B6B7F">Card added, trial running, converted to paid, cancelled. From Dodo webhooks.</span></div>
-<sc-if value="{{ hasTrErr }}"><div style="font-size:13px;color:#8A5A00;background:#FFF4E5;border-radius:12px;padding:10px 12px">{{ trErr }}</div></sc-if>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
-<sc-for list="{{ trKpis }}" as="k" hint-placeholder-count="8">
-<div style="background:#F7F9FC;border:1px solid #E3E8F1;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span><span style="font-size:26px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span><span style="font-size:12px;color:#8A96A8">{{ k.sub }}</span></div>
-</sc-for>
-</div>
-<sc-if value="{{ noTr }}"><div style="font-size:13px;color:#8A96A8">No trials in this period.</div></sc-if>
-<div style="overflow-x:auto">
-<div data-m="tbl" style="min-width:680px;display:flex;flex-direction:column">
-<sc-if value="{{ hasTr }}"><div data-m="thead" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>STARTED</span><span>CUSTOMER</span><span>STATUS</span><span>TRIAL ENDS / NEXT</span><span>CHARGES</span></div></sc-if>
-<sc-for list="{{ trList }}" as="r" hint-placeholder-count="4">
-<div data-m="row" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
-<span style="color:#5B6B7F">{{ r.date }}</span>
-<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.who }}</span>
-<span><span style="background:{{ r.bg }};color:{{ r.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ r.state }}</span></span>
-<span style="color:#5B6B7F">{{ r.ends }}</span>
-<strong style="color:#042D7C">{{ r.charges }}</strong>
-</div>
-</sc-for>
-</div>
-</div>
 </section>
 
 <section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">

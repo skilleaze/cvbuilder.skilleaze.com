@@ -9,7 +9,7 @@ window.SKP_CONFIG={
 window.SKC_PAYMENTS={enabled:true};
 window.SKC_PAY=window.SKC_PAY||null;
 
-// Unlimited JD CVs subscription (₹1,000 / AED 50 / $20 per month).
+// Unlimited JD CVs subscription (₹990 / AED 49 / $19.99 per month). Prices live in SUBT in ats-cv-builder.html and must match index.html and tailor.html.
 // enabled:false = the module is free while you launch. To charge: enabled:true and set SKC_SUBSCRIBE
 // to your gateway checkout; it must resolve true when the payment succeeds. Subscribers download free.
 // trial: free days before the first charge (set the same Trial period on the Dodo product).

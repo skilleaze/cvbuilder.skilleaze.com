@@ -71,9 +71,10 @@ const PH=(sz,bd,r)=>{if(D.photoMode==='hide')return '';r=D.photoShape==='square'
 const PH0=(sz,bd,r)=>(bd=String(bd||'').replace(/outline:\s*([\d.]+)px solid ([^;]+)/,(m,w,c)=>'box-shadow:0 0 0 '+w+'px '+c),D.photo)?`<img${D.edit?' data-photo="1"':''} src="${D.photo}" alt="" style="width:${sz}px;height:${sz}px;border-radius:${r||'50%'};object-fit:cover;object-position:50% 15%;flex-shrink:0;background:#EAEAEA;${bd}">`:`<div style="width:${sz}px;height:${sz}px;border-radius:${r||'50%'};background:#E6E9EE;color:#5B6470;display:flex;align-items:center;justify-content:center;font-size:${Math.round(sz/2.8)}px;${D.edit?'cursor:pointer;':''};font-weight:700;letter-spacing:.04em;flex-shrink:0;box-sizing:border-box;${bd}">${esc(D.ini)}</div>`.replace('<div style',D.edit?'<div data-photo="1" title="Click to add a photo" style':'<div style');
 let NSZ=30,TSZ=17,LH=1.42,GAP=1;
 function header(S,C,F,fs,W){
- const nameW=S.hdr==='side'?W:W-(D.photoMode==='hide'?0:134)-(S.hdr==='splitPhoto'?222:S.hdr==='split'?244:0);NSZ=+(D.nameSize||0)||30;TSZ=+(D.titleSize||0)||(fs+3);
- if(D.fitName!==false){const userN=+(D.nameSize||0),userT=+(D.titleSize||0);if(!userN){const up=String(D.name||'').toUpperCase();while(NSZ>18&&lines([[up,fnt(F,NSZ,1)]],nameW-NSZ*0.6)>1)NSZ-=1;}if(!userT)while(TSZ>fs-1&&lines([[String(D.title||''),fnt(F,TSZ,1)]],nameW)>1)TSZ-=.5;}
- const nmH=lines([[String(D.name||'').toUpperCase(),fnt(F,NSZ,1)]],nameW-NSZ*0.6)*NSZ*1.1,tH=lines([[String(D.title||''),fnt(F,TSZ,1)]],nameW)*TSZ*LH+5,subH=w=>D.sub?lines([[D.sub,fnt(F,fs-.5)]],w)*(fs-.5)*LH+2:0;
+ const nameW=S.hdr==='side'?W:S.hdr==='tintPhoto'?W-53-(D.photoMode==='hide'?0:136):W-(D.photoMode==='hide'?0:134)-(S.hdr==='splitPhoto'?222:S.hdr==='split'?244:0);NSZ=+(D.nameSize||0)||30;TSZ=+(D.titleSize||0)||(fs+3);
+ const NMW=sz=>nameW-sz*0.6-String(D.name||'').length*sz*.04;
+ if(D.fitName!==false){const userN=+(D.nameSize||0),userT=+(D.titleSize||0);if(!userN){const up=String(D.name||'').toUpperCase();while(NSZ>18&&lines([[up,fnt(F,NSZ,1)]],NMW(NSZ))>1)NSZ-=1;}if(!userT)while(TSZ>fs-1&&lines([[String(D.title||''),fnt(F,TSZ,1)]],nameW)>1)TSZ-=.5;}
+ const nmH=lines([[String(D.name||'').toUpperCase(),fnt(F,NSZ,1)]],NMW(NSZ))*NSZ*1.1,tH=lines([[String(D.title||''),fnt(F,TSZ,1)]],nameW)*TSZ*LH+5,subH=w=>D.sub?lines([[D.sub,fnt(F,fs-.5)]],w)*(fs-.5)*LH+2:0;
  const CTX=c=>c&&c._k==='linkedin'?'LinkedIn':String(c??'');const ctH=w=>lines([[D.contact.map(CTX).join('  |  '),fnt(F,fs-1)]],w)*(fs-1)*LH+9+(D.visa?lines([[D.visa,fnt(F,fs-1)]],w)*(fs-1)*LH+3:0);
  const core=w=>nmH+3+tH+subH(w);
  const name=(col,al)=>`<h1 style="margin:0;font-size:${NSZ}px;line-height:1.1;font-weight:700;letter-spacing:.04em;color:${col};text-align:${al}">${tf('name',D.name)}</h1>`;

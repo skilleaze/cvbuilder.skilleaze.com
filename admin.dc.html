@@ -14,214 +14,145 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&amp;family=Lato:wght@400;700;900&amp;display=swap">
 <script src="./cv-builder/client-config.js?v=139"></script>
 <style>
-html,body{margin:0;background:#F4F6FA;font-family:Lato,system-ui,sans-serif;color:#2C3E50;-webkit-font-smoothing:antialiased}
-a{color:#042D7C}a:hover{color:#053BA0}
+/* Skilleaze admin · sidebar dashboard. Navy menu, light content, white cards. */
+html,body{margin:0;background:#F3F5F9;font-family:Lato,system-ui,-apple-system,"Segoe UI",sans-serif;color:#1F2A3C;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#053BA0}
 *:focus-visible{outline:2px solid #2F5BEA;outline-offset:2px}
 input[type=date]{color-scheme:light}
+[data-ui=app]{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh;background:linear-gradient(90deg,#0A1E4A 252px,#F3F5F9 252px)}
+[data-ui=side]{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#071637 0%,#0A1E4A 100%);color:#C9D3E8;display:flex;flex-direction:column;padding:22px 14px 18px;gap:6px;overflow-y:auto}
+[data-ui=brand]{display:flex;flex-direction:column;gap:4px;padding:2px 10px 20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:12px}
+[data-ui=nav]{display:flex;flex-direction:column;gap:2px}
+[data-ui=navbtn]{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;font-size:14px;font-weight:700;color:#AEBBD6;position:relative;min-height:22px}
+[data-ui=navbtn]:hover{background:rgba(255,255,255,.06);color:#FFFFFF}
+[data-ui=navbtn][data-on=yes]{background:rgba(175,196,255,.14);color:#FFFFFF}
+[data-ui=navbtn][data-on=yes]::before{content:"";position:absolute;left:-14px;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:#AFC4FF}
+[data-ui=ico]{width:20px;height:20px;flex:none}
+[data-ui=badge]{margin-left:auto;font-size:11px;font-weight:900;padding:2px 8px;border-radius:999px;background:rgba(127,224,176,.16);color:#7FE0B0}
+[data-ui=sidefoot]{margin-top:auto;padding:14px 10px 0;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:10px;font-size:12px;color:#8E9AB8}
+[data-ui=main]{min-width:0;display:flex;flex-direction:column}
+[data-ui=top]{position:sticky;top:0;z-index:20;background:rgba(243,245,249,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #E3E7EF;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+[data-ui=content]{padding:26px 32px 64px;display:flex;flex-direction:column;gap:20px;max-width:1360px;width:100%}
+[data-ui=card]{background:#FFFFFF;border:1px solid #E6EAF2;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+[data-ui=ctitle]{margin:0;font-size:15px;font-weight:900;color:#1F2A3C}
+[data-ui=cnote]{font-size:13px;color:#667085;line-height:1.5}
+[data-ui=kpis]{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+[data-ui=kpi]{background:#FFFFFF;border:1px solid #E6EAF2;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px;min-width:0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+[data-ui=klabel]{font-size:12px;font-weight:900;letter-spacing:.04em;color:#667085}
+[data-ui=kval]{font-size:28px;font-weight:900;color:#042D7C;line-height:1.1}
+[data-ui=ksub]{font-size:12px;color:#8A94A6;line-height:1.4}
+[data-ui=two]{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+[data-ui=grid3]{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+[data-ui=range]{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+[data-ui=seg]{display:inline-flex;background:#FFFFFF;border:1px solid #E3E7EF;border-radius:12px;padding:3px}
+[data-ui=th]{font-size:11px;font-weight:900;letter-spacing:.06em;color:#8A94A6;text-transform:uppercase}
+[data-ui=pill]{display:inline-flex;align-items:center;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;white-space:nowrap}
 [data-m=lbl]{display:none}
-@media (max-width:760px){[data-m=irow]{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:8px!important;padding:12px 0!important}[data-m=irow]>*:first-child{grid-column:1/-1}[data-m=lbl]{display:block!important}}
-@media (max-width:760px){
-[data-m=pad]{padding-left:14px!important;padding-right:14px!important}
-main[data-m=pad]{padding-top:18px!important;gap:20px!important}
-[data-m=stack]{grid-template-columns:minmax(0,1fr)!important}
-[data-m=stats]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-[data-m=chan]{grid-template-columns:minmax(0,1fr) auto!important;row-gap:8px!important}
-[data-m=chan]>*:nth-child(3){grid-column:1/-1}
-[data-m=tbl]{min-width:0!important}
-[data-m=thead]{display:none!important}
-[data-m=row]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;row-gap:4px!important;padding:12px 0!important}
-[data-m=row]>*:last-child{grid-column:1/-1}
-[data-m=map]{border-radius:12px!important}
-h2{font-size:24px!important}
-h1{font-size:28px!important}
-header img{height:24px!important}
-section{min-width:0}
-input[type=date]{min-width:0;max-width:100%}
-}
-@media (max-width:420px){[data-m=stats]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}[data-m=row]{grid-template-columns:minmax(0,1fr)!important}}
 @keyframes skpulse{0%{r:3;opacity:.9}70%{r:13;opacity:0}100%{r:13;opacity:0}}
+@media (max-width:1200px){[data-ui=kpis]{grid-template-columns:repeat(2,minmax(0,1fr))}[data-ui=two]{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:980px){
+ [data-ui=app]{grid-template-columns:minmax(0,1fr);background:#F3F5F9}
+ [data-ui=side]{position:sticky;top:0;z-index:30;height:auto;flex-direction:row;align-items:center;padding:10px 12px;gap:10px;overflow:visible}
+ [data-ui=brand]{border:0;margin:0;padding:0 4px;flex:none}
+ [data-ui=brand] span{display:none}
+ [data-ui=nav]{flex-direction:row;overflow-x:auto;gap:4px;scrollbar-width:none;flex:1;min-width:0}
+ [data-ui=nav]::-webkit-scrollbar{display:none}
+ [data-ui=navbtn]{white-space:nowrap;padding:9px 12px;flex:none}
+ [data-ui=navbtn][data-on=yes]::before{display:none}
+ [data-ui=sidefoot]{display:none}
+ [data-ui=top]{position:static;padding:14px 16px}
+ [data-ui=content]{padding:16px 14px 48px;gap:14px}
+ [data-ui=card]{padding:16px;border-radius:16px}
+ [data-ui=kval]{font-size:24px}
+}
+@media (max-width:760px){
+ [data-m=irow]{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:8px!important;padding:12px 0!important}[data-m=irow]>*:first-child{grid-column:1/-1}[data-m=lbl]{display:block!important}
+ [data-m=tbl]{min-width:0!important}
+ [data-m=thead]{display:none!important}
+ [data-m=row]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;row-gap:4px!important;padding:12px 0!important}
+ [data-m=row]>*:last-child{grid-column:1/-1}
+ [data-m=chan]{grid-template-columns:minmax(0,1fr) auto!important;row-gap:8px!important}
+ [data-m=chan]>*:nth-child(3){grid-column:1/-1}
+ [data-m=stack]{grid-template-columns:minmax(0,1fr)!important}
+ [data-ui=kpis]{gap:10px}
+ input[type=date]{min-width:0;max-width:100%}
+}
 </style>
 </helmet>
 
 <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box">
-<form onSubmit="{{ login }}" style="width:100%;max-width:400px;background:#FFFFFF;border:1px solid #E3E4E8;border-radius:24px;padding:32px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px;box-shadow:0 20px 60px rgba(4,45,124,.08)">
-<img src="assets/wordmark-blue.png" alt="Skilleaze" style="height:34px;width:auto;align-self:flex-start">
+<div style="min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(800px 420px at 80% 0%,rgba(47,91,234,.16),transparent 60%),#F3F5F9">
+<form onSubmit="{{ login }}" style="width:100%;max-width:400px;background:#FFFFFF;border:1px solid #E6EAF2;border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:18px;box-shadow:0 24px 70px rgba(4,45,124,.12)">
+<img src="assets/wordmark-blue.png" alt="Skilleaze" style="height:32px;width:auto;align-self:flex-start">
 <div style="display:flex;flex-direction:column;gap:6px">
 <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:34px;color:#042D7C;line-height:1.05">CV Builder admin</h1>
-<div style="font-size:14px;color:#5B6B7F">Analytics, payments and marketing tags.</div>
+<div style="font-size:14px;color:#667085">Visitors, trials, payments and marketing in one place.</div>
 </div>
-<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#2C3E50">Username
-<input value="{{ user }}" onInput="{{ setUser }}" autocomplete="username" style="font:inherit;font-size:15px;font-weight:400;padding:13px 14px;border:1px solid #D5DAE3;border-radius:12px;background:#FFFFFF;color:#2C3E50;outline:none">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">Username
+<input value="{{ user }}" onInput="{{ setUser }}" autocomplete="username" style="font:inherit;font-size:15px;font-weight:400;padding:13px 14px;border:1px solid #D5DAE3;border-radius:12px;background:#FFFFFF;color:#1F2A3C">
 </label>
-<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#2C3E50">Password
-<input type="password" value="{{ pass }}" onInput="{{ setPass }}" autocomplete="current-password" style="font:inherit;font-size:15px;font-weight:400;padding:13px 14px;border:1px solid #D5DAE3;border-radius:12px;background:#FFFFFF;color:#2C3E50;outline:none">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">Password
+<input type="password" value="{{ pass }}" onInput="{{ setPass }}" autocomplete="current-password" style="font:inherit;font-size:15px;font-weight:400;padding:13px 14px;border:1px solid #D5DAE3;border-radius:12px;background:#FFFFFF;color:#1F2A3C">
 </label>
 <sc-if value="{{ err }}"><div style="font-size:13px;color:#B42318;background:#FEF3F2;border-radius:10px;padding:10px 12px">{{ err }}</div></sc-if>
-<button type="submit" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:12px;padding:14px 18px;font:inherit;font-weight:900;font-size:15px;cursor:pointer;text-align:left" style-hover="background:#053BA0">{{ loginLabel }}</button>
+<button type="submit" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:12px;padding:14px 18px;font:inherit;font-weight:900;font-size:15px;cursor:pointer" style-hover="background:#053BA0">{{ loginLabel }}</button>
 </form>
 </div>
 </sc-if>
 
 <sc-if value="{{ showDash }}">
-<div style="min-height:100vh">
-<header style="position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #E3E4E8">
-<div data-m="pad" style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-<div style="display:flex;align-items:center;gap:14px">
-<img src="assets/wordmark-blue.png" alt="Skilleaze" style="height:28px;width:auto">
-<span style="font-size:12px;font-weight:900;letter-spacing:.14em;color:#5B6B7F">CVBUILDER.SKILLEAZE.COM · CV BUILDER ADMIN</span>
-</div>
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-<sc-for list="{{ ranges }}" as="r" hint-placeholder-count="4">
-<button onClick="{{ r.pick }}" style="border:1px solid {{ r.bd }};background:{{ r.bg }};color:{{ r.fg }};border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ r.label }}</button>
+<div data-ui="app">
+
+<aside data-ui="side">
+<div data-ui="brand"><img src="assets/wordmark-white.png" alt="Skilleaze" style="height:24px;width:auto;align-self:flex-start"><span style="font-size:11px;font-weight:900;letter-spacing:.16em;color:#7F8DB0">CV BUILDER ADMIN</span></div>
+<nav data-ui="nav" aria-label="Admin sections">
+<sc-for list="{{ navItems }}" as="n" hint-placeholder-count="8">
+<button data-ui="navbtn" data-on="{{ n.on }}" onClick="{{ n.go }}"><span data-ui="ico" style="{{ n.ico }}"></span>{{ n.label }}<sc-if value="{{ n.hasBadge }}"><span data-ui="badge">{{ n.badge }}</span></sc-if></button>
 </sc-for>
-<input type="date" value="{{ from }}" onChange="{{ setFrom }}" style="font:inherit;font-size:13px;padding:7px 10px;border:1px solid #D5DAE3;border-radius:10px;background:#FFFFFF;color:#2C3E50">
-<span style="font-size:13px;color:#5B6B7F">to</span>
-<input type="date" value="{{ to }}" onChange="{{ setTo }}" style="font:inherit;font-size:13px;padding:7px 10px;border:1px solid #D5DAE3;border-radius:10px;background:#FFFFFF;color:#2C3E50">
-<button onClick="{{ refresh }}" style="border:none;background:#042D7C;color:#FFFFFF;border-radius:999px;padding:8px 16px;font:inherit;font-size:13px;font-weight:900;cursor:pointer" style-hover="background:#053BA0">{{ refreshLabel }}</button>
-<button onClick="{{ logout }}" style="border:1px solid #E3E4E8;background:#FFFFFF;color:#5B6B7F;border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#F1F3F7">Log out</button>
+</nav>
+<div data-ui="sidefoot">
+<span>cvbuilder.skilleaze.com</span>
+<button onClick="{{ logout }}" style="all:unset;cursor:pointer;color:#C9D3E8;font-weight:700;font-size:13px;padding:8px 0" style-hover="color:#FFFFFF">Log out →</button>
 </div>
+</aside>
+
+<div data-ui="main">
+<header data-ui="top">
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;color:#042D7C;line-height:1.1">{{ pageTitle }}</h1>
+<span style="font-size:13px;color:#667085">{{ pageSub }}</span>
+</div>
+<div data-ui="range">
+<div data-ui="seg">
+<sc-for list="{{ ranges }}" as="r" hint-placeholder-count="4">
+<button onClick="{{ r.pick }}" style="border:0;background:{{ r.bg }};color:{{ r.fg }};border-radius:9px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ r.label }}</button>
+</sc-for>
+</div>
+<input type="date" value="{{ from }}" onChange="{{ setFrom }}" aria-label="From" style="font:inherit;font-size:13px;padding:7px 9px;border:1px solid #E3E7EF;border-radius:10px;background:#FFFFFF;color:#1F2A3C">
+<span style="font-size:13px;color:#667085">to</span>
+<input type="date" value="{{ to }}" onChange="{{ setTo }}" aria-label="To" style="font:inherit;font-size:13px;padding:7px 9px;border:1px solid #E3E7EF;border-radius:10px;background:#FFFFFF;color:#1F2A3C">
+<button onClick="{{ refresh }}" style="border:none;background:#042D7C;color:#FFFFFF;border-radius:10px;padding:9px 16px;font:inherit;font-size:13px;font-weight:900;cursor:pointer" style-hover="background:#053BA0">{{ refreshLabel }}</button>
 </div>
 </header>
 
-<main data-m="pad" style="max-width:1280px;margin:0 auto;padding:28px 24px 64px;display:flex;flex-direction:column;gap:28px;box-sizing:border-box">
-
+<main data-ui="content">
 <sc-if value="{{ err }}"><div style="font-size:14px;color:#B42318;background:#FEF3F2;border:1px solid #FECDCA;border-radius:14px;padding:14px 16px">{{ err }}</div></sc-if>
 
-<section style="display:flex;flex-direction:column;gap:14px">
-<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
-<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;color:#042D7C">Overview</h2>
-<span style="font-size:13px;color:#5B6B7F">{{ rangeText }}</span>
-</div>
-<div data-m="stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
+<!-- ============ OVERVIEW ============ -->
+<sc-if value="{{ tOverview }}">
+<div data-ui="kpis">
 <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="8">
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px">
-<span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span>
-<span style="font-size:30px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span>
-<span style="font-size:12px;color:#8A96A8">{{ k.sub }}</span>
-</div>
+<div data-ui="kpi"><span data-ui="klabel">{{ k.label }}</span><span data-ui="kval">{{ k.value }}</span><span data-ui="ksub">{{ k.sub }}</span></div>
 </sc-for>
 </div>
-<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
-<div style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Free trials</h3><span style="font-size:13px;color:#5B6B7F">Card added, trial running, converted to paid, cancelled. From Dodo webhooks.</span></div>
-<sc-if value="{{ hasTrErr }}"><div style="font-size:13px;color:#8A5A00;background:#FFF4E5;border-radius:12px;padding:10px 12px">{{ trErr }}</div></sc-if>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
-<sc-for list="{{ trKpis }}" as="k" hint-placeholder-count="8">
-<div style="background:#F7F9FC;border:1px solid #E3E8F1;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:12px;font-weight:700;color:#5B6B7F">{{ k.label }}</span><span style="font-size:26px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span><span style="font-size:12px;color:#8A96A8">{{ k.sub }}</span></div>
-</sc-for>
-</div>
-<sc-if value="{{ noTr }}"><div style="font-size:13px;color:#8A96A8">No trials in this period.</div></sc-if>
-<div style="overflow-x:auto">
-<div data-m="tbl" style="min-width:680px;display:flex;flex-direction:column">
-<sc-if value="{{ hasTr }}"><div data-m="thead" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>STARTED</span><span>CUSTOMER</span><span>STATUS</span><span>TRIAL ENDS / NEXT</span><span>CHARGES</span></div></sc-if>
-<sc-for list="{{ trList }}" as="r" hint-placeholder-count="4">
-<div data-m="row" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 170px 70px;gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
-<span style="color:#5B6B7F">{{ r.date }}</span>
-<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.who }}</span>
-<span><span style="background:{{ r.bg }};color:{{ r.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ r.state }}</span></span>
-<span style="color:#5B6B7F">{{ r.ends }}</span>
-<strong style="color:#042D7C">{{ r.charges }}</strong>
-</div>
-</sc-for>
-</div>
-</div>
-</section>
-
-</section>
-
-<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Visitors around the world</h3>
-<span style="display:inline-flex;align-items:center;gap:8px;background:#E7F6EF;color:#14684D;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:900"><span style="width:8px;height:8px;border-radius:50%;background:#1E8F6A;box-shadow:0 0 0 4px rgba(30,143,106,.18)"></span>{{ liveText }}</span>
-</div>
-<div style="display:flex;gap:14px;font-size:12px;color:#5B6B7F;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#2F5BEA;opacity:.55"></span>Visitors in period</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#1E8F6A"></span>Live now (last 5 min)</span></div>
-</div>
-<div data-m="stack" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(220px,1fr);gap:18px;align-items:start">
-<div data-m="map" style="position:relative;width:100%;aspect-ratio:2/1;background:#F4F7FC;border-radius:16px;overflow:hidden;min-width:0">
-<div ref="{{ mapRef }}" style="position:absolute;inset:0"></div>
-<sc-if value="{{ mapMsg }}"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#8A96A8;padding:16px;text-align:center">{{ mapMsg }}</div></sc-if>
-</div>
-<div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-<div style="font-size:12px;font-weight:900;letter-spacing:.1em;color:#8A96A8">TOP COUNTRIES</div>
-<sc-if value="{{ noCountries }}"><div style="font-size:13px;color:#8A96A8">No location data yet.</div></sc-if>
-<sc-for list="{{ countries }}" as="c" hint-placeholder-count="6">
-<div style="display:flex;flex-direction:column;gap:5px">
-<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.label }}</span><strong style="color:#042D7C">{{ c.n }}</strong></div>
-<div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ c.pct }};background:#2F5BEA;border-radius:999px"></div></div>
-</div>
-</sc-for>
-<sc-if value="{{ hasLive }}">
-<div style="font-size:12px;font-weight:900;letter-spacing:.1em;color:#8A96A8;margin-top:8px">LIVE NOW</div>
-<sc-for list="{{ live }}" as="v" hint-placeholder-count="3">
-<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ v.label }}</span><span style="color:#14684D;font-weight:900">{{ v.n }}</span></div>
-</sc-for>
-</sc-if>
-</div>
-</div>
-</section>
-
-
-<section style="display:flex;flex-direction:column;gap:16px;min-width:0">
-<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;color:#042D7C">Insights</h2><span style="font-size:13px;color:#5B6B7F">{{ insNote }}</span></div>
-<sc-if value="{{ insErr }}"><div style="font-size:14px;color:#B42318;background:#FEF3F2;border:1px solid #FECDCA;border-radius:14px;padding:12px 16px">{{ insErr }}</div></sc-if>
-<div data-m="stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
-<sc-for list="{{ insKpis }}" as="k" hint-placeholder-count="8"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0"><span style="font-size:11px;font-weight:900;letter-spacing:.06em;color:#5B6B7F;text-transform:uppercase">{{ k.label }}</span><span style="font-size:26px;font-weight:900;color:#042D7C;line-height:1.15">{{ k.value }}</span><span style="font-size:12px;color:#5B6B7F">{{ k.sub }}</span></div></sc-for>
-</div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13px;font-weight:900;color:#2C3E50">Filter by channel</span>
-<sc-for list="{{ insChips }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.pick }}" style="border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ c.label }}</button></sc-for>
-</div>
-<sc-for list="{{ insTables }}" as="t" hint-placeholder-count="4">
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">{{ t.title }}</h3><span style="font-size:12px;color:#5B6B7F">{{ t.note }}</span></div>
-<sc-if value="{{ t.empty }}"><div style="font-size:13px;color:#8A96A8;line-height:1.5">{{ t.emptyText }}</div></sc-if>
-<sc-if value="{{ t.has }}"><div style="display:flex;flex-direction:column">
-<div data-m="thead" style="display:grid;grid-template-columns:{{ t.grid }};gap:12px;padding:6px 0;font-size:11px;font-weight:900;letter-spacing:.06em;color:#8A96A8;text-transform:uppercase;border-bottom:1px solid #EEF1F5"><sc-for list="{{ t.cols }}" as="h" hint-placeholder-count="5"><span>{{ h.l }}</span></sc-for></div>
-<sc-for list="{{ t.rows }}" as="r" hint-placeholder-count="5"><div data-m="irow" style="display:grid;grid-template-columns:{{ t.grid }};gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center"><sc-for list="{{ r.c }}" as="c" hint-placeholder-count="5"><span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span data-m="lbl" style="font-size:10px;font-weight:900;color:#8A96A8;text-transform:uppercase;letter-spacing:.05em">{{ c.l }}</span><span style="{{ c.vs }}">{{ c.v }}</span></span></sc-for></div></sc-for>
-</div></sc-if>
-</div>
-</sc-for>
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Organic Google keywords</h3><button onClick="{{ loadGsc }}" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:999px;padding:9px 16px;font:inherit;font-size:13px;font-weight:900;cursor:pointer" style-hover="background:#053BA0">{{ gscLabel }}</button></div>
-<div style="font-size:13px;color:#5B6B7F;line-height:1.5">Google never passes search keywords to websites. They come from Google Search Console (2–3 day delay). Once connected, the keyword, keyword → page and Search Console pages tables appear above.</div>
-<sc-if value="{{ hasGscMsg }}"><div style="font-size:13px;color:#9A6100;background:#FFF6E5;border-radius:12px;padding:10px 14px">{{ gscMsg }}</div></sc-if>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px">
-<sc-for list="{{ insGroups }}" as="g" hint-placeholder-count="6"><div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">{{ g.title }}</h3><sc-if value="{{ g.empty }}"><div style="font-size:13px;color:#8A96A8">No data yet.</div></sc-if>
-<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span style="min-width:0;overflow-wrap:anywhere">{{ r.label }}</span><span style="font-weight:900;white-space:nowrap">{{ r.n }}</span></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ r.pct }};background:#2F5BEA;border-radius:999px"></div></div></div></sc-for></div></sc-for>
-</div>
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">When people visit</h3><span style="font-size:12px;color:#5B6B7F">Sessions by day and hour, India time. Darker = busier.</span></div>
-<div style="overflow-x:auto"><div style="min-width:560px;display:flex;flex-direction:column;gap:3px">
-<div style="display:grid;grid-template-columns:40px repeat(24,minmax(0,1fr));gap:3px;font-size:10px;color:#8A96A8"><span></span><sc-for list="{{ insHourLabels }}" as="h" hint-placeholder-count="24"><span style="text-align:center">{{ h.l }}</span></sc-for></div>
-<sc-for list="{{ insHeat }}" as="w" hint-placeholder-count="7"><div style="display:grid;grid-template-columns:40px repeat(24,minmax(0,1fr));gap:3px;align-items:center"><span style="font-size:11px;font-weight:700;color:#5B6B7F">{{ w.day }}</span><sc-for list="{{ w.cells }}" as="c" hint-placeholder-count="24"><span title="{{ c.tip }}" style="height:18px;border-radius:4px;background:{{ c.bg }}"></span></sc-for></div></sc-for>
-</div></div>
-</div>
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Visitor sessions and screen recordings</h3></div>
-<div style="font-size:13px;color:#5B6B7F;line-height:1.5">Every visit step by step. Recordings play in Microsoft Clarity: open Recordings, then Filters → Custom tags → <strong>sk_sid</strong> and paste the session ID shown on a card.</div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a href="{{ clarityUrl }}" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap;background:#042D7C;color:#FFFFFF;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:900;text-decoration:none">Watch recordings ↗</a><a href="{{ heatmapUrl }}" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap;background:#FFFFFF;color:#042D7C;border:1px solid #C9D3E8;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:900;text-decoration:none">Heatmaps ↗</a></div>
-<sc-if value="{{ noInsSessions }}"><div style="font-size:13px;color:#8A96A8">No sessions in this period yet.</div></sc-if>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:12px">
-<sc-for list="{{ insSessions }}" as="v" hint-placeholder-count="4"><div style="border:1px solid #E3E4E8;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0;background:#FBFCFE">
-<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#5B6B7F"><span>{{ v.when }}</span><span style="background:#EEF3FF;color:#042D7C;border-radius:999px;padding:2px 8px;font-weight:900">{{ v.tag }}</span></div>
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:14px;font-weight:900;color:#2C3E50">{{ v.where }}</span><span title="{{ v.qwhy }}" style="background:{{ v.qbg }};color:{{ v.qfg }};border-radius:999px;padding:2px 8px;font-size:11px;font-weight:900">{{ v.q }}</span></div>
-<div style="font-size:12px;color:#5B6B7F">{{ v.who }}</div>
-<div style="font-size:13px;color:#042D7C;font-weight:700">{{ v.src }}</div>
-<div style="font-size:12px;color:#2C3E50">{{ v.stats }}</div>
-<sc-if value="{{ v.hasActs }}"><div style="font-size:12px;font-weight:900;color:#14684D">Key action: {{ v.acts }}</div></sc-if>
-<div style="font-size:12px;color:#5B6B7F;overflow-wrap:anywhere;line-height:1.5">{{ v.journey }}</div>
-<div style="font-size:11px;color:#8A96A8;overflow-wrap:anywhere;user-select:all">Session ID: {{ v.sid }}</div>
-</div></sc-for>
-</div>
-</div>
-</section>
-<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0">
+<div data-ui="two">
+<div data-ui="card">
 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Daily visitors and payments</h3>
-<div style="display:flex;gap:14px;font-size:12px;color:#5B6B7F"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#B9C8F5"></span>Visitors</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#1E8F6A"></span>Paid</span></div>
+<h3 data-ui="ctitle">Daily visitors and payments</h3>
+<div style="display:flex;gap:14px;font-size:12px;color:#667085"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#B9C8F5"></span>Visitors</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#1E8F6A"></span>Paid</span></div>
 </div>
-<div style="height:200px;display:flex;align-items:flex-end;gap:3px;border-bottom:1px solid #E3E4E8;overflow-x:auto">
+<div style="height:220px;display:flex;align-items:flex-end;gap:3px;border-bottom:1px solid #E6EAF2;overflow-x:auto">
 <sc-for list="{{ daily }}" as="d" hint-placeholder-count="14">
 <div title="{{ d.tip }}" style="flex:1 0 8px;min-width:8px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:2px">
 <div style="height:{{ d.ph }};background:#1E8F6A;border-radius:3px 3px 0 0"></div>
@@ -229,101 +160,244 @@ input[type=date]{min-width:0;max-width:100%}
 </div>
 </sc-for>
 </div>
-<div style="display:flex;justify-content:space-between;font-size:11px;color:#8A96A8"><span>{{ from }}</span><span>{{ to }}</span></div>
+<div style="display:flex;justify-content:space-between;font-size:11px;color:#8A94A6"><span>{{ from }}</span><span>{{ to }}</span></div>
 </div>
-
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Revenue (paid)</h3>
-<sc-if value="{{ noRevenue }}"><div style="font-size:14px;color:#5B6B7F">No completed payments in this period.</div></sc-if>
-<div data-m="stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
-<sc-for list="{{ revenue }}" as="v" hint-placeholder-count="2">
-<div style="background:#F4F8F6;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px">
-<span style="font-size:22px;font-weight:900;color:#14684D">{{ v.total }}</span>
-<span style="font-size:12px;color:#5B6B7F">{{ v.n }}</span>
+<div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 data-ui="ctitle">Revenue (paid)</h3><button onClick="{{ goPayments }}" style="all:unset;cursor:pointer;font-size:13px;font-weight:900;color:#053BA0">Payments →</button></div>
+<sc-if value="{{ noRevenue }}"><div data-ui="cnote">No completed payments in this period.</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
+<sc-for list="{{ revenue }}" as="v" hint-placeholder-count="2"><div style="background:#F1F8F4;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px"><span style="font-size:20px;font-weight:900;color:#14684D">{{ v.total }}</span><span style="font-size:12px;color:#667085">{{ v.n }}</span></div></sc-for>
 </div>
+</div>
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 data-ui="ctitle">Live now</h3><span data-ui="pill" style="background:#E7F6EF;color:#14684D;gap:6px"><span style="width:7px;height:7px;border-radius:50%;background:#1E8F6A"></span>{{ liveText }}</span></div>
+<sc-if value="{{ noCountries }}"><div data-ui="cnote">No location data yet.</div></sc-if>
+<sc-for list="{{ countriesTop }}" as="c" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.label }}</span><strong style="color:#042D7C">{{ c.n }}</strong></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ c.pct }};background:#2F5BEA;border-radius:999px"></div></div></div>
 </sc-for>
+<button onClick="{{ goVisitors }}" style="all:unset;cursor:pointer;font-size:13px;font-weight:900;color:#053BA0">See the world map →</button>
 </div>
-<h3 style="margin:6px 0 0;font-size:14px;font-weight:900;color:#2C3E50">Paid by product</h3>
-<div style="display:flex;flex-direction:column;gap:8px">
-<sc-for list="{{ byKind }}" as="b" hint-placeholder-count="3">
-<div style="display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:8px 0;border-bottom:1px solid #EEF1F5"><span>{{ b.name }}</span><strong style="color:#042D7C">{{ b.n }}</strong></div>
-</sc-for>
 </div>
-<div style="font-size:12px;color:#8A96A8">{{ payNote }}</div>
 </div>
-</section>
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:4px"><h3 data-ui="ctitle">Free trials</h3><span data-ui="cnote">Card added, converted to paid, cancelled. From Dodo webhooks.</span></div><button onClick="{{ goTrials }}" style="all:unset;cursor:pointer;font-size:13px;font-weight:900;color:#053BA0">All trials →</button></div>
+<div data-ui="kpis">
+<sc-for list="{{ trTop }}" as="k" hint-placeholder-count="4"><div style="background:#F7F9FC;border:1px solid #E6EAF2;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0"><span data-ui="klabel">{{ k.label }}</span><span style="font-size:24px;font-weight:900;color:#042D7C;line-height:1.1">{{ k.value }}</span><span data-ui="ksub">{{ k.sub }}</span></div></sc-for>
+</div>
+</div>
+</sc-if>
 
-<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Marketing channels</h3>
-<span style="font-size:12px;color:#5B6B7F">{{ tagNote }}</span>
+<!-- ============ PAYMENTS ============ -->
+<sc-if value="{{ tPayments }}">
+<div data-ui="two">
+<div data-ui="card">
+<h3 data-ui="ctitle">Revenue (paid)</h3>
+<sc-if value="{{ noRevenue }}"><div data-ui="cnote">No completed payments in this period.</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
+<sc-for list="{{ revenue }}" as="v" hint-placeholder-count="2"><div style="background:#F1F8F4;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-weight:900;color:#14684D">{{ v.total }}</span><span style="font-size:12px;color:#667085">{{ v.n }}</span></div></sc-for>
 </div>
+<div data-ui="cnote">{{ payNote }}</div>
+</div>
+<div data-ui="card">
+<h3 data-ui="ctitle">Paid by product</h3>
 <div style="display:flex;flex-direction:column">
-<sc-for list="{{ channels }}" as="c" hint-placeholder-count="8">
-<div data-m="chan" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EEF1F5">
-<div style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:15px;font-weight:900;color:#2C3E50">{{ c.name }}</span><span style="font-size:12px;color:#8A96A8;word-break:break-all">{{ c.id }}</span></div>
-<div><span style="display:inline-flex;align-items:center;gap:6px;background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:6px 12px;font-size:12px;font-weight:900"><span style="width:7px;height:7px;border-radius:50%;background:{{ c.fg }}"></span>{{ c.status }}</span></div>
-<div style="font-size:13px;color:#5B6B7F;line-height:1.45;min-width:0;word-break:break-word">{{ c.detail }}</div>
+<sc-for list="{{ byKind }}" as="b" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:10px 0;border-bottom:1px solid #EEF1F5"><span>{{ b.name }}</span><strong style="color:#042D7C">{{ b.n }}</strong></div></sc-for>
 </div>
-</sc-for>
 </div>
-</section>
-
-<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
-<sc-for list="{{ lists }}" as="l" hint-placeholder-count="4">
-<div style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">{{ l.title }}</h3>
-<sc-if value="{{ l.empty }}"><div style="font-size:13px;color:#8A96A8">No data yet.</div></sc-if>
-<sc-for list="{{ l.rows }}" as="w" hint-placeholder-count="5">
-<div style="display:flex;flex-direction:column;gap:5px">
-<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ w.label }}</span><strong style="color:#042D7C">{{ w.n }}</strong></div>
-<div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ w.pct }};background:#2F5BEA;border-radius:999px"></div></div>
 </div>
-</sc-for>
-</div>
-</sc-for>
-</section>
-
-<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Recent payments</h3>
-<sc-if value="{{ noPayments }}"><div style="font-size:13px;color:#8A96A8">No payments in this period.</div></sc-if>
+<div data-ui="card">
+<h3 data-ui="ctitle">Recent payments</h3>
+<sc-if value="{{ noPayments }}"><div data-ui="cnote">No payments in this period.</div></sc-if>
 <div style="overflow-x:auto">
 <div data-m="tbl" style="min-width:720px;display:flex;flex-direction:column">
-<sc-if value="{{ hasPayments }}"><div data-m="thead" style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:8px 0;font-size:11px;font-weight:900;letter-spacing:.08em;color:#8A96A8;border-bottom:1px solid #E3E4E8"><span>DATE</span><span>PRODUCT</span><span>STATUS</span><span>AMOUNT</span><span>CUSTOMER</span></div></sc-if>
+<sc-if value="{{ hasPayments }}"><div data-m="thead" data-ui="th" style="display:grid;grid-template-columns:150px 150px 110px 120px minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid #E6EAF2"><span>Date</span><span>Product</span><span>Status</span><span>Amount</span><span>Customer</span></div></sc-if>
 <sc-for list="{{ payments }}" as="p" hint-placeholder-count="5">
-<div data-m="row" style="display:grid;grid-template-columns:150px 140px 100px 120px minmax(0,1fr);gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
-<span style="color:#5B6B7F">{{ p.date }}</span><span>{{ p.kind }}</span>
-<span><span style="background:{{ p.bg }};color:{{ p.fg }};border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ p.status }}</span></span>
+<div data-m="row" style="display:grid;grid-template-columns:150px 150px 110px 120px minmax(0,1fr);gap:12px;padding:12px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#667085">{{ p.date }}</span><span>{{ p.kind }}</span>
+<span><span data-ui="pill" style="background:{{ p.bg }};color:{{ p.fg }}">{{ p.status }}</span></span>
 <strong style="color:#042D7C">{{ p.amount }}</strong>
 <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.who }}</span>
 </div>
 </sc-for>
 </div>
 </div>
-</section>
+</div>
+</sc-if>
 
-<section style="background:#FFFFFF;border:1px solid #E3E4E8;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0">
-<h3 style="margin:0;font-size:16px;font-weight:900;color:#2C3E50">Live activity</h3>
-<sc-if value="{{ noEvents }}"><div style="font-size:13px;color:#8A96A8">No activity in this period.</div></sc-if>
+<!-- ============ TRIALS ============ -->
+<sc-if value="{{ tTrials }}">
+<sc-if value="{{ hasTrErr }}"><div style="font-size:13px;color:#8A5A00;background:#FFF4E5;border-radius:12px;padding:12px 14px">{{ trErr }}</div></sc-if>
+<div data-ui="kpis">
+<sc-for list="{{ trKpis }}" as="k" hint-placeholder-count="8"><div data-ui="kpi"><span data-ui="klabel">{{ k.label }}</span><span data-ui="kval">{{ k.value }}</span><span data-ui="ksub">{{ k.sub }}</span></div></sc-for>
+</div>
+<div data-ui="card">
+<div style="display:flex;flex-direction:column;gap:4px"><h3 data-ui="ctitle">Every trial</h3><span data-ui="cnote">Card added, trial running, converted to paid, cancelled. From Dodo webhooks.</span></div>
+<sc-if value="{{ noTr }}"><div data-ui="cnote">No trials in this period.</div></sc-if>
 <div style="overflow-x:auto">
-<div data-m="tbl" style="min-width:640px;display:flex;flex-direction:column">
-<sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
-<div data-m="row" style="display:grid;grid-template-columns:150px 130px minmax(0,1fr) 130px 90px;gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
-<span style="color:#5B6B7F">{{ e.date }}</span>
-<span><span style="background:#EEF3FF;color:#042D7C;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900">{{ e.ev }}</span></span>
-<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.path }}</span>
-<span style="color:#5B6B7F;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.source }}</span>
-<span style="color:#5B6B7F">{{ e.dev }}</span>
+<div data-m="tbl" style="min-width:680px;display:flex;flex-direction:column">
+<sc-if value="{{ hasTr }}"><div data-m="thead" data-ui="th" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 180px 80px;gap:12px;padding:8px 0;border-bottom:1px solid #E6EAF2"><span>Started</span><span>Customer</span><span>Status</span><span>Trial ends / next</span><span>Charges</span></div></sc-if>
+<sc-for list="{{ trList }}" as="r" hint-placeholder-count="4">
+<div data-m="row" style="display:grid;grid-template-columns:140px minmax(0,1fr) 120px 180px 80px;gap:12px;padding:12px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#667085">{{ r.date }}</span>
+<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.who }}</span>
+<span><span data-ui="pill" style="background:{{ r.bg }};color:{{ r.fg }}">{{ r.state }}</span></span>
+<span style="color:#667085">{{ r.ends }}</span>
+<strong style="color:#042D7C">{{ r.charges }}</strong>
 </div>
 </sc-for>
 </div>
 </div>
-</section>
+</div>
+</sc-if>
+
+<!-- ============ VISITORS ============ -->
+<sc-if value="{{ tVisitors }}">
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 data-ui="ctitle">Visitors around the world</h3><span data-ui="pill" style="background:#E7F6EF;color:#14684D;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#1E8F6A;box-shadow:0 0 0 4px rgba(30,143,106,.18)"></span>{{ liveText }}</span></div>
+<div style="display:flex;gap:14px;font-size:12px;color:#667085;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#2F5BEA;opacity:.55"></span>Visitors in period</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#1E8F6A"></span>Live now (last 5 min)</span></div>
+</div>
+<div data-m="stack" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(220px,1fr);gap:20px;align-items:start">
+<div style="position:relative;width:100%;aspect-ratio:2/1;background:#F4F7FC;border-radius:14px;overflow:hidden;min-width:0">
+<div ref="{{ mapRef }}" style="position:absolute;inset:0"></div>
+<sc-if value="{{ mapMsg }}"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#8A94A6;padding:16px;text-align:center">{{ mapMsg }}</div></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+<div data-ui="th">Top countries</div>
+<sc-if value="{{ noCountries }}"><div data-ui="cnote">No location data yet.</div></sc-if>
+<sc-for list="{{ countries }}" as="c" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.label }}</span><strong style="color:#042D7C">{{ c.n }}</strong></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ c.pct }};background:#2F5BEA;border-radius:999px"></div></div></div>
+</sc-for>
+<sc-if value="{{ hasLive }}">
+<div data-ui="th" style="margin-top:8px">Live now</div>
+<sc-for list="{{ live }}" as="v" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ v.label }}</span><span style="color:#14684D;font-weight:900">{{ v.n }}</span></div></sc-for>
+</sc-if>
+</div>
+</div>
+</div>
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 data-ui="ctitle">When people visit</h3><span data-ui="cnote">Sessions by day and hour, India time. Darker = busier.</span></div>
+<div style="overflow-x:auto"><div style="min-width:560px;display:flex;flex-direction:column;gap:3px">
+<div style="display:grid;grid-template-columns:40px repeat(24,minmax(0,1fr));gap:3px;font-size:10px;color:#8A94A6"><span></span><sc-for list="{{ insHourLabels }}" as="h" hint-placeholder-count="24"><span style="text-align:center">{{ h.l }}</span></sc-for></div>
+<sc-for list="{{ insHeat }}" as="w" hint-placeholder-count="7"><div style="display:grid;grid-template-columns:40px repeat(24,minmax(0,1fr));gap:3px;align-items:center"><span style="font-size:11px;font-weight:700;color:#667085">{{ w.day }}</span><sc-for list="{{ w.cells }}" as="c" hint-placeholder-count="24"><span title="{{ c.tip }}" style="height:18px;border-radius:4px;background:{{ c.bg }}"></span></sc-for></div></sc-for>
+</div></div>
+</div>
+<div data-ui="grid3">
+<sc-for list="{{ listsA }}" as="l" hint-placeholder-count="4">
+<div data-ui="card"><h3 data-ui="ctitle">{{ l.title }}</h3><sc-if value="{{ l.empty }}"><div data-ui="cnote">No data yet.</div></sc-if>
+<sc-for list="{{ l.rows }}" as="w" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ w.label }}</span><strong style="color:#042D7C">{{ w.n }}</strong></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ w.pct }};background:#2F5BEA;border-radius:999px"></div></div></div></sc-for>
+</div>
+</sc-for>
+<sc-for list="{{ insGroups }}" as="g" hint-placeholder-count="6">
+<div data-ui="card"><h3 data-ui="ctitle">{{ g.title }}</h3><sc-if value="{{ g.empty }}"><div data-ui="cnote">No data yet.</div></sc-if>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span style="min-width:0;overflow-wrap:anywhere">{{ r.label }}</span><span style="font-weight:900;white-space:nowrap">{{ r.n }}</span></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ r.pct }};background:#2F5BEA;border-radius:999px"></div></div></div></sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<!-- ============ TRAFFIC & SEO ============ -->
+<sc-if value="{{ tTraffic }}">
+<sc-if value="{{ insErr }}"><div style="font-size:14px;color:#B42318;background:#FEF3F2;border:1px solid #FECDCA;border-radius:14px;padding:12px 16px">{{ insErr }}</div></sc-if>
+<div data-ui="kpis">
+<sc-for list="{{ insKpis }}" as="k" hint-placeholder-count="8"><div data-ui="kpi"><span data-ui="klabel">{{ k.label }}</span><span data-ui="kval">{{ k.value }}</span><span data-ui="ksub">{{ k.sub }}</span></div></sc-for>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13px;font-weight:900">Filter by channel</span>
+<sc-for list="{{ insChips }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.pick }}" style="border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ c.label }}</button></sc-for>
+</div>
+<sc-for list="{{ insTables }}" as="t" hint-placeholder-count="4">
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 data-ui="ctitle">{{ t.title }}</h3><span data-ui="cnote">{{ t.note }}</span></div>
+<sc-if value="{{ t.empty }}"><div data-ui="cnote">{{ t.emptyText }}</div></sc-if>
+<sc-if value="{{ t.has }}"><div style="display:flex;flex-direction:column">
+<div data-m="thead" data-ui="th" style="display:grid;grid-template-columns:{{ t.grid }};gap:12px;padding:6px 0;border-bottom:1px solid #EEF1F5"><sc-for list="{{ t.cols }}" as="h" hint-placeholder-count="5"><span>{{ h.l }}</span></sc-for></div>
+<sc-for list="{{ t.rows }}" as="r" hint-placeholder-count="5"><div data-m="irow" style="display:grid;grid-template-columns:{{ t.grid }};gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center"><sc-for list="{{ r.c }}" as="c" hint-placeholder-count="5"><span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span data-m="lbl" style="font-size:10px;font-weight:900;color:#8A94A6;text-transform:uppercase;letter-spacing:.05em">{{ c.l }}</span><span style="{{ c.vs }}">{{ c.v }}</span></span></sc-for></div></sc-for>
+</div></sc-if>
+</div>
+</sc-for>
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3 data-ui="ctitle">Organic Google keywords</h3><button onClick="{{ loadGsc }}" style="background:#042D7C;color:#FFFFFF;border:none;border-radius:10px;padding:9px 16px;font:inherit;font-size:13px;font-weight:900;cursor:pointer" style-hover="background:#053BA0">{{ gscLabel }}</button></div>
+<div data-ui="cnote">Google never passes search keywords to websites. They come from Google Search Console (2–3 day delay). Once loaded, the keyword, keyword → page and Search Console pages tables appear above.</div>
+<sc-if value="{{ hasGscMsg }}"><div style="font-size:13px;color:#9A6100;background:#FFF6E5;border-radius:12px;padding:10px 14px">{{ gscMsg }}</div></sc-if>
+</div>
+</sc-if>
+
+<!-- ============ SESSIONS ============ -->
+<sc-if value="{{ tSessions }}">
+<div data-ui="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<div data-ui="cnote" style="max-width:720px">Every visit step by step. Recordings play in Microsoft Clarity: open Recordings, then Filters → Custom tags → <strong>sk_sid</strong> and paste the session ID shown on a card.</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><a href="{{ clarityUrl }}" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap;background:#042D7C;color:#FFFFFF;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:900;text-decoration:none">Watch recordings ↗</a><a href="{{ heatmapUrl }}" target="_blank" rel="noopener" style="display:inline-flex;white-space:nowrap;background:#FFFFFF;color:#042D7C;border:1px solid #C9D3E8;border-radius:10px;padding:8px 14px;font-size:13px;font-weight:900;text-decoration:none">Heatmaps ↗</a></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13px;font-weight:900">Filter by channel</span>
+<sc-for list="{{ insChips }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.pick }}" style="border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ c.label }}</button></sc-for>
+</div>
+</div>
+<sc-if value="{{ noInsSessions }}"><div data-ui="cnote">No sessions in this period yet.</div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:14px">
+<sc-for list="{{ insSessions }}" as="v" hint-placeholder-count="4"><div data-ui="card" style="gap:6px;padding:16px">
+<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#667085"><span>{{ v.when }}</span><span data-ui="pill" style="background:#EEF3FF;color:#042D7C;padding:2px 8px">{{ v.tag }}</span></div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:14px;font-weight:900">{{ v.where }}</span><span title="{{ v.qwhy }}" data-ui="pill" style="background:{{ v.qbg }};color:{{ v.qfg }};padding:2px 8px;font-size:11px">{{ v.q }}</span></div>
+<div style="font-size:12px;color:#667085">{{ v.who }}</div>
+<div style="font-size:13px;color:#042D7C;font-weight:700">{{ v.src }}</div>
+<div style="font-size:12px">{{ v.stats }}</div>
+<sc-if value="{{ v.hasActs }}"><div style="font-size:12px;font-weight:900;color:#14684D">Key action: {{ v.acts }}</div></sc-if>
+<div style="font-size:12px;color:#667085;overflow-wrap:anywhere;line-height:1.5">{{ v.journey }}</div>
+<div style="font-size:11px;color:#8A94A6;overflow-wrap:anywhere;user-select:all">Session ID: {{ v.sid }}</div>
+</div></sc-for>
+</div>
+</sc-if>
+
+<!-- ============ LIVE ACTIVITY ============ -->
+<sc-if value="{{ tActivity }}">
+<div data-ui="two">
+<div data-ui="card">
+<h3 data-ui="ctitle">Latest events</h3>
+<sc-if value="{{ noEvents }}"><div data-ui="cnote">No activity in this period.</div></sc-if>
+<div style="overflow-x:auto">
+<div data-m="tbl" style="min-width:600px;display:flex;flex-direction:column">
+<sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+<div data-m="row" style="display:grid;grid-template-columns:130px 120px minmax(0,1fr) 120px 80px;gap:12px;padding:10px 0;font-size:13px;border-bottom:1px solid #EEF1F5;align-items:center">
+<span style="color:#667085">{{ e.date }}</span>
+<span><span data-ui="pill" style="background:#EEF3FF;color:#042D7C">{{ e.ev }}</span></span>
+<span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.path }}</span>
+<span style="color:#667085;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.source }}</span>
+<span style="color:#667085">{{ e.dev }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+<sc-for list="{{ listEv }}" as="l" hint-placeholder-count="1">
+<div data-ui="card"><h3 data-ui="ctitle">Event totals</h3><sc-if value="{{ l.empty }}"><div data-ui="cnote">No data yet.</div></sc-if>
+<sc-for list="{{ l.rows }}" as="w" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13px"><span>{{ w.label }}</span><strong style="color:#042D7C">{{ w.n }}</strong></div><div style="height:6px;background:#EEF1F5;border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ w.pct }};background:#2F5BEA;border-radius:999px"></div></div></div></sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<!-- ============ TRACKING HEALTH ============ -->
+<sc-if value="{{ tTracking }}">
+<div data-ui="card">
+<div style="display:flex;flex-direction:column;gap:4px"><h3 data-ui="ctitle">Marketing tags and pixels</h3><span data-ui="cnote">{{ tagNote }}</span></div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ channels }}" as="c" hint-placeholder-count="8">
+<div data-m="chan" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr) minmax(0,1.6fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EEF1F5">
+<div style="display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:15px;font-weight:900">{{ c.name }}</span><span style="font-size:12px;color:#8A94A6;word-break:break-all">{{ c.id }}</span></div>
+<div><span data-ui="pill" style="gap:6px;background:{{ c.bg }};color:{{ c.fg }}"><span style="width:7px;height:7px;border-radius:50%;background:{{ c.fg }}"></span>{{ c.status }}</span></div>
+<div style="font-size:13px;color:#667085;line-height:1.45;min-width:0;word-break:break-word">{{ c.detail }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
 
 </main>
 </div>
+</div>
 </sc-if>
-</x-dc>
+
 <script type="text/x-dc" data-dc-script>
 const CH=[
  {k:'ga',name:'Google Analytics 4',id:'G-HM0RMGSK4X'},
@@ -344,7 +418,7 @@ const when=t=>{if(!t)return '';const d=new Date(t);return d.toLocaleString('en-G
 const rel=t=>{if(!t)return 'never';const s=(Date.now()-new Date(t))/1000;if(s<90)return 'just now';if(s<3600)return Math.round(s/60)+' min ago';if(s<86400)return Math.round(s/3600)+' h ago';return Math.round(s/86400)+' d ago';};
 const money=(c,v)=>{try{return new Intl.NumberFormat('en',{style:'currency',currency:c||'USD',maximumFractionDigits:2}).format(v||0);}catch(e){return (c||'')+' '+(v||0);}};
 class Component extends DCLogic {
-  state={user:'',pass:'',err:'',busy:false,authed:false,data:null,range:30,from:ago(29),to:iso(new Date())};
+  state={user:'',pass:'',err:'',busy:false,authed:false,data:null,range:30,from:ago(29),to:iso(new Date()),tab:(()=>{try{return (location.hash||'').slice(1)||sessionStorage.getItem('skc_admin_tab')||'overview';}catch(e){return 'overview';}})()};
   componentWillUnmount(){clearInterval(this._lt);}
   libs(){if(this._libs)return this._libs;const add=u=>new Promise((r,j)=>{const x=document.createElement('script');x.src=u;x.onload=r;x.onerror=j;document.head.appendChild(x);});
     this._libs=add('https://cdn.jsdelivr.net/npm/d3-array@3').then(()=>add('https://cdn.jsdelivr.net/npm/d3-geo@3')).then(()=>add('https://cdn.jsdelivr.net/npm/topojson-client@3')).then(()=>fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')).then(r=>r.json()).then(w=>{this._world=w;});return this._libs;}
@@ -365,6 +439,16 @@ class Component extends DCLogic {
   async loadTrials(){if(!this.cred)return;try{const t=await this.rpc('cvb_admin_trials',{p_user:this.cred.u,p_pass:this.cred.p,p_from:this.state.from,p_to:this.state.to});this.setState({trials:t,trErr:''});}catch(x){this.setState({trErr:/setup needed|cvb_admin_trials|does not exist|Could not find/i.test(x.message)?'Trial tracking setup needed: run cvbuilder-trial.sql in Supabase → SQL Editor, and deploy the new dodo-webhook.':x.message});}}
   async loadIns(){if(!this.cred)return;try{const d=await this.rpc('sk_insights',{p_user:this.cred.u,p_pass:this.cred.p,p_site:SITE,p_from:this.state.from,p_to:this.state.to});this.setState({ins:d,insErr:''});}catch(x){this.setState({insErr:/setup needed|sk_insights|does not exist|Could not find/i.test(x.message)?'Insights setup needed: run admin-insights.sql in Supabase → SQL Editor.':x.message});}}
   async loadGsc(){if(!this.cred)return;this.setState({gscBusy:true,gscErr:''});try{const C=window.SKP_CONFIG||{};const r=await fetch(C.supabaseUrl+'/functions/v1/gsc-insights',{method:'POST',headers:{'Content-Type':'application/json',apikey:C.supabaseAnonKey,Authorization:'Bearer '+C.supabaseAnonKey},body:JSON.stringify({user:this.cred.u,pass:this.cred.p,site:SITE,from:this.state.from,to:this.state.to})});const j=await r.json().catch(()=>({}));if(j.setup){this.setState({gscBusy:false,gscErr:'Search Console is not connected yet. Follow “Connect Google Search Console” in the README (one time).'});return;}if(!r.ok||j.error)throw new Error(j.error||('Error '+r.status));this.setState({gsc:j,gscBusy:false});}catch(x){this.setState({gscBusy:false,gscErr:/Failed to fetch|404|not found/i.test(x.message)?'Search Console is not connected yet. Deploy the gsc-insights function (see README).':x.message});}}
+  navVals(lists,o){const s=this.state,TB=['overview','payments','trials','visitors','traffic','sessions','activity','tracking'],tab=TB.includes(s.tab)?s.tab:'overview';
+    const P={overview:'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',payments:'M3 6h18v12H3zM3 10h18M7 15h3',trials:'M12 7v5l3 2M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18',visitors:'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M3 12h18M12 3c3.2 3.2 3.2 14.8 0 18M12 3c-3.2 3.2-3.2 14.8 0 18',traffic:'M3 17l6-6 4 4 8-8M15 7h6v6',sessions:'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M10 8.5v7l6-3.5z',activity:'M3 12h4l3-7 4 14 3-7h4',tracking:'M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6zM9 12l2 2 4-4'};
+    const ico=(p,c)=>"background:url('data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+p+'"/></svg>')+"') center/20px no-repeat";
+    const T=s.trials||{},G=s.geo||{};
+    const L={overview:['Overview','Key numbers for '+s.from+' to '+s.to],payments:['Payments','Revenue and every payment from Dodo'],trials:['Trials & plans','2-day trials, conversions and cancellations'],visitors:['Visitors','Where people come from and when they visit'],traffic:['Traffic & SEO','Channels, campaigns, keywords and bot filtering'],sessions:['Sessions','Each visit step by step, with Clarity recordings'],activity:['Live activity','The latest events across the site'],tracking:['Tracking health','Are the marketing pixels firing?']};
+    const badge={trials:T.trial_now?String(T.trial_now):'',visitors:G.live_count?String(G.live_count)+' live':''};
+    const go=k=>()=>{this.setState({tab:k});try{sessionStorage.setItem('skc_admin_tab',k);history.replaceState(null,'','#'+k);}catch(e){}window.scrollTo({top:0});setTimeout(()=>{const b=document.querySelector('[data-ui=navbtn][data-on=yes]');if(b&&b.scrollIntoView)b.scrollIntoView({block:'nearest',inline:'center'});},50);};
+    const navItems=TB.map(k=>({label:L[k][0],on:k===tab?'yes':'no',go:go(k),ico:ico(P[k],k===tab?'#FFFFFF':'#AEBBD6'),badge:badge[k]||'',hasBadge:!!badge[k]}));
+    const F={};TB.forEach(k=>F['t'+k.charAt(0).toUpperCase()+k.slice(1)]=k===tab);
+    return Object.assign(F,{navItems,pageTitle:L[tab][0],pageSub:L[tab][1],listsA:[lists[0],lists[1],lists[3]],listEv:lists.slice(4,5),trTop:(o.trKpis||[]).slice(0,4),countriesTop:(o.countries||[]).slice(0,5),goPayments:go('payments'),goTrials:go('trials'),goVisitors:go('visitors')});}
   insVals(){const s=this.state,I=s.ins||{},K=I.kpi||{},S=K.sessions||0,cur=s.insCh||'All';
     const fmt=v=>{v=Math.round(+v||0);if(v<60)return v+'s';return Math.floor(v/60)+'m '+String(v%60).padStart(2,'0')+'s';};const pc=(a,b)=>b?((a||0)/b*100).toFixed(1)+'%':'—';
     const Q=I.quality||{},QS=Q.split||[],qn=k=>QS.filter(x=>x.k===k).reduce((a,x)=>a+(+x.n||0),0),botN=qn('Bot'),susN=qn('Suspicious'),realN=qn('Real'),allN=botN+susN+realN;
@@ -432,14 +516,14 @@ class Component extends DCLogic {
     const geoVals={mapRef:el=>{if(el&&el!==this.mapEl){this.mapEl=el;this.drawMap();}},liveText:lc+' live now',countries:cs.map(c=>({label:c.country,n:nf(c.n),pct:Math.round(c.n/cm*100)+'%'})),noCountries:!cs.length,
       live:(G.live||[]).map(v=>({label:[v.city,v.country].filter(Boolean).join(', ')||'Unknown',n:v.n})),hasLive:!!(G.live||[]).length,
       mapMsg:s.geoErr||(s.geo&&!(G.points||[]).length&&!(G.live||[]).length?'No visitor locations yet. Dots appear as people visit.':'')};
-    const insV=this.insVals();return {...geoVals,...insV,showLogin:!s.authed,showDash:s.authed,user:s.user,pass:s.pass,err:s.err,loginLabel:s.busy?'Signing in…':'Sign in',
+    const insV=this.insVals();const __o={...geoVals,...insV,showLogin:!s.authed,showDash:s.authed,user:s.user,pass:s.pass,err:s.err,loginLabel:s.busy?'Signing in…':'Sign in',
       setUser:e=>this.setState({user:e.target.value}),setPass:e=>this.setState({pass:e.target.value}),login:e=>this.login(e),logout:()=>this.logout(),
       ranges:R,from:s.from,to:s.to,setFrom:e=>this.setState({from:e.target.value,range:0},()=>this.load()),setTo:e=>this.setState({to:e.target.value,range:0},()=>this.load()),
       refresh:()=>this.load(),refreshLabel:s.busy?'Loading…':'Refresh',rangeText:s.from+' to '+s.to,
       kpis,daily,revenue:rev,noRevenue:!rev.length,byKind:(P.by_kind||[]).map(b=>({name:KIND[b.kind]||b.kind,n:nf(b.n)})),
       payNote:'Amounts are what Dodo charged, in the charged currency.',
       channels,tagNote:'Checked in each visitor’s browser about 9 seconds after arrival. Ad blockers lower these numbers.',
-      ...(()=>{const T=s.trials||{};const pc=(x,y)=>y?Math.round((x||0)/y*100)+'%':'—';const ST={trialing:['Trial','#EEF3FF','#042D7C'],active:['Paying','#E6F6EE','#1F7A4D'],cancelled:['Cancelled','#FBECEC','#8A2D2D'],on_hold:['Card failed','#FFF4E5','#8A5A00'],failed:['Card failed','#FFF4E5','#8A5A00'],expired:['Ended','#F1F3F6','#5B6470']};       const trKpis=[{label:'Cards added',value:nf(T.cards),sub:nf(T.opened)+' opened checkout · '+pc(T.cards,T.opened)},{label:'Trials active now',value:nf(T.trial_now),sub:nf(T.ending_24h)+' end in the next 24h'},{label:'Converted to paid',value:nf(T.converted),sub:pc(T.converted,T.cards)+' of cards added'},{label:'Paying now',value:nf(T.paying_now),sub:'Active monthly plans'},{label:'Cancelled in trial',value:nf(T.cancel_trial),sub:pc(T.cancel_trial,T.cards)+' of cards added'},{label:'Cancelled after paying',value:nf(T.cancel_paid),sub:'Left after at least 1 charge'},{label:'Card failed',value:nf(T.failed),sub:'On hold or failed renewal'},{label:'Left without card',value:nf(T.no_card),sub:'Opened checkout, no card'}];       const trList=(T.list||[]).map(r=>{const st=r.card_at?(ST[r.sub_state]||['Card added','#EEF3FF','#042D7C']):['No card','#F1F3F6','#5B6470'];return {date:when(r.created_at),who:r.email||r.customer_name||'—',state:st[0],bg:st[1],fg:st[2],ends:r.sub_state==='trialing'?when(r.trial_end||r.next_billing):(r.cancelled_at?'Cancelled '+when(r.cancelled_at):(r.next_billing?'Next '+when(r.next_billing):'—')),charges:String(r.charges||0)};});       return {trKpis,trList,hasTr:trList.length>0,noTr:!trList.length,trErr:s.trErr||'',hasTrErr:!!s.trErr};})(),lists,payments,hasPayments:payments.length>0,noPayments:!payments.length,events,noEvents:!events.length};
+      ...(()=>{const T=s.trials||{};const pc=(x,y)=>y?Math.round((x||0)/y*100)+'%':'—';const ST={trialing:['Trial','#EEF3FF','#042D7C'],active:['Paying','#E6F6EE','#1F7A4D'],cancelled:['Cancelled','#FBECEC','#8A2D2D'],on_hold:['Card failed','#FFF4E5','#8A5A00'],failed:['Card failed','#FFF4E5','#8A5A00'],expired:['Ended','#F1F3F6','#5B6470']};       const trKpis=[{label:'Cards added',value:nf(T.cards),sub:nf(T.opened)+' opened checkout · '+pc(T.cards,T.opened)},{label:'Trials active now',value:nf(T.trial_now),sub:nf(T.ending_24h)+' end in the next 24h'},{label:'Converted to paid',value:nf(T.converted),sub:pc(T.converted,T.cards)+' of cards added'},{label:'Paying now',value:nf(T.paying_now),sub:'Active monthly plans'},{label:'Cancelled in trial',value:nf(T.cancel_trial),sub:pc(T.cancel_trial,T.cards)+' of cards added'},{label:'Cancelled after paying',value:nf(T.cancel_paid),sub:'Left after at least 1 charge'},{label:'Card failed',value:nf(T.failed),sub:'On hold or failed renewal'},{label:'Left without card',value:nf(T.no_card),sub:'Opened checkout, no card'}];       const trList=(T.list||[]).map(r=>{const st=r.card_at?(ST[r.sub_state]||['Card added','#EEF3FF','#042D7C']):['No card','#F1F3F6','#5B6470'];return {date:when(r.created_at),who:r.email||r.customer_name||'—',state:st[0],bg:st[1],fg:st[2],ends:r.sub_state==='trialing'?when(r.trial_end||r.next_billing):(r.cancelled_at?'Cancelled '+when(r.cancelled_at):(r.next_billing?'Next '+when(r.next_billing):'—')),charges:String(r.charges||0)};});       return {trKpis,trList,hasTr:trList.length>0,noTr:!trList.length,trErr:s.trErr||'',hasTrErr:!!s.trErr};})(),lists,payments,hasPayments:payments.length>0,noPayments:!payments.length,events,noEvents:!events.length};return Object.assign(__o,this.navVals(lists,__o));
   }
 }
 </script>

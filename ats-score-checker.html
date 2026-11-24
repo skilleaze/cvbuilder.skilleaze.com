@@ -754,9 +754,9 @@ textarea{resize:vertical}
 </div>
 </sc-if>
 <sc-if value="{{ importOpen }}">
-<div style="position:fixed;inset:0;z-index:90;background:rgba(4,45,124,0.120);display:flex;align-items:center;justify-content:center;padding:16px" onClick="{{ closeImport }}">
+<div style="position:fixed;inset:0;z-index:90;background:rgba(5,14,38,0.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px" onClick="{{ closeImport }}">
 <div onClick="{{ stop }}" style="background:#FFFFFF;border-radius:24px;width:min(560px,100%);padding:26px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;animation:skb-in .3s ease">
-<h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:#042D7C">Upload an existing CV</h2><div style="font-size:14px;color:#5B6B7F;line-height:1.5;margin-top:-6px">{{ importIntoNote }}</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;color:#042D7C">Upload your CV</h2><button onClick="{{ closeImport }}" aria-label="Close" style="all:unset;cursor:pointer;width:40px;height:40px;border-radius:12px;background:#EEF2F8;color:#042D7C;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">×</button></div><div style="font-size:14px;color:#5B6B7F;line-height:1.5;margin-top:-6px">{{ importIntoNote }}</div>
 <div style="display:flex;background:#E9EDF4;border-radius:999px;padding:3px;align-self:flex-start">
 <sc-for list="{{ impTabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="{{ t.style }}">{{ t.label }}</button></sc-for>
 </div>
@@ -1375,7 +1375,7 @@ ensurePay(){if(typeof window.SKC_PAY==='function'&&typeof window.SKC_SUBSCRIBE==
       goHome:e=>{e&&e.preventDefault&&e.preventDefault();if(!this.state.cvs.length){location.replace(/skilleaze\.com$|vercel\.app$/i.test(location.hostname)?'/ats-cv-builder':new URL('index.html',location.href).href);return;}if(location.hash)history.replaceState(null,'',location.pathname);this.setState({view:'home'});},
       goEditCur:need(()=>this.setState({view:'edit'})),goAts:need(()=>this.setState({view:'ats'})),goCover:need(()=>this.setState({view:'cover'})),
       newCv:()=>{if(location.hash)history.replaceState(null,'',location.pathname);this.create();},
-      openImport:()=>this.setState({importOpen:true,importInto:null,impTab:'file'}),openImportHere:()=>this.setState({importOpen:true,importInto:true,impTab:'file'}),importIntoNote:s.importInto?'The details will replace the matching fields in this CV. Your design, colour and photo stay as they are.':'A new CV is created from the file, with its own code, and saved to the portal.',closeImport:()=>this.setState({importOpen:false}),
+      openImport:()=>this.setState({importOpen:true,importInto:null,impTab:'file'}),openImportHere:()=>this.setState({importOpen:true,importInto:true,impTab:'file'}),importIntoNote:s.importInto?'The details will replace the matching fields in this CV. Your design, colour and photo stay as they are.':'We read your file and fill in your details. Check every field before you download.',closeImport:()=>this.setState({importOpen:false}),
       needCv:!!s.needCv,closeNeed:()=>this.setState({needCv:false,afterCv:null}),
       needCreate:()=>{this.setState({needCv:false,afterCv:'jd'});this.create();},
       needUpload:()=>this.setState({needCv:false,afterCv:'jd',importOpen:true,importInto:null,impTab:'file'}),

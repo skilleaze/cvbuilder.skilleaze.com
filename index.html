@@ -230,7 +230,7 @@ footer a:hover{color:#fff}
 .opt span{color:var(--mute);font-size:14px;line-height:1.5}
 .opt em{font-style:normal;margin-top:auto;padding-top:6px;color:var(--peri);font-weight:900;font-size:14px}
 .opt .pill{align-self:flex-start;font-size:11px;font-weight:900;letter-spacing:.08em;padding:4px 8px;border-radius:999px;background:rgba(127,224,176,.16);color:var(--mint)}
-.back{all:unset;cursor:pointer;margin-top:16px;color:var(--mute);font-weight:700;font-size:14px;padding:8px 0}
+.sheet-note{margin-top:16px;color:var(--mute);font-size:14px}
 </style>
 </head>
 <body>
@@ -329,7 +329,7 @@ footer a:hover{color:#fff}
       <li class="step">
         <div class="no"><b>1</b>STEP ONE</div>
         <h3>Choose your CV type</h3>
-        <p>Tap <strong>Create my CV</strong> and pick the format for where you're applying.</p>
+        <p>Tap <strong>Create my CV</strong> and pick the format for where you're applying. That's the only question we ask.</p>
         <div class="how"><span><strong>ATS CV:</strong> India, GCC, UK, US and worldwide</span><span><strong>Europass:</strong> jobs and studies in Europe</span></div>
       </li>
       <li class="step">
@@ -547,22 +547,13 @@ footer a:hover{color:#fff}
 
 <div class="modal" id="chooser" role="dialog" aria-modal="true" aria-labelledby="chTitle">
   <div class="sheet">
-    <div class="sheet-top"><small id="chStep">STEP 1 OF 2</small><button class="x" type="button" data-close aria-label="Close">×</button></div>
-    <div id="ch1">
-      <h3 id="chTitle">Which CV do you need?</h3>
-      <div class="opts">
-        <button class="opt" type="button" data-pick="ats"><span class="pill">MOST POPULAR</span><b>ATS CV</b><span>For jobs in India, the GCC, UK, US and worldwide. 99 templates.</span><em>Choose ATS CV →</em></button>
-        <button class="opt" type="button" data-pick="ep"><b>Europass CV</b><span>The European standard, for jobs, studies and visas in Europe. 7 designs.</span><em>Choose Europass →</em></button>
-      </div>
+    <div class="sheet-top"><small>CREATE YOUR CV</small><button class="x" type="button" data-close aria-label="Close">×</button></div>
+    <h3 id="chTitle">Which CV do you need?</h3>
+    <div class="opts">
+      <a class="opt" href="/ats-cv-builder?new=1"><span class="pill">MOST POPULAR</span><b>ATS CV</b><span>For jobs in India, the GCC, UK, US and worldwide. 99 templates.</span><em>Start my ATS CV →</em></a>
+      <a class="opt" href="/europass-cv-builder?new=1"><b>Europass CV</b><span>The European standard, for jobs, studies and visas in Europe. 7 designs.</span><em>Start my Europass CV →</em></a>
     </div>
-    <div id="ch2" hidden>
-      <h3>How do you want to start?</h3>
-      <div class="opts">
-        <a class="opt" id="goNew" href="/ats-cv-builder?new=1"><b>Start fresh</b><span>Fill in guided steps, or let AI draft from a few lines.</span><em>Start my CV →</em></a>
-        <a class="opt" id="goUp" href="/ats-cv-builder?import=1"><b>Upload my old CV</b><span>PDF or Word. We fill in your details for you to check.</span><em>Upload CV →</em></a>
-      </div>
-      <button class="back" type="button" id="chBack">← Back</button>
-    </div>
+    <p class="sheet-note">Have a CV already? Upload it on the next screen and we fill in your details.</p>
   </div>
 </div>
 
@@ -580,22 +571,20 @@ footer a:hover{color:#fff}
   setCur(saved()||tzCur());
   if(!saved())fetch('https://ipapi.co/currency/').then(r=>r.ok?r.text():'').then(c=>{c=(c||'').trim().toUpperCase();if(/^[A-Z]{3}$/.test(c)){const v=OK.includes(c)?c:'USD';setCur(v);try{localStorage.setItem('skc_cur',JSON.stringify({cur:v,at:Date.now()}));}catch(e){}}}).catch(()=>{});
 
-  // ---------- chooser (step 1: CV type, step 2: start fresh or upload)
-  const M=document.getElementById('chooser'),c1=document.getElementById('ch1'),c2=document.getElementById('ch2'),stp=document.getElementById('chStep'),gN=document.getElementById('goNew'),gU=document.getElementById('goUp');
-  let last=null;
-  const step2=(ep,tpl)=>{const base=ep?'/europass-cv-builder':'/ats-cv-builder';const t=tpl!=null?'tpl='+tpl+'&':'';gN.href=base+'?'+t+'new=1';gU.href=base+'?'+t+'import=1';c1.hidden=true;c2.hidden=false;stp.textContent=tpl!=null?'START WITH '+(ep?'SKZ-EP-':'SKZ-')+String(tpl+1).padStart(2,'0'):'STEP 2 OF 2';document.getElementById('chBack').hidden=tpl!=null;setTimeout(()=>gN.focus(),30);};
-  const open=(ep,tpl)=>{last=document.activeElement;M.classList.add('on');document.body.style.overflow='hidden';if(ep==null){c1.hidden=false;c2.hidden=true;stp.textContent='STEP 1 OF 2';setTimeout(()=>M.querySelector('[data-pick]').focus(),30);}else step2(ep,tpl);};
+  // ---------- chooser (one question: ATS or Europass; upload is offered inside the builder)
+  const M=document.getElementById('chooser');let last=null;
+  const open=()=>{last=document.activeElement;M.classList.add('on');document.body.style.overflow='hidden';setTimeout(()=>M.querySelector('.opt').focus(),30);};
   const close=()=>{M.classList.remove('on');document.body.style.overflow='';if(last&&last.focus)last.focus();};
+  const goTpl=(ep,n)=>{location.href=(ep?'/europass-cv-builder':'/ats-cv-builder')+'?tpl='+n+'&new=1';};
   document.addEventListener('click',e=>{const a=e.target.closest('[data-choose]');if(a&&!e.metaKey&&!e.ctrlKey){e.preventDefault();open();}});
-  M.addEventListener('click',e=>{if(e.target===M||e.target.closest('[data-close]'))close();const p=e.target.closest('[data-pick]');if(p)step2(p.dataset.pick==='ep',null);});
-  document.getElementById('chBack').onclick=()=>{c1.hidden=false;c2.hidden=true;stp.textContent='STEP 1 OF 2';};
+  M.addEventListener('click',e=>{if(e.target===M||e.target.closest('[data-close]'))close();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&M.classList.contains('on'))close();});
 
   // ---------- render real templates with the CV engine
   const paint=(el,E,n)=>{let h='';try{h=E.render(window.SKCV_MUNEEZ,n,{}).pages[0];}catch(e){}el.innerHTML='<div>'+h+'</div>';const sc=()=>{const c=el.firstChild;if(c)c.style.transform='scale('+(el.clientWidth/794)+')';};sc();if(window.ResizeObserver){const ro=new ResizeObserver(sc);ro.observe(el);}};
   const ready=fn=>{const go=()=>{if(window.SKCV&&window.SKCV_MUNEEZ)fn();else setTimeout(go,120);};go();};
   ready(()=>document.querySelectorAll('[data-mini]').forEach(el=>paint(el,window.SKCV,+el.dataset.mini)));
-  document.querySelectorAll('[data-hero]').forEach(el=>{const go=()=>open(false,+el.dataset.hero);el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+  document.querySelectorAll('[data-hero]').forEach(el=>{const go=()=>goTpl(false,+el.dataset.hero);el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
 
   // Europass engine (loaded on demand, without replacing the ATS engine)
   let epLoading=null;
@@ -618,7 +607,7 @@ footer a:hover{color:#fff}
     rail.querySelectorAll('.mini').forEach(b=>{if(io)io.observe(b);else{const E=ep?window.SKCV_EP:window.SKCV;if(E)paint(b,E,+b.dataset.n);}});
   };
   ready(build);
-  rail.addEventListener('click',e=>{const t=e.target.closest('[data-open]');if(t)open(kind==='ep',+t.dataset.open);});
+  rail.addEventListener('click',e=>{const t=e.target.closest('[data-open]');if(t)goTpl(kind==='ep',+t.dataset.open);});
   document.querySelectorAll('[data-kind]').forEach(b=>b.addEventListener('click',()=>{kind=b.dataset.kind;document.querySelectorAll('[data-kind]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));if(kind==='ep'){count.textContent='Loading Europass designs…';rail.innerHTML='';loadEp().then(build);}else ready(build);}));
   chips.addEventListener('click',e=>{const b=e.target.closest('[data-chip]');if(!b)return;chip=b.dataset.chip;chips.querySelectorAll('[data-chip]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));ready(build);});
   const scrollRail=d=>{const w=rail.clientWidth*0.85*d,max=rail.scrollWidth-rail.clientWidth;let to=rail.scrollLeft+w;if(d>0&&rail.scrollLeft>=max-4)to=0;else if(d<0&&rail.scrollLeft<=4)to=max;rail.scrollTo({left:to,behavior:'smooth'});};

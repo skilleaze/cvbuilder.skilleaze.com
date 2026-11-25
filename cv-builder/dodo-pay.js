@@ -42,7 +42,7 @@ q('[data-go]').onclick=async()=>{const b=q('[data-go]');if(b.dataset.busy)return
  }).catch(()=>{msg('We could not open the payment page. Please try again in a minute, or message us on WhatsApp.');delete b.dataset.busy;q('[data-gl]').textContent='Try again';try{w&&w.close();}catch(e){}});};
 });}
 const EP=/europass/i.test(location.pathname);try{if(!ck('_fbc'))fbcFromUrl();}catch(e){}
-function resume(){const P=pend();if(!P||P.paid)return;const qref=new URLSearchParams(location.search).get('pay_ref');if(P.page&&P.page.split('?')[0]!==location.pathname&&!/paid/.test(location.pathname)&&qref!==P.ref)return;
+function resume(){const U=new URLSearchParams(location.search),qref=U.get('pay_ref');let P=pend();if(qref&&/^[0-9a-f-]{36}$/i.test(qref)&&(!P||P.ref!==qref)&&U.get('k')){const k=U.get('k');if(!/^(ats|cover|europass)$/.test(k))return;P={ref:qref,kind:k,value:0,currency:'',title:'',trial:0,dl:false,cvId:'',page:location.pathname,t:Date.now(),link:1};try{localStorage.setItem('skc_purchase_sent_'+qref,'1');localStorage.setItem('skc_pay_pending',JSON.stringify(P));}catch(e){}}if(!P||P.paid)return;if(P.page&&P.page.split('?')[0]!==location.pathname&&!/paid/.test(location.pathname)&&qref!==P.ref)return;
  if(qref!==P.ref&&(P.quiet||Date.now()-(P.t||0)>30*60*1000)){call({action:'status',ref:P.ref}).then(z=>{if(z&&z.status==='paid'){P.quiet=0;try{localStorage.setItem('skc_pay_pending',JSON.stringify(P));}catch(e){}show(P);}else if(z&&z.status==='failed'){try{localStorage.removeItem('skc_pay_pending');}catch(e){}}}).catch(()=>{});return;}
  show(P);}
 function show(P){

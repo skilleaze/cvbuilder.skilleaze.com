@@ -1,0 +1,16 @@
+name: voiceover
+on: { push: { branches: [ad-voiceover], paths: [lines.json, tts.py, .github/workflows/vo.yml] } }
+permissions: { contents: write }
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng
+      - run: pip install -q "kokoro>=0.9.4" soundfile "misaki[en]"
+      - run: python tts.py
+      - run: |
+          git config user.name "voiceover-bot"; git config user.email "bot@users.noreply.github.com"
+          git add out && git commit -m "voiceover audio [skip ci]" && git push
